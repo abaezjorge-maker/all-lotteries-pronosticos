@@ -248,6 +248,55 @@ button:hover{
   line-height:1.5;
 }
 
+/* ZONA VIP EXTRA */
+.zona-vip{
+  text-align:center;
+}
+
+.precio-vip{
+  font-size:16px;
+  color:#ffffff;
+  margin:12px 0;
+}
+
+.precio-vip strong{
+  color:gold;
+  font-size:20px;
+}
+
+.incluye-titulo{
+  color:gold;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.lista-vip{
+  list-style:none;
+  padding:0;
+  margin:12px 0 20px 0;
+  line-height:1.9;
+  text-align:left;
+  display:inline-block;
+}
+
+.btn-whatsapp{
+  display:inline-block;
+  margin-top:10px;
+  padding:12px 18px;
+  background:#25D366;
+  color:#000;
+  text-decoration:none;
+  font-weight:bold;
+  border-radius:12px;
+  box-shadow:0 0 18px rgba(37,211,102,.5);
+  transition:.3s;
+}
+
+.btn-whatsapp:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px rgba(37,211,102,.8);
+}
+
 @media(max-width:900px){
   .grid{
     grid-template-columns:1fr;
@@ -328,6 +377,25 @@ button:hover{
   <div class="card">
     <h3>⚡ Sistema en vivo</h3>
     <div id="live"></div>
+  </div>
+
+  <div class="card zona-vip">
+    <h3>💎 Zona VIP</h3>
+
+    <p class="precio-vip">Acceso semanal: <strong>RD$2,000</strong></p>
+
+    <p class="incluye-titulo">Incluye:</p>
+
+    <ul class="lista-vip">
+      <li>📊 Pronóstico VIP diario</li>
+      <li>🎡 Ruleta especial</li>
+      <li>🎁 Caja misteriosa</li>
+      <li>🎯 Tripleta diaria</li>
+    </ul>
+
+    <a class="btn-whatsapp" href="https://wa.me/18496316472?text=Hola,%20quiero%20solicitar%20la%20clave%20VIP%20por%201%20semana" target="_blank">
+      Solicitar clave por WhatsApp
+    </a>
   </div>
 
 </div>
