@@ -2,204 +2,176 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>All Lotteries | Pronósticos</title>
+  <title>All Lotteries</title>
+
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4efe3;
-      color: #111;
+      font-family: Arial;
+      background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+      color: white;
+      text-align: center;
     }
 
     header {
-      background: linear-gradient(135deg, #0b1020, #182848);
-      color: white;
-      text-align: center;
-      padding: 40px 20px;
-      border-bottom: 5px solid #d8a21d;
+      padding: 30px;
+      border-bottom: 3px solid gold;
     }
 
     h1 {
-      font-size: 46px;
       margin: 0;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      font-size: 18px;
-      opacity: .9;
-      margin-top: 10px;
-    }
-
-    main {
-      max-width: 950px;
-      margin: 25px auto;
-      padding: 0 15px;
+      font-size: 40px;
     }
 
     .card {
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,.12);
-      border: 1px solid #ddd;
-    }
-
-    .card h2 {
-      margin-top: 0;
-      color: #182848;
+      background: rgba(255,255,255,0.1);
+      margin: 20px;
+      padding: 20px;
+      border-radius: 15px;
     }
 
     .numbers {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       gap: 10px;
-      margin-top: 15px;
     }
 
     .num {
-      background: #fff;
-      border: 2px solid #d8a21d;
+      background: gold;
+      color: black;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
-      width: 48px;
-      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      font-size: 18px;
     }
 
-    .pales {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-      margin-top: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
+      gap: 10px;
     }
 
-    .pale {
-      background: #f7f7f7;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 20px;
-      border: 1px solid #ddd;
-    }
-
-    .warning {
-      background: #fff8df;
-      border-left: 6px solid #d8a21d;
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      color: #444;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #666;
+    .box {
+      background: black;
+      border: 1px solid gold;
+      padding: 10px;
+      border-radius: 10px;
     }
   </style>
 </head>
+
 <body>
 
 <header>
-  <h1>All Lotteries</h1>
-  <div class="subtitle">Pronósticos actualizados del día</div>
+  <h1>ALL LOTTERIES</h1>
+  <p>Pronóstico automático del día siguiente</p>
 </header>
 
-<main>
+<div id="app"></div>
 
-  <div class="warning">
-    ⚠️ Pronósticos informativos. No garantizan resultados. Juega con control.
-  </div>
+<script>
 
-  <section class="card">
-    <h2>🎯 Ticket histórico — Super Kino</h2>
-    <p>Secuencia histórica detectada:</p>
-    <div class="numbers">
-      <div class="num">24</div>
-      <div class="num">25</div>
-      <div class="num">26</div>
-      <div class="num">27</div>
-      <div class="num">28</div>
-      <div class="num">29</div>
+/* ===== AQUI PEGAS TUS PRONOSTICOS ===== */
+
+const pronosticos = {
+
+  "2026-05-26": {
+    titulo: "ADN PIRAMIDAL — 26 MAYO 2026",
+    nota: "Sistema basado en supervivencia matemática y reversos activos.",
+
+    quinielas: ["12","35","51","65","75","34","66","88","45","28","78","50","49","59","57","77","68","73","25","79","85"],
+
+    pales: [
+      "12-35","35-51",
+      "65-75","75-34",
+      "66-88","88-35",
+      "45-28","28-78",
+      "50-49","49-59",
+      "57-77","77-49",
+      "12-26","26-51",
+      "68-73","73-25",
+      "79-85","85-45"
+    ],
+
+    tripletas: [
+      "12-35-51",
+      "65-75-34",
+      "66-88-35",
+      "45-28-78",
+      "50-49-59",
+      "57-77-49",
+      "12-26-51",
+      "68-73-25",
+      "79-85-45"
+    ]
+  }
+
+};
+
+/* ===== LOGICA AUTOMATICA ===== */
+
+function manana() {
+  let hoy = new Date();
+  hoy.setDate(hoy.getDate()+1);
+  return hoy.toISOString().split("T")[0];
+}
+
+function render(data, fecha) {
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="card">
+      <h2>${data.titulo}</h2>
+      <p>${fecha}</p>
+      <p>${data.nota}</p>
     </div>
 
-    <p>Ticket de vigilancia:</p>
-    <div class="numbers">
-      <div class="num">11</div>
-      <div class="num">15</div>
-      <div class="num">24</div>
-      <div class="num">25</div>
-      <div class="num">26</div>
-      <div class="num">27</div>
-      <div class="num">28</div>
-      <div class="num">29</div>
-      <div class="num">31</div>
-      <div class="num">33</div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>🔥 Super Kino TV</h2>
-    <p>Ticket prioritario:</p>
-    <div class="numbers">
-      <div class="num">01</div>
-      <div class="num">11</div>
-      <div class="num">18</div>
-      <div class="num">21</div>
-      <div class="num">25</div>
-      <div class="num">29</div>
-      <div class="num">32</div>
-      <div class="num">55</div>
-      <div class="num">57</div>
-      <div class="num">76</div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2>🌙 New York Noche</h2>
-    <p>Quinielas:</p>
-    <div class="numbers">
-      <div class="num">71</div>
-      <div class="num">74</div>
-      <div class="num">75</div>
-      <div class="num">77</div>
-      <div class="num">79</div>
+    <div class="card">
+      <h3>Quinielas</h3>
+      <div class="numbers">
+        ${data.quinielas.map(n=>`<div class="num">${n}</div>`).join("")}
+      </div>
     </div>
 
-    <p>Palés:</p>
-    <div class="pales">
-      <div class="pale">71-74</div>
-      <div class="pale">74-79</div>
-      <div class="pale">75-77</div>
-      <div class="pale">71-79</div>
+    <div class="card">
+      <h3>Palés</h3>
+      <div class="grid">
+        ${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}
+      </div>
     </div>
-  </section>
 
-  <section class="card">
-    <h2>🧬 ADN Piramidal</h2>
-    <p>Versión jugador:</p>
-    <div class="numbers">
-      <div class="num">17</div>
-      <div class="num">70</div>
-      <div class="num">87</div>
+    <div class="card">
+      <h3>Tripletas</h3>
+      <div class="grid">
+        ${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}
+      </div>
     </div>
-    <p><strong>Extra +1 fuerte:</strong> 18</p>
-    <p><strong>Reverso fuerte:</strong> 78v</p>
-    <p><strong>Palé fuerte:</strong> 18-71</p>
-  </section>
 
-</main>
+  `;
+}
 
-<footer>
-  All Lotteries — Central de pronósticos
-</footer>
+function empty(fecha) {
+  document.getElementById("app").innerHTML = `
+    <div class="card">
+      <h2>No hay pronóstico cargado</h2>
+      <p>${fecha}</p>
+    </div>
+  `;
+}
+
+let f = manana();
+
+if (pronosticos[f]) {
+  render(pronosticos[f], f);
+} else {
+  empty(f);
+}
+
+</script>
 
 </body>
 </html>
