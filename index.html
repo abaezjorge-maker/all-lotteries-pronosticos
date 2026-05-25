@@ -794,9 +794,14 @@ function girar(){
       localStorage.setItem("ruletaIntentos_" + hoy, intentos);
     }
 
-    const textoResultado = esAdmin()
-      ? `🔥 ${numeroElegido} — ${loteria} | Modo admin: ilimitado`
-      : `🔥 ${numeroElegido} — ${loteria} | Intento ${intentos}/2`;
+    const numMostrado = esKino(loteria)
+      ? generarNumerosKino()
+      : numeroElegido;
+
+    const sufijo = esAdmin() ? " | Modo admin: ilimitado" : ` | Intento ${intentos}/2`;
+    const textoResultado = esKino(loteria)
+      ? `🎯 ${loteria}: ${numMostrado}${sufijo}`
+      : `🔥 ${numMostrado} — ${loteria}${sufijo}`;
 
     localStorage.setItem("ruletaUltimoResultado_" + hoy, textoResultado);
     resultado.textContent = textoResultado;
@@ -821,11 +826,37 @@ function verificarRuleta(){
    CAJA MISTERIOSA
 ========================= */
 
+const loterasKino = ["Kino", "Super Kino"];
+
+function esKino(loteria){
+  return loterasKino.includes(loteria);
+}
+
+function generarNumerosKino(){
+  const nums = [];
+  while(nums.length < 10){
+    const n = Math.floor(Math.random() * 80) + 1;
+    if(!nums.includes(n)) nums.push(n);
+  }
+  return nums.sort((a, b) => a - b).join(" - ");
+}
+
+function generarNumero(loteria){
+  if(esKino(loteria)){
+    return generarNumerosKino();
+  }
+  return Math.floor(Math.random() * 100).toString().padStart(2, "0");
+}
+
 function mostrarResultadoCaja(numero, loteria, esLimitado){
-  const msg = esLimitado
-    ? `🔥 ${numero} — ${loteria} | Modo admin: ilimitado`
-    : `🔥 ${numero} — ${loteria}`;
-  document.getElementById("resCaja").textContent = msg;
+  const extra = esLimitado ? " | Modo admin: ilimitado" : "";
+  if(esKino(loteria)){
+    document.getElementById("resCaja").textContent =
+      `🎯 ${loteria}\n${numero}${extra}`;
+  } else {
+    document.getElementById("resCaja").textContent =
+      `🔥 ${numero} — ${loteria}${extra}`;
+  }
 }
 
 function caja(){
@@ -841,7 +872,7 @@ function caja(){
     return;
   }
 
-  const n = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  const n = generarNumero(loteria);
   const loteria = loteriaAleatoria();
 
   if(!esAdmin()){
@@ -902,11 +933,17 @@ function tripleta(){
     return;
   }
 
-  const a = Math.floor(Math.random() * 100).toString().padStart(2, "0");
-  const b = Math.floor(Math.random() * 100).toString().padStart(2, "0");
-  const c = Math.floor(Math.random() * 100).toString().padStart(2, "0");
   const loteria = loteriaAleatoria();
-  const numeros = `${a} - ${b} - ${c}`;
+  let numeros;
+
+  if(esKino(loteria)){
+    numeros = generarNumerosKino();
+  } else {
+    const a = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+    const b = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+    const c = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+    numeros = `${a} - ${b} - ${c}`;
+  }
 
   mostrarTripleta({ numeros, loteria });
 
