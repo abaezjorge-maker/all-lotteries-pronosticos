@@ -28,6 +28,7 @@ body::before{
 h1{
   text-align:center;
   color:gold;
+  letter-spacing:2px;
 }
 
 /* GRID PRINCIPAL */
@@ -94,44 +95,57 @@ h1{
 
 /* RULETA */
 .ruleta{
-  width:210px;
-  height:210px;
+  width:260px;
+  height:260px;
   border-radius:50%;
   margin:auto;
   border:6px solid gold;
   overflow:hidden;
   box-shadow:0 0 35px gold;
   position:relative;
-}
-
-.ruleta::after{
-  content:"";
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:35px;
-  height:35px;
-  transform:translate(-50%,-50%);
-  background:gold;
-  border-radius:50%;
-  box-shadow:0 0 15px gold;
+  background:#111;
 }
 
 .ruleta-inner{
   width:100%;
   height:100%;
   border-radius:50%;
+  position:relative;
   transition:transform 4s cubic-bezier(.15,.85,.25,1);
-  background:conic-gradient(
-    gold 0deg 45deg,
-    #111 45deg 90deg,
-    #00ff99 90deg 135deg,
-    #111 135deg 180deg,
-    gold 180deg 225deg,
-    #111 225deg 270deg,
-    #ff00ff 270deg 315deg,
-    #111 315deg 360deg
+  background:repeating-conic-gradient(
+    #111 0deg 14.4deg,
+    #f5d76e 14.4deg 28.8deg
   );
+}
+
+.centro-ruleta{
+  position:absolute;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:gold;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  box-shadow:0 0 15px gold;
+}
+
+.numero-ruleta{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:26px;
+  height:26px;
+  margin:-13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:bold;
+  color:white;
+  text-shadow:0 0 5px black;
+  z-index:5;
 }
 
 .puntero{
@@ -140,7 +154,8 @@ h1{
   border-left:15px solid transparent;
   border-right:15px solid transparent;
   border-top:25px solid red;
-  margin:0 auto 5px auto;
+  margin:0 auto 8px auto;
+  filter:drop-shadow(0 0 8px red);
 }
 
 /* CAJA */
@@ -186,11 +201,12 @@ button:hover{
   transform:scale(1.03);
 }
 
-/* RESULTADO */
+/* RESULTADOS */
 .resultado{
   margin-top:10px;
   color:#00ff99;
   font-weight:bold;
+  line-height:1.5;
 }
 
 /* RESPONSIVE */
@@ -198,11 +214,16 @@ button:hover{
   .grid{
     grid-template-columns:1fr;
   }
+
+  .ruleta{
+    width:230px;
+    height:230px;
+  }
 }
 </style>
 </head>
 
-<body onload="verificarCaja()">
+<body onload="iniciarPagina()">
 
 <h1>🔥 DOMINANCIA 88 🔥</h1>
 
@@ -230,7 +251,9 @@ button:hover{
     <div class="puntero"></div>
 
     <div class="ruleta">
-      <div id="ruleta" class="ruleta-inner"></div>
+      <div id="ruleta" class="ruleta-inner">
+        <div class="centro-ruleta"></div>
+      </div>
     </div>
 
     <br>
@@ -238,7 +261,7 @@ button:hover{
     <div id="resRuleta" class="resultado"></div>
   </div>
 
-  <!-- TRIPLETAS -->
+  <!-- TRIPLETA DIARIA -->
   <div class="card">
     <h3>🎯 Tripleta diaria</h3>
     <button onclick="tripleta()">Generar</button>
@@ -267,10 +290,48 @@ button:hover{
 
 <script>
 
-/* CLAVE VIP */
+/* =========================
+   CONFIGURACIÓN GENERAL
+========================= */
+
 const claveVIP = "8888";
 
-/* VIP */
+const loterias = [
+  "Nacional",
+  "La Primera",
+  "La Suerte",
+  "Loteka",
+  "Leidsa",
+  "New York Tarde",
+  "New York Noche",
+  "Anguila",
+  "Kino",
+  "Super Kino"
+];
+
+function loteriaAleatoria(){
+  return loterias[Math.floor(Math.random() * loterias.length)];
+}
+
+function fechaHoy(){
+  return new Date().toLocaleDateString();
+}
+
+/* =========================
+   INICIO DE PÁGINA
+========================= */
+
+function iniciarPagina(){
+  crearNumerosRuleta();
+  verificarCaja();
+  verificarRuleta();
+  verificarTripleta();
+}
+
+/* =========================
+   VIP
+========================= */
+
 function vip(){
   let clave = prompt("Introduce la clave VIP:");
 
@@ -283,12 +344,53 @@ function vip(){
   }
 }
 
-/* RULETA */
+/* =========================
+   RULETA 1-25
+   2 INTENTOS POR DÍA
+========================= */
+
 let gradosActuales = 0;
 
+function crearNumerosRuleta(){
+  const ruleta = document.getElementById("ruleta");
+
+  if(document.querySelector(".numero-ruleta")){
+    return;
+  }
+
+  const total = 25;
+  const angulo = 360 / total;
+  const radio = 100;
+
+  for(let i = 1; i <= total; i++){
+    const num = document.createElement("div");
+    num.className = "numero-ruleta";
+    num.textContent = i;
+
+    const rotacion = (i - 1) * angulo;
+
+    num.style.transform =
+      `rotate(${rotacion}deg) translateY(-${radio}px) rotate(-${rotacion}deg)`;
+
+    ruleta.appendChild(num);
+  }
+}
+
 function girar(){
+  let hoy = fechaHoy();
+  let intentos = Number(localStorage.getItem("ruletaIntentos_" + hoy)) || 0;
   let r = document.getElementById("ruleta");
   let resultado = document.getElementById("resRuleta");
+
+  if(intentos >= 2){
+    let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
+
+    resultado.innerHTML = ultimoResultado
+      ? "⚠️ Ya usaste tus 2 intentos de hoy<br>" + ultimoResultado
+      : "⚠️ Ya usaste tus 2 intentos de hoy";
+
+    return;
+  }
 
   resultado.innerHTML = "🎡 Girando...";
 
@@ -297,47 +399,73 @@ function girar(){
 
   r.style.transform = "rotate(" + gradosActuales + "deg)";
 
-  setTimeout(()=>{
-    let gana = Math.floor(Math.random() * 500) === 0;
+  setTimeout(() => {
+    let numero = Math.floor(Math.random() * 25) + 1;
+    let loteria = loteriaAleatoria();
 
-    resultado.innerHTML = gana
-      ? "🔥 CASI VIP"
-      : "🔒 Sigue intentando";
+    intentos++;
+    localStorage.setItem("ruletaIntentos_" + hoy, intentos);
 
-  },4000);
+    let textoResultado = `🔥 ${numero} — ${loteria}<br>Intento ${intentos}/2`;
+
+    localStorage.setItem("ruletaUltimoResultado_" + hoy, textoResultado);
+
+    resultado.innerHTML = textoResultado;
+
+  }, 4000);
 }
 
-/* CAJA MISTERIOSA — 1 INTENTO DIARIO */
+function verificarRuleta(){
+  let hoy = fechaHoy();
+  let intentos = Number(localStorage.getItem("ruletaIntentos_" + hoy)) || 0;
+  let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
+
+  if(intentos > 0 && ultimoResultado){
+    document.getElementById("resRuleta").innerHTML =
+      ultimoResultado + `<br>Usados: ${intentos}/2`;
+  }
+}
+
+/* =========================
+   CAJA MISTERIOSA
+   1 INTENTO POR DÍA
+========================= */
+
 function caja(){
-  let hoy = new Date().toLocaleDateString();
+  let hoy = fechaHoy();
   let fechaGuardada = localStorage.getItem("cajaFecha");
   let numeroGuardado = localStorage.getItem("cajaNumero");
+  let loteriaGuardada = localStorage.getItem("cajaLoteria");
 
   if(fechaGuardada === hoy){
     document.getElementById("resCaja").innerHTML =
-      "⚠️ Ya usaste tu intento de hoy. Número: 🔥 " + numeroGuardado;
+      "⚠️ Intento diario usado.<br>Resultado: 🔥 " + numeroGuardado + " — " + loteriaGuardada;
     bloquearCajas();
     return;
   }
 
   let n = Math.floor(Math.random() * 100).toString().padStart(2,"0");
+  let loteria = loteriaAleatoria();
 
   localStorage.setItem("cajaFecha", hoy);
   localStorage.setItem("cajaNumero", n);
+  localStorage.setItem("cajaLoteria", loteria);
 
-  document.getElementById("resCaja").innerHTML = "🔥 " + n;
+  document.getElementById("resCaja").innerHTML =
+    "🔥 " + n + " — " + loteria;
 
   bloquearCajas();
 }
 
 function verificarCaja(){
-  let hoy = new Date().toLocaleDateString();
+  let hoy = fechaHoy();
   let fechaGuardada = localStorage.getItem("cajaFecha");
   let numeroGuardado = localStorage.getItem("cajaNumero");
+  let loteriaGuardada = localStorage.getItem("cajaLoteria");
 
   if(fechaGuardada === hoy){
     document.getElementById("resCaja").innerHTML =
-      "⚠️ Intento diario usado. Número: 🔥 " + numeroGuardado;
+      "⚠️ Intento diario usado.<br>Resultado: 🔥 " + numeroGuardado + " — " + loteriaGuardada;
     bloquearCajas();
   }
 }
@@ -350,35 +478,59 @@ function bloquearCajas(){
   });
 }
 
-/* TRIPLETA */
-function tripleta(){
-  let hoy = new Date().toLocaleDateString();
+/* =========================
+   TRIPLETA DIARIA
+   1 INTENTO POR DÍA
+========================= */
 
-  if(localStorage.getItem("trip") === hoy){
-    document.getElementById("resTripleta").innerHTML = "⚠️ Ya usaste hoy";
+function tripleta(){
+  let hoy = fechaHoy();
+
+  if(localStorage.getItem("tripFecha") === hoy){
+    let tripletaGuardada = localStorage.getItem("tripletaResultado");
+
+    document.getElementById("resTripleta").innerHTML =
+      "⚠️ Ya usaste hoy<br>" + tripletaGuardada;
+
     return;
   }
 
   let a = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   let b = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   let c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
+  let loteria = loteriaAleatoria();
 
-  let lot = ["Nacional","Leidsa","Loteka"];
-  let l = lot[Math.floor(Math.random() * lot.length)];
+  let resultado = `🔥 ${a}-${b}-${c}<br>🎯 ${loteria}`;
 
-  document.getElementById("resTripleta").innerHTML =
-    `🔥 ${a}-${b}-${c} <br>${l}`;
+  document.getElementById("resTripleta").innerHTML = resultado;
 
-  localStorage.setItem("trip", hoy);
+  localStorage.setItem("tripFecha", hoy);
+  localStorage.setItem("tripletaResultado", resultado);
 }
 
-/* SISTEMA EN VIVO */
+function verificarTripleta(){
+  let hoy = fechaHoy();
+
+  if(localStorage.getItem("tripFecha") === hoy){
+    let tripletaGuardada = localStorage.getItem("tripletaResultado");
+
+    document.getElementById("resTripleta").innerHTML =
+      "⚠️ Ya usaste hoy<br>" + tripletaGuardada;
+  }
+}
+
+/* =========================
+   SISTEMA EN VIVO
+========================= */
+
 let mensajes = [
   "🔥 Jugador ganó con 35",
   "📊 Sistema detectó patrón",
   "🎯 Nueva combinación activa",
   "⚡ Movimiento detectado",
-  "💰 Premio entregado"
+  "💰 Premio entregado",
+  "🧬 ADN Piramidal procesando",
+  "🎲 Nueva lectura disponible"
 ];
 
 setInterval(()=>{
