@@ -3,21 +3,109 @@
 <head>
 <meta charset="UTF-8">
 <title>Dominancia88</title>
+
 <style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center}
-header{padding:40px 20px;border-bottom:3px solid gold}
-h1{margin:0;font-size:50px;letter-spacing:3px;color:gold;text-shadow:0 0 20px rgba(255,215,0,.6)}
-.subtitle{margin-top:10px;opacity:.8}
-.card{background:rgba(255,255,255,.1);margin:20px;padding:20px;border-radius:15px;box-shadow:0 0 20px rgba(255,215,0,.2)}
-.pred-img{max-width:100%;border-radius:15px;box-shadow:0 0 25px rgba(0,0,0,.6)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
-.box{background:#050505;border:1px solid gold;padding:12px;border-radius:12px;font-weight:bold}
-.links a{display:inline-block;margin:10px;padding:14px 22px;border-radius:12px;color:white;text-decoration:none;font-weight:bold;transition:.3s}
-.links a:hover{transform:scale(1.08)}
-.whatsapp{background:#25D366;box-shadow:0 0 15px rgba(37,211,102,.7)}
-.canal{background:#128C7E;box-shadow:0 0 15px rgba(18,140,126,.8)}
-.instagram{background:#E1306C}
-.facebook{background:#1877F2}
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+header{
+  padding:40px 20px;
+  border-bottom:3px solid gold;
+}
+
+h1{
+  margin:0;
+  font-size:52px;
+  color:gold;
+  text-shadow:0 0 25px rgba(255,215,0,.7);
+}
+
+.subtitle{
+  margin-top:10px;
+  opacity:.8;
+}
+
+.live{
+  margin-top:10px;
+  color:#00ff88;
+  font-weight:bold;
+}
+
+.card{
+  background:rgba(255,255,255,.1);
+  margin:20px;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 0 25px rgba(255,215,0,.2);
+}
+
+.pred-img{
+  width:100%;
+  border-radius:15px;
+  box-shadow:0 0 30px rgba(0,0,0,.6);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:12px;
+}
+
+.box{
+  background:black;
+  border:1px solid gold;
+  padding:12px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.alert{
+  color:#ffcc00;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.links a{
+  display:inline-block;
+  margin:10px;
+  padding:16px 26px;
+  border-radius:14px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.3s;
+}
+
+.links a:hover{
+  transform:scale(1.1);
+}
+
+/* BOTON VIP QUE LATE */
+.vip{
+  background:#25D366;
+  animation:latido 1.2s infinite;
+  box-shadow:0 0 20px rgba(37,211,102,.8);
+}
+
+@keyframes latido{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+.canal{
+  background:#128C7E;
+  box-shadow:0 0 15px rgba(18,140,126,.8);
+}
+
+.instagram{background:#E1306C;}
+.facebook{background:#1877F2;}
+
 </style>
 </head>
 
@@ -26,68 +114,100 @@ h1{margin:0;font-size:50px;letter-spacing:3px;color:gold;text-shadow:0 0 20px rg
 <header>
   <h1>DOMINANCIA88 🔥</h1>
   <div class="subtitle">Sistema ADN Piramidal • Pronóstico automático</div>
+
+  <div class="live">🟢 ACTIVO HOY</div>
+  <div class="alert">⚠️ Acceso limitado al sistema completo</div>
 </header>
 
 <div id="app"></div>
 
 <script>
+
 const pronosticos = {
   "2026-05-26": {
-    titulo: "ADN PIRAMIDAL — 26 MAYO 2026",
-    nota: "Sistema basado en supervivencia matemática y reversos activos.",
-    imagen: "pronostico.jpg",
-    pales: ["12-35","35-51","65-75","75-34"],
-    tripletas: ["12-35-51","65-75-34","66-88-35","45-28-78"]
+    titulo:"ADN PIRAMIDAL — 26 MAYO 2026",
+    nota:"Sistema basado en supervivencia matemática y reversos activos.",
+    imagen:"pronostico.jpg",
+
+    pales:["12-35","35-51","65-75","75-34"],
+    tripletas:["12-35-51","65-75-34","66-88-35","45-28-78"]
   }
 };
 
 function manana(){
-  let hoy=new Date();
-  hoy.setDate(hoy.getDate()+1);
-  return hoy.toISOString().split("T")[0];
+  let h=new Date();
+  h.setDate(h.getDate()+1);
+  return h.toISOString().split("T")[0];
 }
 
 function render(data,fecha){
 document.getElementById("app").innerHTML=`
-  <div class="card">
-    <h2>${data.titulo}</h2>
-    <p>${fecha}</p>
-    <p>${data.nota}</p>
+
+<div class="card">
+  <h2>${data.titulo}</h2>
+  <p>${fecha}</p>
+  <p>${data.nota}</p>
+</div>
+
+<div class="card">
+  <h3>Pronóstico visual</h3>
+  <img src="${data.imagen}" class="pred-img">
+</div>
+
+<div class="card">
+  <h3>Palés destacados</h3>
+  <div class="grid">
+    ${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}
+  </div>
+</div>
+
+<div class="card">
+  <h3>Tripletas destacadas</h3>
+  <div class="grid">
+    ${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}
+  </div>
+</div>
+
+<div class="card">
+  <h3 style="color:gold;">ÚNETE 🔥</h3>
+
+  <div class="alert">
+    📢 +237 personas dentro del canal
   </div>
 
-  <div class="card">
-    <h3>Pronóstico visual</h3>
-    <img src="${data.imagen}" class="pred-img" alt="Pronóstico Dominancia88">
+  <div class="links">
+
+    <a href="https://wa.me/8496316472" target="_blank" class="vip">
+      🔥 ACCESO VIP 🔥
+    </a>
+
+    <a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">
+      📢 Canal Oficial
+    </a>
+
+    <a href="https://www.instagram.com/dominancia88" target="_blank" class="instagram">
+      Instagram
+    </a>
+
+    <a href="https://www.facebook.com/share/18nVW9k9QS/?mibextid=wwXIfr" target="_blank" class="facebook">
+      Facebook
+    </a>
+
   </div>
 
-  <div class="card">
-    <h3>Palés destacados</h3>
-    <div class="grid">${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}</div>
-  </div>
+</div>
 
-  <div class="card">
-    <h3>Tripletas destacadas</h3>
-    <div class="grid">${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}</div>
-  </div>
-
-  <div class="card">
-    <h3 style="color:gold;">ÚNETE 🔥</h3>
-    <div class="links">
-      <a href="https://wa.me/8496316472" target="_blank" class="whatsapp">🔥 Para el VIP</a>
-      <a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal Oficial +100 personas dentro</a>
-      <a href="https://www.instagram.com/dominancia88?igsh=MWdhdDV2cmxxanc4bA%3D%3D&utm_source=qr" target="_blank" class="instagram">Instagram</a>
-      <a href="https://www.facebook.com/share/18nVW9k9QS/?mibextid=wwXIfr" target="_blank" class="facebook">Facebook</a>
-    </div>
-  </div>
 `;
 }
 
 function empty(fecha){
-document.getElementById("app").innerHTML=`<div class="card"><h2>No hay pronóstico cargado</h2><p>${fecha}</p></div>`;
+document.getElementById("app").innerHTML=
+`<div class="card"><h2>No hay pronóstico</h2><p>${fecha}</p></div>`;
 }
 
 let f=manana();
-pronosticos[f] ? render(pronosticos[f],f) : empty(f);
+pronosticos[f]?render(pronosticos[f],f):empty(f);
+
 </script>
 
 </body>
