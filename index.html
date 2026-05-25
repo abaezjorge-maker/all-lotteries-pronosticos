@@ -3,44 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dominancia88</title>
+<title>Dominancia 88</title>
+
 <style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center;padding-bottom:90px}
-header{padding:30px 15px;border-bottom:3px solid gold}
-h1{margin:0;font-size:54px;color:gold;text-shadow:0 0 25px rgba(255,215,0,.9)}
-.subtitle{font-size:24px;margin-top:10px}
-.top-info{display:flex;justify-content:space-between;gap:12px;margin-top:20px}
-.info-box{flex:1;background:rgba(0,0,0,.35);padding:18px;border-radius:18px;color:#ffcc00;font-size:24px;font-weight:bold}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:radial-gradient(circle at top,#233f4a,#071014 65%);
+color:white;
+text-align:center;
+padding-bottom:90px;
+}
+header{
+padding:34px 16px 24px;
+border-bottom:2px solid gold;
+background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.05));
+}
+h1{
+margin:0;
+font-size:56px;
+color:gold;
+letter-spacing:2px;
+text-shadow:0 0 25px rgba(255,215,0,.9);
+}
+.subtitle{
+font-size:23px;
+margin-top:10px;
+opacity:.95;
+}
+.top-info{
+max-width:1050px;
+margin:22px auto 0;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+.info{
+background:rgba(0,0,0,.45);
+border:1px solid rgba(255,215,0,.55);
+border-radius:20px;
+padding:18px;
+font-size:22px;
+font-weight:bold;
+box-shadow:0 0 20px rgba(255,215,0,.15);
+}
 #timer{color:#00ff88}
 #app{max-width:1050px;margin:auto}
-.card{background:rgba(255,255,255,.1);margin:18px;padding:20px;border-radius:18px;box-shadow:0 0 25px rgba(255,215,0,.2)}
-.row-title{display:flex;justify-content:space-between;align-items:center;font-size:24px;font-weight:bold}
-.pred-img{width:100%;max-width:760px;height:auto;margin:auto;display:block;border-radius:16px}
-.links a{display:inline-block;margin:10px;padding:16px 24px;border-radius:14px;color:white;text-decoration:none;font-weight:bold}
-.vip{background:#25D366;animation:latido 1.2s infinite}
+.card{
+background:rgba(255,255,255,.09);
+margin:18px;
+padding:22px;
+border-radius:22px;
+box-shadow:0 0 25px rgba(255,215,0,.17);
+backdrop-filter:blur(6px);
+}
+.main-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:24px;
+font-weight:bold;
+gap:12px;
+}
+.links a{
+display:inline-block;
+margin:10px;
+padding:17px 26px;
+border-radius:16px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:17px;
+}
+.vip{
+background:#25D366;
+box-shadow:0 0 22px rgba(37,211,102,.85);
+animation:pulse 1.2s infinite;
+}
 .canal{background:#128C7E}
-@keyframes latido{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.box{background:black;border:1px solid gold;padding:14px;border-radius:12px;font-weight:bold}
-.systems{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.system-box{background:rgba(0,0,0,.35);border:1px solid gold;border-radius:16px;padding:18px;font-size:17px}
-.emoji{font-size:34px;display:block;margin-bottom:8px}
-#vipBox{display:none;background:black;padding:20px;border-radius:15px;margin:20px auto;max-width:600px}
-input{padding:12px;border-radius:10px;border:none;text-align:center}
-button{padding:12px 18px;border:none;border-radius:10px;background:gold;font-weight:bold}
-.fijo{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,.92);padding:12px 0;z-index:999;border-top:2px solid gold}
-.fijo a{display:inline-block;background:#25D366;color:white;text-decoration:none;font-weight:bold;padding:14px 28px;border-radius:14px;animation:latido 1.2s infinite}
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.07)}
+100%{transform:scale(1)}
+}
+.pred-img{
+width:100%;
+max-width:760px;
+display:block;
+margin:auto;
+border-radius:18px;
+box-shadow:0 0 35px rgba(0,0,0,.8);
+}
+.systems{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+}
+.system{
+background:rgba(0,0,0,.42);
+border:1px solid gold;
+border-radius:18px;
+padding:20px;
+min-height:145px;
+}
+.emoji{
+font-size:42px;
+display:block;
+margin-bottom:10px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+.box{
+background:#050505;
+border:1px solid gold;
+border-radius:14px;
+padding:16px;
+font-size:20px;
+font-weight:bold;
+}
+#vipBox{
+display:none;
+background:#050505;
+border:1px solid gold;
+border-radius:20px;
+padding:24px;
+margin:20px auto;
+max-width:620px;
+}
+input{
+padding:13px;
+border:none;
+border-radius:12px;
+text-align:center;
+font-size:16px;
+}
+button{
+padding:13px 22px;
+border:none;
+border-radius:12px;
+background:gold;
+font-weight:bold;
+cursor:pointer;
+}
+.fijo{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:rgba(0,0,0,.94);
+padding:13px 0;
+z-index:999;
+border-top:2px solid gold;
+}
+.fijo a{
+background:#25D366;
+color:white;
+text-decoration:none;
+font-weight:bold;
+padding:15px 34px;
+border-radius:16px;
+display:inline-block;
+animation:pulse 1.2s infinite;
+}
 
-@media(max-width:600px){
+@media(max-width:700px){
 h1{font-size:36px}
 .subtitle{font-size:19px}
-.top-info{flex-direction:column}
-.info-box{font-size:18px}
-.row-title{font-size:18px;flex-direction:column;gap:8px}
-.card{margin:12px;padding:14px}
-.links a{display:block;width:85%;margin:12px auto}
+.top-info{grid-template-columns:1fr}
+.info{font-size:18px}
+.main-row{flex-direction:column;font-size:18px}
 .systems{grid-template-columns:1fr}
 .grid{grid-template-columns:repeat(2,1fr)}
+.links a{display:block;width:88%;margin:12px auto}
+.card{margin:12px;padding:16px}
 }
 </style>
 </head>
@@ -52,31 +191,27 @@ h1{font-size:36px}
 <div class="subtitle">Sistema ADN Piramidal</div>
 
 <div class="top-info">
-<div class="info-box">⚠️ Acceso limitado al sistema completo</div>
-<div class="info-box" id="timer"></div>
+<div class="info">⚠️ Acceso limitado al sistema completo</div>
+<div class="info" id="timer"></div>
 </div>
 </header>
 
 <div id="app"></div>
 
-<div class="fijo">
-<a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
-</div>
-
 <script>
-const pronosticos={
+const data={
 imagen:"pronostico.jpg",
 jugadas:["12-35","35-51","12-35-51","65-75-34"]
 };
 
 function fechaManana(){
-let h=new Date();
-h.setDate(h.getDate()+1);
-return h;
+let f=new Date();
+f.setDate(f.getDate()+1);
+return f;
 }
 
 function fechaTexto(f){
-let meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 return `${f.getDate()} de ${meses[f.getMonth()]} de ${f.getFullYear()}`;
 }
 
@@ -85,7 +220,7 @@ let f=fechaManana();
 
 document.getElementById("app").innerHTML=`
 <div class="card">
-<div class="row-title">
+<div class="main-row">
 <div>ADN PIRAMIDAL</div>
 <div>${fechaTexto(f)}</div>
 </div>
@@ -94,7 +229,7 @@ document.getElementById("app").innerHTML=`
 <div class="card">
 <div class="links">
 <a href="#" onclick="abrirVIP()" class="vip">🔥 ENTRAR AL VIP 🔥</a>
-<a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal</a>
+<a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal Oficial</a>
 </div>
 </div>
 
@@ -104,7 +239,7 @@ document.getElementById("app").innerHTML=`
 <br><br>
 <button onclick="verificar()">Entrar</button>
 
-<div id="vipContent" style="display:none;margin-top:20px;">
+<div id="vipContent" style="display:none;margin-top:22px;">
 <h3>🔥 CONTENIDO VIP 🔥</h3>
 <div class="grid">
 <div class="box">88-32</div>
@@ -116,25 +251,25 @@ document.getElementById("app").innerHTML=`
 </div>
 
 <div class="card">
-<img src="${pronosticos.imagen}" class="pred-img">
+<img src="${data.imagen}" class="pred-img">
 </div>
 
 <div class="card">
 <h3>📊 Sistemas del día</h3>
 <div class="systems">
-<div class="system-box"><span class="emoji">🧬</span><b>ADN Piramidal</b><br>Sistema principal</div>
-<div class="system-box"><span class="emoji">🔥</span><b>Reverso Inteligente</b><br>Patrones inversos</div>
-<div class="system-box"><span class="emoji">📊</span><b>Núcleo Activo</b><br>Números base</div>
-<div class="system-box"><span class="emoji">⚡</span><b>Impacto Directo</b><br>Jugadas rápidas</div>
-<div class="system-box"><span class="emoji">🎯</span><b>Filtro Avanzado</b><br>Optimización</div>
-<div class="system-box"><span class="emoji">💣</span><b>Sistema Oculto</b><br>Solo VIP</div>
+<div class="system"><span class="emoji">🧬</span><b>ADN Piramidal</b><br>Sistema principal</div>
+<div class="system"><span class="emoji">🔥</span><b>Reverso Inteligente</b><br>Patrones activos</div>
+<div class="system"><span class="emoji">📊</span><b>Núcleo Activo</b><br>Números base</div>
+<div class="system"><span class="emoji">⚡</span><b>Impacto Directo</b><br>Jugadas rápidas</div>
+<div class="system"><span class="emoji">🎯</span><b>Filtro Avanzado</b><br>Optimización</div>
+<div class="system"><span class="emoji">💣</span><b>Sistema Oculto</b><br>Solo VIP</div>
 </div>
 </div>
 
 <div class="card">
 <h3>Jugadas destacadas</h3>
 <div class="grid">
-${pronosticos.jugadas.map(n=>`<div class="box">${n}</div>`).join("")}
+${data.jugadas.map(j=>`<div class="box">${j}</div>`).join("")}
 </div>
 </div>
 `;
@@ -146,8 +281,7 @@ document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
 }
 
 function verificar(){
-let clave=document.getElementById("clave").value;
-if(clave==="3321"){
+if(document.getElementById("clave").value==="3321"){
 document.getElementById("vipContent").style.display="block";
 }else{
 alert("Clave incorrecta");
@@ -159,13 +293,10 @@ let ahora=new Date();
 let fin=new Date();
 fin.setHours(23,59,59,999);
 let diff=fin-ahora;
-
 if(diff<=0){location.reload();}
-
 let h=Math.floor(diff/1000/60/60);
 let m=Math.floor(diff/1000/60)%60;
 let s=Math.floor(diff/1000)%60;
-
 document.getElementById("timer").innerText=`⏳ ${h}h ${m}m ${s}s`;
 }
 
@@ -173,6 +304,10 @@ render();
 countdown();
 setInterval(countdown,1000);
 </script>
+
+<div class="fijo">
+<a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
+</div>
 
 </body>
 </html>
