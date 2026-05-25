@@ -7,34 +7,186 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;color:white;text-align:center;padding-bottom:90px;background:linear-gradient(135deg,#071923,#102f3d,#06141d)}
-header{padding:25px 15px;border-bottom:2px solid gold}
-h1{color:gold;font-size:38px;text-shadow:0 0 20px gold}
-.card{background:rgba(255,255,255,.08);margin:12px;padding:18px;border-radius:18px}
-.links a{display:inline-block;margin:8px;padding:14px 20px;border-radius:12px;color:white;text-decoration:none;font-weight:bold}
-.vip{background:#00c853}.canal{background:#128C7E}.instagram{background:#E1306C}.facebook{background:#1877F2}
 
+/* 🔥 FONDO PREMIUM */
+body{
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+padding-bottom:90px;
+
+background:
+radial-gradient(circle at top left, rgba(255,215,0,0.25), transparent 30%),
+radial-gradient(circle at top right, rgba(0,255,180,0.18), transparent 35%),
+linear-gradient(135deg,#05080d,#071923,#102f3d);
+
+overflow-x:hidden;
+}
+
+header{
+padding:25px 15px;
+border-bottom:2px solid gold;
+}
+
+h1{
+color:gold;
+font-size:38px;
+text-shadow:0 0 20px gold;
+}
+
+/* 🔥 CARDS PREMIUM */
+.card{
+background:rgba(255,255,255,.08);
+margin:12px;
+padding:18px;
+border-radius:18px;
+box-shadow:0 0 25px rgba(255,215,0,.15);
+backdrop-filter: blur(6px);
+}
+
+.links a{
+display:inline-block;
+margin:8px;
+padding:14px 20px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+.vip{background:#00c853}
+.canal{background:#128C7E}
+.instagram{background:#E1306C}
+.facebook{background:#1877F2}
+
+/* 🔒 PRONÓSTICO BLOQUEADO */
 .pred-wrap{position:relative;max-width:780px;margin:auto}
-.pred-img{width:100%;border-radius:15px;border:2px solid gold;filter:blur(8px);transition:.5s}
+.pred-img{
+width:100%;
+border-radius:15px;
+border:2px solid gold;
+filter:blur(8px);
+transition:.5s;
+}
 .pred-img.desbloqueada{filter:blur(0)}
-.overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;flex-direction:column;border-radius:15px}
+
+.overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.6);
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+border-radius:15px;
+}
+
 .overlay.oculto{display:none}
 
-.mystery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.mystery-box{background:linear-gradient(135deg,#111,#443300);border:2px solid gold;border-radius:18px;padding:26px;font-size:45px;cursor:pointer}
+/* 🎡 RULETA */
+.ruleta{
+width:230px;
+height:230px;
+border-radius:50%;
+border:6px solid gold;
+margin:18px auto;
+overflow:hidden;
+box-shadow:0 0 35px gold;
+}
 
-.ruleta{width:230px;height:230px;border-radius:50%;border:6px solid gold;margin:18px auto;overflow:hidden;box-shadow:0 0 35px gold}
-.ruleta-inner{width:100%;height:100%;border-radius:50%;transition:transform 4s ease-out;background:conic-gradient(gold 0 45deg,#111 45deg 90deg,#00c853 90deg 135deg,#111 135deg 180deg,gold 180deg 225deg,#111 225deg 270deg,#E1306C 270deg 315deg,#111 315deg 360deg)}
+.ruleta-inner{
+width:100%;
+height:100%;
+border-radius:50%;
+transition:transform 4s ease-out;
+background:conic-gradient(
+gold 0 45deg,
+#111 45deg 90deg,
+#00c853 90deg 135deg,
+#111 135deg 180deg,
+gold 180deg 225deg,
+#111 225deg 270deg,
+#E1306C 270deg 315deg,
+#111 315deg 360deg
+);
+}
+
 .pointer{font-size:35px;margin-bottom:-10px}
-.resultado{margin-top:15px;font-size:22px;color:#00ff99;font-weight:bold}
-.numero{font-size:50px;color:gold}
 
-#vipBox{display:none;background:#050505;border:1px solid gold;border-radius:20px;padding:20px;margin:15px auto;max-width:600px}
-input{padding:12px;border:none;border-radius:10px}
-button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-weight:bold;cursor:pointer}
+/* 🎁 CAJA */
+.mystery-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
 
-.fijo{position:fixed;bottom:0;width:100%;background:black;padding:10px;border-top:2px solid gold}
-.fijo a{background:#00c853;padding:14px 25px;border-radius:12px;color:white;text-decoration:none;font-weight:bold}
+.mystery-box{
+background:linear-gradient(135deg,#111,#443300);
+border:2px solid gold;
+border-radius:18px;
+padding:26px;
+font-size:45px;
+cursor:pointer;
+}
+
+/* RESULTADOS */
+.resultado{
+margin-top:15px;
+font-size:22px;
+color:#00ff99;
+font-weight:bold;
+}
+
+.numero{
+font-size:50px;
+color:gold;
+}
+
+/* VIP */
+#vipBox{
+display:none;
+background:#050505;
+border:1px solid gold;
+border-radius:20px;
+padding:20px;
+margin:15px auto;
+max-width:600px;
+}
+
+input{
+padding:12px;
+border:none;
+border-radius:10px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:gold;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* BOTÓN FIJO */
+.fijo{
+position:fixed;
+bottom:0;
+width:100%;
+background:black;
+padding:10px;
+border-top:2px solid gold;
+}
+
+.fijo a{
+background:#00c853;
+padding:14px 25px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
 </style>
 </head>
 
@@ -46,6 +198,7 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 <p>🔥 CUPOS LIMITADOS AL VIP</p>
 </header>
 
+<!-- BOTONES -->
 <div class="card">
 <div class="links">
 <a href="#" onclick="abrirVIP()" class="vip">🔥 ACCESO VIP 🔥</a>
@@ -55,6 +208,7 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 </div>
 </div>
 
+<!-- VIP -->
 <div id="vipBox">
 <h3>🔒 Acceso VIP</h3>
 <input type="password" id="clave" placeholder="Introduce clave">
@@ -63,31 +217,31 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 <div id="vipContent" style="display:none;margin-top:15px;">🔥 VIP DESBLOQUEADO</div>
 </div>
 
+<!-- PRONÓSTICO -->
 <div class="card">
 <h3>📊 Pronóstico VIP del día</h3>
 <div class="pred-wrap">
 <img id="pronostico" src="pronostico.jpg" class="pred-img">
 <div id="bloqueo" class="overlay">
 <h2>🔒 Contenido VIP bloqueado</h2>
-<p>Introduce clave VIP para ver completo</p>
 <button onclick="abrirVIP()">Desbloquear VIP</button>
 </div>
 </div>
 </div>
 
+<!-- RULETA -->
 <div class="card">
-<h3>🎡 Ruleta Dominancia</h3>
-<p>Gira y prueba suerte para desbloquear una línea parcial</p>
+<h3>🎡 Ruleta</h3>
 <div class="pointer">🔻</div>
 <div class="ruleta"><div id="ruleta" class="ruleta-inner"></div></div>
-<button onclick="girarRuleta()">Girar ruleta</button>
+<button onclick="girarRuleta()">Girar</button>
 <div id="resultadoRuleta" class="resultado"></div>
 <div id="premioRuleta" class="resultado"></div>
 </div>
 
+<!-- CAJA -->
 <div class="card">
 <h3>🎁 Caja Misteriosa</h3>
-<p>1 intento diario — jugada gratis del 00 al 99</p>
 <div class="mystery-grid">
 <div class="mystery-box" onclick="abrirCaja()">🎁</div>
 <div class="mystery-box" onclick="abrirCaja()">🎁</div>
@@ -98,11 +252,8 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 </div>
 
 <script>
-let girando=false;
-
 function abrirVIP(){
 document.getElementById("vipBox").style.display="block";
-document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
 }
 
 function verificar(){
@@ -114,50 +265,24 @@ document.getElementById("bloqueo").classList.add("oculto");
 }
 
 function girarRuleta(){
-if(girando)return;
-girando=true;
-
-document.getElementById("resultadoRuleta").innerHTML="⏳ Girando...";
-document.getElementById("premioRuleta").innerHTML="";
-
 let r=document.getElementById("ruleta");
 let giro=360*7+Math.floor(Math.random()*360);
 r.style.transform="rotate("+giro+"deg)";
 
 setTimeout(()=>{
 let gana=Math.floor(Math.random()*500)===0;
-
 if(gana){
-document.getElementById("resultadoRuleta").innerHTML="🔥 ACCESO PARCIAL DESBLOQUEADO";
-document.getElementById("premioRuleta").innerHTML="👉 Línea visible: <br><span class='numero'>12 - 35</span><br>Nacional";
+document.getElementById("resultadoRuleta").innerHTML="🔥 ACCESO PARCIAL";
+document.getElementById("premioRuleta").innerHTML="👉 12 - 35";
 }else{
-document.getElementById("resultadoRuleta").innerHTML="🔒 No desbloqueaste esta vez. Intenta mañana.";
+document.getElementById("resultadoRuleta").innerHTML="🔒 Intenta mañana";
 }
-
-girando=false;
 },4000);
 }
 
 function abrirCaja(){
-let hoy=new Date().toDateString();
-
-if(localStorage.getItem("intento")==hoy){
-document.getElementById("resultadoCaja").innerHTML="⚠️ Vuelve mañana";
-return;
-}
-
-document.getElementById("resultadoCaja").innerHTML="⏳ Abriendo...";
-
-setTimeout(()=>{
 let numero=Math.floor(Math.random()*100).toString().padStart(2,"0");
-let loterias=["Nacional","Leidsa","Real","Loteka","La Suerte"];
-let loteria=loterias[Math.floor(Math.random()*loterias.length)];
-
-document.getElementById("resultadoCaja").innerHTML=
-`🔥 <span class="numero">${numero}</span><br>${loteria}`;
-
-localStorage.setItem("intento",hoy);
-},1200);
+document.getElementById("resultadoCaja").innerHTML="🔥 "+numero;
 }
 </script>
 
