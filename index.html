@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box}
 
-/* 🔥 FONDO PREMIUM */
+/* 🔥 FONDO CASINO REAL */
 body{
 margin:0;
 font-family:Arial;
@@ -16,17 +16,22 @@ color:white;
 text-align:center;
 padding-bottom:90px;
 
-background:
-radial-gradient(circle at top left, rgba(255,215,0,0.25), transparent 30%),
-radial-gradient(circle at top right, rgba(0,255,180,0.18), transparent 35%),
-linear-gradient(135deg,#05080d,#071923,#102f3d);
-
-overflow-x:hidden;
+background:url("fondo.jpg") no-repeat center center fixed;
+background-size:cover;
 }
 
+/* 🔥 CAPA OSCURA ENCIMA (IMPORTANTE) */
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.65);
+z-index:-1;
+}
+
+/* HEADER */
 header{
 padding:25px 15px;
-border-bottom:2px solid gold;
 }
 
 h1{
@@ -35,16 +40,18 @@ font-size:38px;
 text-shadow:0 0 20px gold;
 }
 
-/* 🔥 CARDS PREMIUM */
+/* CARDS TIPO GLASS */
 .card{
-background:rgba(255,255,255,.08);
+background:rgba(0,0,0,0.55);
 margin:12px;
 padding:18px;
 border-radius:18px;
-box-shadow:0 0 25px rgba(255,215,0,.15);
+border:1px solid rgba(255,215,0,0.3);
+box-shadow:0 0 20px rgba(255,215,0,0.2);
 backdrop-filter: blur(6px);
 }
 
+/* BOTONES */
 .links a{
 display:inline-block;
 margin:8px;
@@ -53,28 +60,29 @@ border-radius:12px;
 color:white;
 text-decoration:none;
 font-weight:bold;
+border:1px solid gold;
+box-shadow:0 0 10px rgba(255,215,0,.4);
 }
 
-.vip{background:#00c853}
+.vip{background:linear-gradient(45deg,#00c853,#009624)}
 .canal{background:#128C7E}
 .instagram{background:#E1306C}
 .facebook{background:#1877F2}
 
-/* 🔒 PRONÓSTICO BLOQUEADO */
+/* PRONÓSTICO BLOQUEADO */
 .pred-wrap{position:relative;max-width:780px;margin:auto}
 .pred-img{
 width:100%;
 border-radius:15px;
 border:2px solid gold;
 filter:blur(8px);
-transition:.5s;
 }
 .pred-img.desbloqueada{filter:blur(0)}
 
 .overlay{
 position:absolute;
 inset:0;
-background:rgba(0,0,0,.6);
+background:rgba(0,0,0,.7);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -84,15 +92,15 @@ border-radius:15px;
 
 .overlay.oculto{display:none}
 
-/* 🎡 RULETA */
+/* RULETA */
 .ruleta{
-width:230px;
-height:230px;
+width:240px;
+height:240px;
 border-radius:50%;
-border:6px solid gold;
-margin:18px auto;
+border:5px solid gold;
+margin:20px auto;
 overflow:hidden;
-box-shadow:0 0 35px gold;
+box-shadow:0 0 40px gold;
 }
 
 .ruleta-inner{
@@ -112,9 +120,21 @@ gold 180deg 225deg,
 );
 }
 
-.pointer{font-size:35px;margin-bottom:-10px}
+.pointer{font-size:30px}
 
-/* 🎁 CAJA */
+.resultado{
+margin-top:15px;
+font-size:22px;
+color:#00ff99;
+font-weight:bold;
+}
+
+.numero{
+font-size:50px;
+color:gold;
+}
+
+/* CAJA */
 .mystery-grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -128,25 +148,13 @@ border-radius:18px;
 padding:26px;
 font-size:45px;
 cursor:pointer;
-}
-
-/* RESULTADOS */
-.resultado{
-margin-top:15px;
-font-size:22px;
-color:#00ff99;
-font-weight:bold;
-}
-
-.numero{
-font-size:50px;
-color:gold;
+box-shadow:0 0 15px gold;
 }
 
 /* VIP */
 #vipBox{
 display:none;
-background:#050505;
+background:#000;
 border:1px solid gold;
 border-radius:20px;
 padding:20px;
@@ -219,12 +227,12 @@ font-weight:bold;
 
 <!-- PRONÓSTICO -->
 <div class="card">
-<h3>📊 Pronóstico VIP del día</h3>
+<h3>📊 Pronóstico VIP</h3>
 <div class="pred-wrap">
 <img id="pronostico" src="pronostico.jpg" class="pred-img">
 <div id="bloqueo" class="overlay">
-<h2>🔒 Contenido VIP bloqueado</h2>
-<button onclick="abrirVIP()">Desbloquear VIP</button>
+<h2>🔒 BLOQUEADO</h2>
+<button onclick="abrirVIP()">Desbloquear</button>
 </div>
 </div>
 </div>
