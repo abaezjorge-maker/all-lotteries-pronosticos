@@ -6,207 +6,134 @@
 <title>Dominancia 88</title>
 
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;color:white;text-align:center;padding-bottom:95px;background:radial-gradient(circle at top left,rgba(255,215,0,.18),transparent 28%),radial-gradient(circle at top right,rgba(0,255,180,.16),transparent 30%),linear-gradient(135deg,#05080d,#071923,#102f3d);overflow-x:hidden}
-body:before{content:"";position:fixed;inset:0;background:linear-gradient(120deg,transparent,rgba(255,255,255,.05),transparent);animation:shine 6s infinite linear;pointer-events:none}
-@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-header{padding:34px 16px 26px;border-bottom:2px solid gold;background:rgba(0,0,0,.35);box-shadow:0 0 35px rgba(255,215,0,.25)}
-h1{margin:0;font-size:58px;letter-spacing:2px;color:gold;text-shadow:0 0 28px rgba(255,215,0,.95)}
-.subtitle{font-size:24px;margin-top:10px}
-.top-info{max-width:1100px;margin:24px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.info{background:rgba(0,0,0,.45);border:1px solid rgba(255,215,0,.7);border-radius:22px;padding:20px;font-size:23px;font-weight:bold}
-#timer{color:#00ff99}
-#app{max-width:1100px;margin:auto}
-.card{background:rgba(255,255,255,.09);margin:18px;padding:24px;border-radius:24px;box-shadow:0 0 28px rgba(255,215,0,.18);backdrop-filter:blur(8px)}
-.main-row{display:flex;justify-content:space-between;align-items:center;font-size:25px;font-weight:bold;gap:12px}
-.links a{display:inline-block;margin:10px;padding:18px 28px;border-radius:18px;color:white;text-decoration:none;font-weight:bold;font-size:18px}
-.vip{background:linear-gradient(135deg,#00ff88,#17b85c);box-shadow:0 0 28px rgba(0,255,136,.8);animation:pulse 1.2s infinite}
-.canal{background:linear-gradient(135deg,#00b4d8,#0077b6)}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.07)}100%{transform:scale(1)}}
-.pred-img{width:100%;max-width:780px;display:block;margin:auto;border-radius:22px;border:2px solid rgba(255,215,0,.65);box-shadow:0 0 45px rgba(0,0,0,.9)}
-.status,.systems{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.status-box,.system{background:rgba(0,0,0,.42);border:1px solid gold;border-radius:20px;padding:22px;min-height:145px}
-.status-box span,.emoji{font-size:44px;display:block;margin-bottom:10px}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.box{background:#050505;border:1px solid gold;border-radius:16px;padding:17px;font-size:21px;font-weight:bold}
-.mystery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.mystery-box{background:linear-gradient(135deg,#111,#332600);border:2px solid gold;border-radius:22px;padding:28px;font-size:48px;cursor:pointer;box-shadow:0 0 25px rgba(255,215,0,.25);transition:.3s}
-.mystery-box:hover{transform:scale(1.08)}
-.resultado-misterio{margin-top:20px;font-size:24px;font-weight:bold;color:#00ff99}
-#vipBox{display:none;background:#050505;border:1px solid gold;border-radius:22px;padding:26px;margin:20px auto;max-width:640px}
-input{padding:14px;border:none;border-radius:14px;text-align:center;font-size:16px}
-button{padding:14px 24px;border:none;border-radius:14px;background:gold;font-weight:bold;cursor:pointer}
-.fijo{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,.95);padding:14px 0;z-index:999;border-top:2px solid gold}
-.fijo a{background:linear-gradient(135deg,#00ff88,#16b85d);color:white;text-decoration:none;font-weight:bold;padding:16px 36px;border-radius:18px;display:inline-block;animation:pulse 1.2s infinite}
+body{margin:0;font-family:Arial;background:#06141d;color:white;text-align:center;padding-bottom:100px}
+h1{color:gold;text-shadow:0 0 20px gold}
 
-@media(max-width:700px){
-h1{font-size:36px}
-.subtitle{font-size:19px}
-.top-info,.status,.systems{grid-template-columns:1fr}
-.info{font-size:18px}
-.main-row{flex-direction:column;font-size:18px}
-.grid,.mystery-grid{grid-template-columns:repeat(2,1fr)}
-.links a{display:block;width:88%;margin:12px auto}
-.card{margin:12px;padding:16px}
+.card{background:rgba(255,255,255,.08);margin:15px;padding:20px;border-radius:20px}
+
+.mystery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.mystery-box{
+background:linear-gradient(135deg,#111,#332600);
+border:2px solid gold;
+border-radius:20px;
+padding:30px;
+font-size:50px;
+cursor:pointer;
+transition:.3s;
 }
+.mystery-box:hover{transform:scale(1.1)}
+
+.abriendo{
+animation:shake .5s;
+}
+@keyframes shake{
+0%{transform:rotate(0)}
+25%{transform:rotate(5deg)}
+50%{transform:rotate(-5deg)}
+75%{transform:rotate(5deg)}
+100%{transform:rotate(0)}
+}
+
+.resultado{font-size:24px;margin-top:20px;color:#00ff99}
+
+.historial{margin-top:15px;font-size:14px;opacity:.8}
+
+.contador{font-size:20px;color:gold;margin-top:10px}
 </style>
 </head>
 
 <body>
 
-<header>
 <h1>🔥 DOMINANCIA 88 🔥</h1>
-<div class="subtitle">Sistema ADN Piramidal</div>
-
-<div class="top-info">
-<div class="info">⚠️ Acceso limitado al sistema completo</div>
-<div class="info" id="timer"></div>
-</div>
-</header>
-
-<div id="app"></div>
-
-<script>
-const data={
-imagen:"pronostico.jpg",
-jugadas:["12-35","35-51","12-35-51","65-75-34"]
-};
-
-function fechaManana(){
-let f=new Date();
-f.setDate(f.getDate()+1);
-return f;
-}
-
-function fechaTexto(f){
-const meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-return `${f.getDate()} de ${meses[f.getMonth()]} de ${f.getFullYear()}`;
-}
-
-function render(){
-let f=fechaManana();
-
-document.getElementById("app").innerHTML=`
-<div class="card">
-<div class="main-row">
-<div>ADN PIRAMIDAL</div>
-<div>${fechaTexto(f)}</div>
-</div>
-</div>
 
 <div class="card">
-<div class="links">
-<a href="#" onclick="abrirVIP()" class="vip">🔥 ACCESO VIP 🔥</a>
-<a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal Oficial</a>
-</div>
-</div>
-
-<div id="vipBox">
-<h3>🔒 Acceso VIP</h3>
-<input type="password" id="clave" placeholder="Introduce clave">
-<br><br>
-<button onclick="verificar()">Entrar</button>
-
-<div id="vipContent" style="display:none;margin-top:22px;">
-<h3>🔥 CONTENIDO VIP 🔥</h3>
-<div class="grid">
-<div class="box">88-32</div>
-<div class="box">14-67</div>
-<div class="box">99-10</div>
-<div class="box">23-45</div>
-</div>
-</div>
-</div>
-
-<div class="card">
-<img src="${data.imagen}" class="pred-img">
-</div>
-
-<div class="card">
-<h3>🎁 Caja Misteriosa Dominancia88</h3>
-<p>Elige una caja y recibe una jugada gratis del 00 al 99 con lotería indicada</p>
+<h3>🎁 Caja Misteriosa</h3>
+<p>1 intento diario — descubre tu jugada</p>
 
 <div class="mystery-grid">
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
+<div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
+<div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
+<div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
 </div>
 
-<div id="resultadoCaja" class="resultado-misterio"></div>
+<div id="resultado" class="resultado"></div>
+<div class="contador" id="contadorGanadores"></div>
+<div class="historial" id="historial"></div>
+
 </div>
 
-<div class="card">
-<h3>🟢 Sistema en vivo</h3>
-<div class="status">
-<div class="status-box"><span>⚡</span>Motor activo</div>
-<div class="status-box"><span>🧬</span>ADN procesando</div>
-<div class="status-box"><span>🔒</span>VIP protegido</div>
-</div>
-</div>
+<script>
+let intentoHoy=localStorage.getItem("intentoHoy");
+let fechaHoy=new Date().toDateString();
 
-<div class="card">
-<h3>📊 Sistemas del día</h3>
-<div class="systems">
-<div class="system"><span class="emoji">🧬</span><b>ADN Piramidal</b><br>Sistema principal</div>
-<div class="system"><span class="emoji">🔥</span><b>Reverso Inteligente</b><br>Patrones activos</div>
-<div class="system"><span class="emoji">📊</span><b>Núcleo Activo</b><br>Números base</div>
-<div class="system"><span class="emoji">⚡</span><b>Impacto Directo</b><br>Jugadas rápidas</div>
-<div class="system"><span class="emoji">🎯</span><b>Filtro Avanzado</b><br>Optimización</div>
-<div class="system"><span class="emoji">💣</span><b>Sistema Oculto</b><br>Solo VIP</div>
-</div>
-</div>
-
-<div class="card">
-<h3>Jugadas destacadas</h3>
-<div class="grid">
-${data.jugadas.map(j=>`<div class="box">${j}</div>`).join("")}
-</div>
-</div>
-`;
+if(intentoHoy===fechaHoy){
+document.getElementById("resultado").innerText="⚠️ Ya usaste tu intento hoy";
 }
 
-function abrirCaja(){
-const loterias=["Lotería Nacional","Leidsa","Real","Loteka","La Suerte","Anguila"];
+function abrirCaja(elemento){
+
+if(localStorage.getItem("intentoHoy")===fechaHoy){
+return;
+}
+
+elemento.classList.add("abriendo");
+
+setTimeout(()=>{
+
+let tipo=Math.random();
+
+const loterias=["Nacional","Leidsa","Real","Loteka","La Suerte"];
 let numero=Math.floor(Math.random()*100).toString().padStart(2,"0");
 let loteria=loterias[Math.floor(Math.random()*loterias.length)];
 
-document.getElementById("resultadoCaja").innerHTML=
-`🔥 Jugada gratis:<br><span style="font-size:46px;color:gold;">${numero}</span><br>🎯 Lotería indicada: ${loteria}`;
-}
+let resultadoTexto="";
 
-function abrirVIP(){
-document.getElementById("vipBox").style.display="block";
-document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
-}
-
-function verificar(){
-if(document.getElementById("clave").value==="3321"){
-document.getElementById("vipContent").style.display="block";
+if(tipo<0.6){
+resultadoTexto=`🔥 Jugada: ${numero} (${loteria})`;
+guardarHistorial(numero,loteria);
+}else if(tipo<0.9){
+resultadoTexto="😲 CASI GANAS ACCESO VIP...";
 }else{
-alert("Clave incorrecta");
-}
-}
-
-function countdown(){
-let ahora=new Date();
-let fin=new Date();
-fin.setHours(23,59,59,999);
-let diff=fin-ahora;
-if(diff<=0){location.reload();}
-let h=Math.floor(diff/1000/60/60);
-let m=Math.floor(diff/1000/60)%60;
-let s=Math.floor(diff/1000)%60;
-document.getElementById("timer").innerText=`⏳ ${h}h ${m}m ${s}s`;
+resultadoTexto="🔒 Acceso VIP oculto — desbloquéalo";
+aumentarGanadores();
 }
 
-render();
-countdown();
-setInterval(countdown,1000);
+document.getElementById("resultado").innerHTML=resultadoTexto;
+
+localStorage.setItem("intentoHoy",fechaHoy);
+
+},600);
+}
+
+function aumentarGanadores(){
+let total=localStorage.getItem("ganadores") || 120;
+total++;
+localStorage.setItem("ganadores",total);
+mostrarGanadores();
+}
+
+function mostrarGanadores(){
+let total=localStorage.getItem("ganadores") || 120;
+document.getElementById("contadorGanadores").innerText="🔥 "+total+" usuarios desbloquearon VIP";
+}
+
+function guardarHistorial(numero,loteria){
+let historial=JSON.parse(localStorage.getItem("historial")) || [];
+historial.unshift(numero+" - "+loteria);
+historial=historial.slice(0,5);
+localStorage.setItem("historial",JSON.stringify(historial));
+mostrarHistorial();
+}
+
+function mostrarHistorial(){
+let historial=JSON.parse(localStorage.getItem("historial")) || [];
+document.getElementById("historial").innerHTML=
+"Últimas jugadas:<br>"+historial.join("<br>");
+}
+
+mostrarGanadores();
+mostrarHistorial();
 </script>
-
-<div class="fijo">
-<a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
-</div>
 
 </body>
 </html>
