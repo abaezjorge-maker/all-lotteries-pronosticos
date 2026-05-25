@@ -555,6 +555,16 @@ button:hover{
     <div id="resRuleta" class="res-ruleta-grande" aria-live="polite">🎯 Esperando giro...</div>
   </div>
 
+  <!-- SUPER KINO TV -->
+  <div class="card tripleta-card">
+    <h3>📺 Super Kino TV</h3>
+
+    <button class="btn-tripleta" onclick="generarKinoTV()">Generar</button>
+
+    <div id="kinotvNumeros" class="tripleta-numero" style="font-size:22px; letter-spacing:1px;">-- -- -- -- -- -- -- -- -- --</div>
+    <div id="kinotvEstado" class="tripleta-estado"></div>
+  </div>
+
   <!-- TRIPLETA DIARIA -->
   <div class="card tripleta-card">
     <h3>🎯 Tripleta diaria</h3>
@@ -658,6 +668,7 @@ function iniciarPagina(){
   verificarCaja();
   verificarRuleta();
   verificarTripleta();
+  verificarKinoTV();
   verificarAdmin();
 }
 
@@ -967,6 +978,46 @@ function verificarTripleta(){
     if(tripletaGuardada){
       mostrarTripleta(JSON.parse(tripletaGuardada));
       document.getElementById("tripletaEstado").textContent = "⚠️ Ya usaste tu intento de hoy";
+    }
+  }
+}
+
+/* =========================
+   SUPER KINO TV
+========================= */
+
+function generarKinoTV(){
+  const hoy = fechaHoy();
+
+  if(!esAdmin() && localStorage.getItem("kinotvFecha") === hoy){
+    const guardado = localStorage.getItem("kinotvResultado");
+    document.getElementById("kinotvEstado").textContent = "⚠️ Ya usaste tu intento de hoy";
+    if(guardado) document.getElementById("kinotvNumeros").textContent = guardado;
+    return;
+  }
+
+  const numeros = generarNumerosKino();
+
+  document.getElementById("kinotvNumeros").textContent = numeros;
+
+  if(esAdmin()){
+    document.getElementById("kinotvEstado").textContent = "Modo admin: ilimitado";
+  } else {
+    document.getElementById("kinotvEstado").textContent = "Intento diario usado";
+    localStorage.setItem("kinotvFecha", hoy);
+    localStorage.setItem("kinotvResultado", numeros);
+  }
+}
+
+function verificarKinoTV(){
+  if(esAdmin()) return;
+
+  const hoy = fechaHoy();
+  if(localStorage.getItem("kinotvFecha") === hoy){
+    const guardado = localStorage.getItem("kinotvResultado");
+    if(guardado){
+      document.getElementById("kinotvNumeros").textContent = guardado;
+      document.getElementById("kinotvEstado").textContent = "⚠️ Ya usaste tu intento de hoy";
     }
   }
 }
