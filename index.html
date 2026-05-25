@@ -82,31 +82,53 @@ button:hover{
 /* PANEL VIP */
 .panel-vip{
   text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
 .panel-vip h3{
-  font-size:22px;
+  font-size:28px;
   color:gold;
-  margin-bottom:12px;
+  margin:0 0 18px 0;
 }
 
 .panel-vip-box{
-  border:1px solid rgba(255,215,0,.45);
-  border-radius:14px;
-  padding:18px;
-  background:rgba(0,0,0,.55);
-  box-shadow:0 0 12px rgba(255,215,0,.15);
+  width:100%;
+  min-height:185px;
+  border:1px solid rgba(255,215,0,.55);
+  border-radius:18px;
+  padding:28px 22px;
+  background:rgba(0,0,0,.62);
+  box-shadow:0 0 20px rgba(255,215,0,.22);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
 }
 
 .panel-vip-box p{
-  line-height:1.6;
+  line-height:1.7;
   margin:8px 0;
+  font-size:16px;
+}
+
+.panel-vip-desc{
+  max-width:340px;
 }
 
 .estado-vip{
   color:#ffcc00;
   font-weight:bold;
-  font-size:16px;
+  font-size:17px;
+}
+
+.btn-vip-panel{
+  font-size:18px;
+  padding:14px 30px;
+  margin-top:14px;
+  border-radius:14px;
 }
 
 .pred-img{
@@ -412,9 +434,9 @@ button:hover{
     <h3>📅 Panel VIP del día</h3>
 
     <div class="panel-vip-box">
-      <p>Actualización diaria del pronóstico premium.</p>
+      <p class="panel-vip-desc">Actualización diaria del pronóstico premium.</p>
       <p class="estado-vip" id="estadoVIP">🔒 Estado: bloqueado</p>
-      <button onclick="vip()">Desbloquear acceso</button>
+      <button class="btn-vip-panel" onclick="vip()">Desbloquear acceso</button>
     </div>
 
     <img id="img" src="pronostico.jpg" class="pred-img">
