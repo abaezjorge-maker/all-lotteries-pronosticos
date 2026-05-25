@@ -7,62 +7,173 @@
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;color:white;text-align:center;padding-bottom:95px;background:linear-gradient(135deg,#071923,#102f3d,#06141d)}
+body{
+margin:0;
+font-family:Arial;
+color:white;
+text-align:center;
+padding-bottom:90px;
+background:linear-gradient(135deg,#071923,#102f3d,#06141d);
+}
 
-header{padding:30px 15px;border-bottom:3px solid gold}
-h1{color:gold;font-size:40px;text-shadow:0 0 25px gold}
+header{
+padding:25px 15px;
+border-bottom:2px solid gold;
+}
 
-.card{background:rgba(255,255,255,.09);margin:18px;padding:22px;border-radius:22px}
+h1{
+color:gold;
+font-size:38px;
+text-shadow:0 0 20px gold;
+}
 
-.links a{display:inline-block;margin:10px;padding:15px 22px;border-radius:14px;color:white;text-decoration:none;font-weight:bold}
+.impacto{
+font-size:18px;
+color:#00ff99;
+margin-top:10px;
+}
+
+.card{
+background:rgba(255,255,255,.08);
+margin:12px;
+padding:18px;
+border-radius:18px;
+}
+
+.links a{
+display:inline-block;
+margin:8px;
+padding:14px 20px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
 .vip{background:#00c853}
 .canal{background:#128C7E}
 .instagram{background:#E1306C}
 .facebook{background:#1877F2}
 
-.pred-img{width:100%;max-width:780px;border-radius:18px;border:2px solid gold}
+.pred-img{
+width:100%;
+max-width:750px;
+border-radius:15px;
+border:2px solid gold;
+}
 
-.mystery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+/* CAJA */
+.mystery-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
 .mystery-box{
 background:linear-gradient(135deg,#111,#443300);
 border:2px solid gold;
-border-radius:20px;
-padding:28px;
-font-size:48px;
+border-radius:18px;
+padding:26px;
+font-size:45px;
 cursor:pointer;
-transition:.3s;
 }
-.mystery-box:hover{transform:scale(1.08)}
 
-.resultado{margin-top:20px;font-size:24px;color:#00ff99;font-weight:bold}
-.numero{font-size:52px;color:gold}
+.resultado{
+margin-top:15px;
+font-size:22px;
+color:#00ff99;
+font-weight:bold;
+}
 
-#vipBox{display:none;background:#050505;border:1px solid gold;border-radius:20px;padding:22px;margin:20px auto;max-width:640px}
+.numero{
+font-size:50px;
+color:gold;
+}
 
-input{padding:13px;border:none;border-radius:12px;text-align:center}
-button{padding:13px 22px;border:none;border-radius:12px;background:gold;font-weight:bold}
+/* PRUEBA SOCIAL */
+.stats{
+color:gold;
+font-weight:bold;
+margin-top:10px;
+}
 
-/* BOTÓN FIJO */
-.fijo{position:fixed;bottom:0;left:0;width:100%;background:black;padding:12px;border-top:2px solid gold}
-.fijo a{background:#00c853;padding:15px 30px;border-radius:15px;color:white;text-decoration:none;font-weight:bold}
+/* NOTIFICACIÓN */
+.toast{
+position:fixed;
+top:10px;
+right:10px;
+background:black;
+border:1px solid gold;
+padding:12px;
+border-radius:12px;
+display:none;
+z-index:9999;
+}
 
-@media(max-width:700px){
-h1{font-size:32px}
-.links a{display:block;width:85%;margin:12px auto}
+/* VIP */
+#vipBox{
+display:none;
+background:#050505;
+border:1px solid gold;
+border-radius:20px;
+padding:20px;
+margin:15px auto;
+max-width:600px;
+}
+
+input{
+padding:12px;
+border:none;
+border-radius:10px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+border-radius:10px;
+background:gold;
+font-weight:bold;
+}
+
+/* FIJO */
+.fijo{
+position:fixed;
+bottom:0;
+width:100%;
+background:black;
+padding:10px;
+border-top:2px solid gold;
+}
+
+.fijo a{
+background:#00c853;
+padding:14px 25px;
+border-radius:12px;
+color:white;
+text-decoration:none;
+font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
+<div id="toast" class="toast"></div>
+
 <header>
 <h1>🔥 DOMINANCIA 88 🔥</h1>
-<p>Sistema ADN Piramidal</p>
-<p>🟢 ACTIVO HOY</p>
-<p>⚠️ Acceso limitado al sistema completo</p>
+
+<div class="impacto">
+⚠️ SISTEMA ACTIVO HOY<br>
+🔥 CUPOS LIMITADOS AL VIP
+</div>
+
+<div class="stats">
+🟢 <span id="usuarios">37</span> usuarios activos ahora
+</div>
 </header>
 
-<!-- BOTONES ARRIBA -->
+<!-- BOTONES -->
 <div class="card">
 <div class="links">
 <a href="#" onclick="abrirVIP()" class="vip">🔥 ACCESO VIP 🔥</a>
@@ -79,25 +190,21 @@ h1{font-size:32px}
 <br><br>
 <button onclick="verificar()">Entrar</button>
 
-<div id="vipContent" style="display:none;margin-top:20px;">
-<h3>🔥 CONTENIDO VIP 🔥</h3>
-<p>Jugadas exclusivas desbloqueadas</p>
+<div id="vipContent" style="display:none;margin-top:15px;">
+🔥 CONTENIDO DESBLOQUEADO
 </div>
 </div>
 
 <!-- PRONÓSTICO -->
 <div class="card">
-<h2>ADN PIRAMIDAL — 26 MAYO 2026</h2>
-</div>
-
-<div class="card">
+<h3>📊 Pronóstico del día</h3>
 <img src="pronostico.jpg" class="pred-img">
 </div>
 
 <!-- CAJA -->
 <div class="card">
 <h3>🎁 Caja Misteriosa</h3>
-<p>1 intento diario — jugada gratis del 00 al 99</p>
+<p>1 intento diario</p>
 
 <div class="mystery-grid">
 <div class="mystery-box" onclick="abrirCaja()">🎁</div>
@@ -109,13 +216,9 @@ h1{font-size:32px}
 <div id="resultadoCaja" class="resultado"></div>
 </div>
 
-<!-- 🔊 SONIDO REAL -->
-<audio id="sonidoPremio" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3"></audio>
-
 <script>
 function abrirVIP(){
 document.getElementById("vipBox").style.display="block";
-document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
 }
 
 function verificar(){
@@ -129,28 +232,49 @@ alert("Clave incorrecta");
 function abrirCaja(){
 let hoy=new Date().toDateString();
 
-if(localStorage.getItem("intentoCaja")==hoy){
-document.getElementById("resultadoCaja").innerHTML="⚠️ Ya usaste tu intento hoy";
+if(localStorage.getItem("intento")==hoy){
+document.getElementById("resultadoCaja").innerHTML="⚠️ Vuelve mañana";
 return;
 }
 
-if(navigator.vibrate){navigator.vibrate(200);}
+document.getElementById("resultadoCaja").innerHTML="⏳ Abriendo...";
 
-// 🔊 SONIDO
-document.getElementById("sonidoPremio").play();
+setTimeout(()=>{
 
-const loterias=["Nacional","Leidsa","Real","Loteka","La Suerte"];
 let numero=Math.floor(Math.random()*100).toString().padStart(2,"0");
+let loterias=["Nacional","Leidsa","Real","Loteka"];
 let loteria=loterias[Math.floor(Math.random()*loterias.length)];
 
 document.getElementById("resultadoCaja").innerHTML=
-`🔥 Jugada gratis:<br><span class="numero">${numero}</span><br>${loteria}`;
+`🔥 <span class="numero">${numero}</span><br>${loteria}`;
 
-localStorage.setItem("intentoCaja",hoy);
+localStorage.setItem("intento",hoy);
+
+},1200);
 }
+
+// MOVIMIENTO
+function actividad(){
+let u=Math.floor(Math.random()*20)+30;
+document.getElementById("usuarios").innerText=u;
+
+const mensajes=[
+"🔥 Alguien entró al VIP",
+"🎁 Nueva jugada generada",
+"⚡ Sistema activo",
+"💸 Usuario desbloqueó acceso"
+];
+
+let t=document.getElementById("toast");
+t.innerText=mensajes[Math.floor(Math.random()*mensajes.length)];
+t.style.display="block";
+
+setTimeout(()=>{t.style.display="none"},3000);
+}
+
+setInterval(actividad,5000);
 </script>
 
-<!-- VIP FIJO -->
 <div class="fijo">
 <a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
 </div>
