@@ -248,6 +248,18 @@ button:hover{
   line-height:1.5;
 }
 
+/* CÓMO FUNCIONA */
+.como-funciona{
+  padding-left:22px;
+  line-height:1.8;
+  color:#f5f5f5;
+  font-size:15px;
+}
+
+.como-funciona li{
+  margin-bottom:8px;
+}
+
 /* ZONA VIP EXTRA */
 .zona-vip{
   text-align:center;
@@ -375,8 +387,15 @@ button:hover{
   </div>
 
   <div class="card">
-    <h3>⚡ Sistema en vivo</h3>
-    <div id="live"></div>
+    <h3>📌 Cómo funciona</h3>
+
+    <ol class="como-funciona">
+      <li>Desbloquea el pronóstico VIP con tu clave.</li>
+      <li>Usa la ruleta para recibir un número + lotería.</li>
+      <li>Abre la caja misteriosa una vez al día.</li>
+      <li>Genera tu tripleta diaria.</li>
+      <li>Para más jugadas, solicita acceso VIP.</li>
+    </ol>
   </div>
 
   <div class="card zona-vip">
@@ -693,25 +712,6 @@ function verificarTripleta(){
       "⚠️ Ya usaste hoy<br>" + tripletaGuardada;
   }
 }
-
-/* =========================
-   SISTEMA EN VIVO
-========================= */
-
-let mensajes = [
-  "🔥 Jugador ganó con 35",
-  "📊 Sistema detectó patrón",
-  "🎯 Nueva combinación activa",
-  "⚡ Movimiento detectado",
-  "💰 Premio entregado",
-  "🧬 ADN Piramidal procesando",
-  "🎲 Nueva lectura disponible"
-];
-
-setInterval(()=>{
-  let m = mensajes[Math.floor(Math.random() * mensajes.length)];
-  document.getElementById("live").innerHTML = m;
-},3000);
 
 </script>
 
