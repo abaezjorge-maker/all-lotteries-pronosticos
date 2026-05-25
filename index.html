@@ -106,6 +106,20 @@ document.getElementById("app").innerHTML=`
 </div>
 
 <div class="card">
+  <div class="links">
+    
+<a href="#" onclick="abrirVIP()" class="vip">
+    🔥 ENTRAR AL VIP 🔥
+  </a>
+
+  <a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">
+    📢 Canal
+  </a>
+
+</div>
+</div>
+
+<div class="card">
   <img src="${data.imagen}" class="pred-img">
 </div>
 
@@ -119,12 +133,7 @@ document.getElementById("app").innerHTML=`
   <div class="grid">${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}</div>
 </div>
 
-<div class="card">
-  <div class="links">
-    <a href="#" onclick="abrirVIP()" class="vip">🔥 ENTRAR AL VIP 🔥</a>
-    <a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal</a>
-  </div>
-</div>
+
 `;
 }
 
