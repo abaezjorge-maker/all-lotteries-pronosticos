@@ -6,14 +6,39 @@
 <title>Dominancia 88</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#06141d;color:white;text-align:center;padding-bottom:100px}
-h1{color:gold;text-shadow:0 0 20px gold}
+*{box-sizing:border-box}
+body{
+margin:0;font-family:Arial;color:white;text-align:center;padding-bottom:95px;
+background:radial-gradient(circle at top left,rgba(255,215,0,.22),transparent 28%),
+radial-gradient(circle at top right,rgba(0,255,180,.18),transparent 30%),
+linear-gradient(135deg,#05080d,#071923,#102f3d);
+overflow-x:hidden
+}
 
-.card{background:rgba(255,255,255,.08);margin:15px;padding:20px;border-radius:20px}
+header{
+padding:25px;
+border-bottom:2px solid gold;
+background:rgba(0,0,0,.4)
+}
 
-.mystery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+h1{color:gold;font-size:40px}
+
+.card{
+background:rgba(255,255,255,.08);
+margin:15px;
+padding:20px;
+border-radius:20px;
+}
+
+/* 🔥 CAJA 2x2 */
+.mystery-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+}
+
 .mystery-box{
-background:linear-gradient(135deg,#111,#332600);
+background:linear-gradient(135deg,#111,#443300);
 border:2px solid gold;
 border-radius:20px;
 padding:30px;
@@ -21,11 +46,10 @@ font-size:50px;
 cursor:pointer;
 transition:.3s;
 }
-.mystery-box:hover{transform:scale(1.1)}
 
-.abriendo{
-animation:shake .5s;
-}
+.mystery-box:hover{transform:scale(1.08)}
+
+.abriendo{animation:shake .5s}
 @keyframes shake{
 0%{transform:rotate(0)}
 25%{transform:rotate(5deg)}
@@ -34,17 +58,41 @@ animation:shake .5s;
 100%{transform:rotate(0)}
 }
 
-.resultado{font-size:24px;margin-top:20px;color:#00ff99}
+.resultado{margin-top:20px;font-size:24px;color:#00ff99}
+.numero{font-size:50px;color:gold}
 
-.historial{margin-top:15px;font-size:14px;opacity:.8}
+.contador{color:gold;margin-top:10px}
+.historial{font-size:14px;margin-top:10px;opacity:.8}
 
-.contador{font-size:20px;color:gold;margin-top:10px}
+/* BOTÓN FIJO */
+.fijo{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:black;
+padding:12px;
+border-top:2px solid gold;
+}
+
+.fijo a{
+background:#00ff88;
+padding:15px 30px;
+border-radius:15px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
 </style>
 </head>
 
 <body>
 
+<header>
 <h1>🔥 DOMINANCIA 88 🔥</h1>
+<p>Sistema ADN Piramidal</p>
+</header>
 
 <div class="card">
 <h3>🎁 Caja Misteriosa</h3>
@@ -54,86 +102,84 @@ animation:shake .5s;
 <div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
 <div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
 <div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
+<div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
 </div>
 
 <div id="resultado" class="resultado"></div>
-<div class="contador" id="contadorGanadores"></div>
-<div class="historial" id="historial"></div>
+<div id="contador" class="contador"></div>
+<div id="historial" class="historial"></div>
 
 </div>
 
 <script>
-let intentoHoy=localStorage.getItem("intentoHoy");
-let fechaHoy=new Date().toDateString();
+function abrirCaja(el){
 
-if(intentoHoy===fechaHoy){
-document.getElementById("resultado").innerText="⚠️ Ya usaste tu intento hoy";
-}
+let hoy=new Date().toDateString();
 
-function abrirCaja(elemento){
-
-if(localStorage.getItem("intentoHoy")===fechaHoy){
+if(localStorage.getItem("intento")==hoy){
+document.getElementById("resultado").innerHTML="⚠️ Ya usaste tu intento hoy";
 return;
 }
 
-elemento.classList.add("abriendo");
+if(navigator.vibrate){navigator.vibrate(200);}
+el.classList.add("abriendo");
 
 setTimeout(()=>{
 
-let tipo=Math.random();
-
-const loterias=["Nacional","Leidsa","Real","Loteka","La Suerte"];
 let numero=Math.floor(Math.random()*100).toString().padStart(2,"0");
+
+let loterias=["Nacional","Leidsa","Real","Loteka"];
 let loteria=loterias[Math.floor(Math.random()*loterias.length)];
 
-let resultadoTexto="";
+let suerte=Math.random();
 
-if(tipo<0.6){
-resultadoTexto=`🔥 Jugada: ${numero} (${loteria})`;
-guardarHistorial(numero,loteria);
-}else if(tipo<0.9){
-resultadoTexto="😲 CASI GANAS ACCESO VIP...";
+if(suerte<0.7){
+document.getElementById("resultado").innerHTML=
+`🔥 Jugada gratis:<br><span class="numero">${numero}</span><br>${loteria}`;
+guardar(numero,loteria);
+}else if(suerte<0.9){
+document.getElementById("resultado").innerHTML=
+"😲 CASI GANAS VIP...";
 }else{
-resultadoTexto="🔒 Acceso VIP oculto — desbloquéalo";
-aumentarGanadores();
+document.getElementById("resultado").innerHTML=
+"🔒 ACCESO VIP BLOQUEADO";
+ganador();
 }
 
-document.getElementById("resultado").innerHTML=resultadoTexto;
-
-localStorage.setItem("intentoHoy",fechaHoy);
+localStorage.setItem("intento",hoy);
 
 },600);
 }
 
-function aumentarGanadores(){
-let total=localStorage.getItem("ganadores") || 120;
-total++;
-localStorage.setItem("ganadores",total);
-mostrarGanadores();
+function ganador(){
+let g=localStorage.getItem("g")||100;
+g++;
+localStorage.setItem("g",g);
+mostrar();
 }
 
-function mostrarGanadores(){
-let total=localStorage.getItem("ganadores") || 120;
-document.getElementById("contadorGanadores").innerText="🔥 "+total+" usuarios desbloquearon VIP";
+function mostrar(){
+let g=localStorage.getItem("g")||100;
+document.getElementById("contador").innerText=
+"🔥 "+g+" usuarios desbloquearon VIP";
 }
 
-function guardarHistorial(numero,loteria){
-let historial=JSON.parse(localStorage.getItem("historial")) || [];
-historial.unshift(numero+" - "+loteria);
-historial=historial.slice(0,5);
-localStorage.setItem("historial",JSON.stringify(historial));
-mostrarHistorial();
-}
+function guardar(n,l){
+let h=JSON.parse(localStorage.getItem("h")||"[]");
+h.unshift(n+" "+l);
+h=h.slice(0,5);
+localStorage.setItem("h",JSON.stringify(h));
 
-function mostrarHistorial(){
-let historial=JSON.parse(localStorage.getItem("historial")) || [];
 document.getElementById("historial").innerHTML=
-"Últimas jugadas:<br>"+historial.join("<br>");
+"Últimas:<br>"+h.join("<br>");
 }
 
-mostrarGanadores();
-mostrarHistorial();
+mostrar();
 </script>
+
+<div class="fijo">
+<a href="#">🔥 VIP FIJO 🔥</a>
+</div>
 
 </body>
 </html>
