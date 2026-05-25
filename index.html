@@ -7,83 +7,33 @@
 
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;font-family:Arial;color:white;text-align:center;padding-bottom:95px;
-background:radial-gradient(circle at top left,rgba(255,215,0,.22),transparent 28%),
-radial-gradient(circle at top right,rgba(0,255,180,.18),transparent 30%),
-linear-gradient(135deg,#05080d,#071923,#102f3d);
-overflow-x:hidden
+body{margin:0;font-family:Arial;color:white;text-align:center;padding-bottom:95px;background:linear-gradient(135deg,#071923,#102f3d,#06141d)}
+header{padding:30px 15px;border-bottom:3px solid gold}
+h1{color:gold;font-size:42px;text-shadow:0 0 25px gold}
+.card{background:rgba(255,255,255,.09);margin:18px;padding:22px;border-radius:22px;box-shadow:0 0 25px rgba(255,215,0,.18)}
+.pred-img{width:100%;max-width:780px;border-radius:18px;border:2px solid gold}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.box{background:black;border:1px solid gold;border-radius:12px;padding:14px;font-weight:bold}
+.links a{display:inline-block;margin:10px;padding:15px 22px;border-radius:14px;color:white;text-decoration:none;font-weight:bold}
+.vip{background:#00c853}
+.canal{background:#128C7E}
+.instagram{background:#E1306C}
+.facebook{background:#1877F2}
+.mystery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.mystery-box{background:linear-gradient(135deg,#111,#443300);border:2px solid gold;border-radius:20px;padding:28px;font-size:48px;cursor:pointer}
+.resultado{margin-top:20px;font-size:24px;color:#00ff99;font-weight:bold}
+.numero{font-size:52px;color:gold}
+#vipBox{display:none;background:#050505;border:1px solid gold;border-radius:20px;padding:22px;margin:20px auto;max-width:640px}
+input{padding:13px;border:none;border-radius:12px;text-align:center}
+button{padding:13px 22px;border:none;border-radius:12px;background:gold;font-weight:bold}
+.fijo{position:fixed;bottom:0;left:0;width:100%;background:black;padding:12px;border-top:2px solid gold}
+.fijo a{background:#00c853;color:white;text-decoration:none;font-weight:bold;padding:15px 30px;border-radius:15px;display:inline-block}
+
+@media(max-width:700px){
+h1{font-size:34px}
+.grid{grid-template-columns:repeat(2,1fr)}
+.links a{display:block;width:85%;margin:12px auto}
 }
-
-header{
-padding:25px;
-border-bottom:2px solid gold;
-background:rgba(0,0,0,.4)
-}
-
-h1{color:gold;font-size:40px}
-
-.card{
-background:rgba(255,255,255,.08);
-margin:15px;
-padding:20px;
-border-radius:20px;
-}
-
-/* 🔥 CAJA 2x2 */
-.mystery-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
-}
-
-.mystery-box{
-background:linear-gradient(135deg,#111,#443300);
-border:2px solid gold;
-border-radius:20px;
-padding:30px;
-font-size:50px;
-cursor:pointer;
-transition:.3s;
-}
-
-.mystery-box:hover{transform:scale(1.08)}
-
-.abriendo{animation:shake .5s}
-@keyframes shake{
-0%{transform:rotate(0)}
-25%{transform:rotate(5deg)}
-50%{transform:rotate(-5deg)}
-75%{transform:rotate(5deg)}
-100%{transform:rotate(0)}
-}
-
-.resultado{margin-top:20px;font-size:24px;color:#00ff99}
-.numero{font-size:50px;color:gold}
-
-.contador{color:gold;margin-top:10px}
-.historial{font-size:14px;margin-top:10px;opacity:.8}
-
-/* BOTÓN FIJO */
-.fijo{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-background:black;
-padding:12px;
-border-top:2px solid gold;
-}
-
-.fijo a{
-background:#00ff88;
-padding:15px 30px;
-border-radius:15px;
-color:white;
-text-decoration:none;
-font-weight:bold;
-}
-
 </style>
 </head>
 
@@ -92,11 +42,43 @@ font-weight:bold;
 <header>
 <h1>🔥 DOMINANCIA 88 🔥</h1>
 <p>Sistema ADN Piramidal</p>
+<p>🟢 ACTIVO HOY</p>
+<p>⚠️ Acceso limitado al sistema completo</p>
 </header>
 
 <div class="card">
-<h3>🎁 Caja Misteriosa</h3>
-<p>1 intento diario — descubre tu jugada</p>
+<h2>ADN PIRAMIDAL — 26 MAYO 2026</h2>
+<p>Sistema basado en supervivencia matemática y reversos activos.</p>
+</div>
+
+<div class="card">
+<h3>Pronóstico visual</h3>
+<img src="pronostico.jpg" class="pred-img">
+</div>
+
+<div class="card">
+<h3>Palés destacados</h3>
+<div class="grid">
+<div class="box">12-35</div>
+<div class="box">35-51</div>
+<div class="box">65-75</div>
+<div class="box">75-34</div>
+</div>
+</div>
+
+<div class="card">
+<h3>Tripletas destacadas</h3>
+<div class="grid">
+<div class="box">12-35-51</div>
+<div class="box">65-75-34</div>
+<div class="box">66-88-35</div>
+<div class="box">45-28-78</div>
+</div>
+</div>
+
+<div class="card">
+<h3>🎁 Caja Misteriosa Dominancia88</h3>
+<p>1 intento diario — jugada gratis del 00 al 99 con lotería indicada</p>
 
 <div class="mystery-grid">
 <div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
@@ -105,80 +87,74 @@ font-weight:bold;
 <div class="mystery-box" onclick="abrirCaja(this)">🎁</div>
 </div>
 
-<div id="resultado" class="resultado"></div>
-<div id="contador" class="contador"></div>
-<div id="historial" class="historial"></div>
+<div id="resultadoCaja" class="resultado"></div>
+<div id="historial" style="margin-top:15px"></div>
+</div>
 
+<div class="card">
+<h3>ÚNETE 🔥</h3>
+<p>📢 +237 personas dentro del canal</p>
+
+<div class="links">
+<a href="#" onclick="abrirVIP()" class="vip">🔥 ACCESO VIP 🔥</a>
+<a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal Oficial</a>
+<a href="#" class="instagram">Instagram</a>
+<a href="#" class="facebook">Facebook</a>
+</div>
+</div>
+
+<div id="vipBox">
+<h3>🔒 Acceso VIP</h3>
+<input type="password" id="clave" placeholder="Introduce clave">
+<br><br>
+<button onclick="verificar()">Entrar</button>
+
+<div id="vipContent" style="display:none;margin-top:20px;">
+<h3>🔥 CONTENIDO VIP 🔥</h3>
+<div class="grid">
+<div class="box">88-32</div>
+<div class="box">14-67</div>
+<div class="box">99-10</div>
+<div class="box">23-45</div>
+</div>
+</div>
 </div>
 
 <script>
-function abrirCaja(el){
+function abrirVIP(){
+document.getElementById("vipBox").style.display="block";
+document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
+}
 
+function verificar(){
+if(document.getElementById("clave").value==="3321"){
+document.getElementById("vipContent").style.display="block";
+}else{
+alert("Clave incorrecta");
+}
+}
+
+function abrirCaja(){
 let hoy=new Date().toDateString();
 
-if(localStorage.getItem("intento")==hoy){
-document.getElementById("resultado").innerHTML="⚠️ Ya usaste tu intento hoy";
+if(localStorage.getItem("intentoCaja")==hoy){
+document.getElementById("resultadoCaja").innerHTML="⚠️ Ya usaste tu intento de hoy. Vuelve mañana.";
 return;
 }
 
-if(navigator.vibrate){navigator.vibrate(200);}
-el.classList.add("abriendo");
-
-setTimeout(()=>{
-
+const loterias=["Lotería Nacional","Leidsa","Real","Loteka","La Suerte","Anguila"];
 let numero=Math.floor(Math.random()*100).toString().padStart(2,"0");
-
-let loterias=["Nacional","Leidsa","Real","Loteka"];
 let loteria=loterias[Math.floor(Math.random()*loterias.length)];
 
-let suerte=Math.random();
+document.getElementById("resultadoCaja").innerHTML=
+`🔥 Jugada gratis:<br><span class="numero">${numero}</span><br>🎯 ${loteria}`;
 
-if(suerte<0.7){
-document.getElementById("resultado").innerHTML=
-`🔥 Jugada gratis:<br><span class="numero">${numero}</span><br>${loteria}`;
-guardar(numero,loteria);
-}else if(suerte<0.9){
-document.getElementById("resultado").innerHTML=
-"😲 CASI GANAS VIP...";
-}else{
-document.getElementById("resultado").innerHTML=
-"🔒 ACCESO VIP BLOQUEADO";
-ganador();
+localStorage.setItem("intentoCaja",hoy);
 }
-
-localStorage.setItem("intento",hoy);
-
-},600);
-}
-
-function ganador(){
-let g=localStorage.getItem("g")||100;
-g++;
-localStorage.setItem("g",g);
-mostrar();
-}
-
-function mostrar(){
-let g=localStorage.getItem("g")||100;
-document.getElementById("contador").innerText=
-"🔥 "+g+" usuarios desbloquearon VIP";
-}
-
-function guardar(n,l){
-let h=JSON.parse(localStorage.getItem("h")||"[]");
-h.unshift(n+" "+l);
-h=h.slice(0,5);
-localStorage.setItem("h",JSON.stringify(h));
-
-document.getElementById("historial").innerHTML=
-"Últimas:<br>"+h.join("<br>");
-}
-
-mostrar();
 </script>
 
 <div class="fijo">
-<a href="#">🔥 VIP FIJO 🔥</a>
+<a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
 </div>
 
 </body>
