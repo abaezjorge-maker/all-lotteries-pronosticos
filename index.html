@@ -6,45 +6,34 @@
 <title>Dominancia88</title>
 
 <style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center}
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center;padding-bottom:90px}
 header{padding:35px 15px;border-bottom:3px solid gold}
 h1{margin:0;font-size:48px;color:gold;text-shadow:0 0 25px rgba(255,215,0,.8)}
 .subtitle{margin-top:10px;opacity:.85}
 .live{margin-top:10px;color:#00ff88;font-weight:bold}
 .alert{color:#ffcc00;font-weight:bold;margin-top:10px}
 #app{max-width:1050px;margin:auto}
-.card{background:rgba(255,255,255,.1);margin:18px;padding:20px;border-radius:18px}
-.pred-img{width:100%;max-width:760px;margin:auto;display:block;border-radius:16px}
+.card{background:rgba(255,255,255,.1);margin:18px;padding:20px;border-radius:18px;box-shadow:0 0 25px rgba(255,215,0,.2)}
+.pred-img{width:100%;max-width:760px;height:auto;margin:auto;display:block;border-radius:16px;box-shadow:0 0 30px rgba(0,0,0,.7)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
-.box{background:black;border:1px solid gold;padding:13px;border-radius:12px}
-
+.box{background:black;border:1px solid gold;padding:13px;border-radius:12px;font-weight:bold}
 .links a{display:inline-block;margin:10px;padding:16px 24px;border-radius:14px;color:white;text-decoration:none;font-weight:bold}
-.vip{background:#25D366;animation:latido 1.2s infinite}
+.vip{background:#25D366;animation:latido 1.2s infinite;box-shadow:0 0 20px rgba(37,211,102,.9)}
 @keyframes latido{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-
 .canal{background:#128C7E}
 .instagram{background:#E1306C}
 .facebook{background:#1877F2}
+#vipBox{display:none;background:black;padding:20px;border-radius:15px;margin:20px auto;max-width:600px}
+input{padding:12px;border-radius:10px;border:none;text-align:center}
+button{padding:12px 18px;border:none;border-radius:10px;background:gold;font-weight:bold}
+.fijo{position:fixed;bottom:0;left:0;width:100%;background:rgba(0,0,0,.92);padding:12px 0;z-index:999;border-top:2px solid gold}
+.fijo a{display:inline-block;background:#25D366;color:white;text-decoration:none;font-weight:bold;padding:14px 28px;border-radius:14px;animation:latido 1.2s infinite}
 
-#vipBox{
-  display:none;
-  background:black;
-  padding:20px;
-  border-radius:15px;
-  margin:20px;
-}
-input{
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  text-align:center;
-}
-button{
-  padding:10px 15px;
-  border:none;
-  border-radius:10px;
-  background:gold;
-  font-weight:bold;
+@media(max-width:600px){
+h1{font-size:34px}
+.card{margin:12px;padding:14px}
+.links a{display:block;width:85%;margin:12px auto}
+.grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -52,123 +41,125 @@ button{
 <body>
 
 <header>
-  <h1>DOMINANCIA88 🔥</h1>
-  <div class="subtitle">Sistema ADN Piramidal</div>
-  <div class="live">🟢 ACTIVO HOY</div>
-  <div id="timer" class="live"></div>
-  <div class="alert">⚠️ Acceso limitado al sistema completo</div>
+<h1>DOMINANCIA88 🔥</h1>
+<div class="subtitle">Sistema ADN Piramidal • Pronóstico automático</div>
+<div class="live">🟢 ACTIVO HOY</div>
+<div id="timer" class="live"></div>
+<div class="alert">⚠️ Acceso limitado al sistema completo</div>
 </header>
 
 <div id="app"></div>
 
 <div id="vipBox">
-  <h3>🔒 Acceso VIP</h3>
-  <input type="password" id="clave" placeholder="Introduce clave">
-  <br><br>
-  <button onclick="verificar()">Entrar</button>
+<h3>🔒 Acceso VIP</h3>
+<input type="password" id="clave" placeholder="Introduce clave">
+<br><br>
+<button onclick="verificar()">Entrar</button>
 
-  <div id="vipContent" style="display:none;margin-top:20px;">
-    <h3>🔥 CONTENIDO VIP 🔥</h3>
-    <p>Jugadas exclusivas desbloqueadas</p>
-
-    <div class="grid">
-      <div class="box">88-32</div>
-      <div class="box">14-67</div>
-      <div class="box">99-10</div>
-      <div class="box">23-45</div>
-    </div>
-  </div>
+<div id="vipContent" style="display:none;margin-top:20px;">
+<h3>🔥 CONTENIDO VIP 🔥</h3>
+<p>Jugadas exclusivas desbloqueadas</p>
+<div class="grid">
+<div class="box">88-32</div>
+<div class="box">14-67</div>
+<div class="box">99-10</div>
+<div class="box">23-45</div>
+</div>
+</div>
 </div>
 
 <script>
 const pronosticos={
-  "2026-05-26":{
-    titulo:"ADN PIRAMIDAL — 26 MAYO 2026",
-    nota:"Sistema basado en análisis estructurado.",
-    imagen:"pronostico.jpg",
-    pales:["12-35","35-51","65-75","75-34"],
-    tripletas:["12-35-51","65-75-34","66-88-35","45-28-78"]
-  }
+"2026-05-26":{
+titulo:"ADN PIRAMIDAL — 26 MAYO 2026",
+nota:"Sistema basado en análisis estructurado.",
+imagen:"pronostico.jpg",
+pales:["12-35","35-51","65-75","75-34"],
+tripletas:["12-35-51","65-75-34","66-88-35","45-28-78"]
+}
 };
 
 function manana(){
-  let h=new Date();
-  h.setDate(h.getDate()+1);
-  return h.toISOString().split("T")[0];
+let h=new Date();
+h.setDate(h.getDate()+1);
+return h.toISOString().split("T")[0];
 }
 
 function render(data,fecha){
 document.getElementById("app").innerHTML=`
-
 <div class="card">
-  <h2>${data.titulo}</h2>
-  <p>${fecha}</p>
+<h2>${data.titulo}</h2>
+<p>${fecha}</p>
+<p>${data.nota}</p>
 </div>
 
 <div class="card">
-  <div class="links">
-    
-<a href="#" onclick="abrirVIP()" class="vip">
-    🔥 ENTRAR AL VIP 🔥
-  </a>
-
-  <a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">
-    📢 Canal
-  </a>
-
+<div class="links">
+<a href="#" onclick="abrirVIP()" class="vip">🔥 ENTRAR AL VIP 🔥</a>
+<a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal</a>
 </div>
 </div>
 
 <div class="card">
-  <img src="${data.imagen}" class="pred-img">
+<img src="${data.imagen}" class="pred-img">
 </div>
 
 <div class="card">
-  <h3>Palés</h3>
-  <div class="grid">${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}</div>
+<h3>📊 Sistemas del día</h3>
+<p><b>🧬 ADN Piramidal:</b> Sistema principal</p>
+<p><b>🔥 Reverso Inteligente:</b> Patrones inversos</p>
+<p><b>📊 Núcleo Activo:</b> Números base</p>
+<p><b>⚡ Impacto Directo:</b> Jugadas rápidas</p>
+<p><b>💣 Sistema Oculto:</b> Solo VIP</p>
 </div>
 
 <div class="card">
-  <h3>Tripletas</h3>
-  <div class="grid">${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}</div>
+<h3>Palés</h3>
+<div class="grid">${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}</div>
 </div>
 
-
+<div class="card">
+<h3>Tripletas</h3>
+<div class="grid">${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}</div>
+</div>
 `;
 }
 
 function abrirVIP(){
-  document.getElementById("vipBox").style.display="block";
+document.getElementById("vipBox").style.display="block";
+document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
 }
 
 function verificar(){
-  let clave=document.getElementById("clave").value;
-  if(clave==="3321"){
-    document.getElementById("vipContent").style.display="block";
-  }else{
-    alert("Clave incorrecta");
-  }
+let clave=document.getElementById("clave").value;
+if(clave==="3321"){
+document.getElementById("vipContent").style.display="block";
+}else{
+alert("Clave incorrecta");
+}
 }
 
 function countdown(){
-  let ahora=new Date();
-  let fin=new Date();
-  fin.setHours(23,59,59);
-  let diff=fin-ahora;
-
-  let h=Math.floor(diff/1000/60/60);
-  let m=Math.floor(diff/1000/60)%60;
-  let s=Math.floor(diff/1000)%60;
-
-  document.getElementById("timer").innerText=
-    `⏳ ${h}h ${m}m ${s}s`;
+let ahora=new Date();
+let fin=new Date();
+fin.setHours(23,59,59,999);
+let diff=fin-ahora;
+let h=Math.floor(diff/1000/60/60);
+let m=Math.floor(diff/1000/60)%60;
+let s=Math.floor(diff/1000)%60;
+document.getElementById("timer").innerText=`⏳ Actualiza en ${h}h ${m}m ${s}s`;
 }
 
 let f=manana();
-render(pronosticos[f],f);
+render(pronosticos[f] || pronosticos["2026-05-26"], f);
 
+countdown();
 setInterval(countdown,1000);
 </script>
+
+<div class="fijo">
+<a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
+</div>
 
 </body>
 </html>
