@@ -756,12 +756,8 @@ function verificarCaja(){
 
   if(fechaGuardada === hoy){
     document.getElementById("resCaja").innerHTML =
-      "⚠️ Intento diario usado.<br>Resultado: 🎁 " + numeroGuardado + " — " + loteriaGuardada;
-
+      "⚠️ Intento diario usado.<br>Resultado: 🔥 " + numeroGuardado + " — " + loteriaGuardada;
     bloquearCajas();
-  }else{
-    document.getElementById("resCaja").innerHTML = "";
-    desbloquearCajas();
   }
 }
 
@@ -770,14 +766,6 @@ function bloquearCajas(){
 
   cajas.forEach(caja=>{
     caja.classList.add("bloqueadaCaja");
-  });
-}
-
-function desbloquearCajas(){
-  let cajas = document.querySelectorAll(".mystery-box");
-
-  cajas.forEach(caja=>{
-    caja.classList.remove("bloqueadaCaja");
   });
 }
 
