@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dominancia 88</title>
+<meta name="theme-color" content="#0f4c81">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Dominancia 88">
+<link rel="manifest" href="manifest.json">
 
 <style>
 *{
@@ -13,22 +18,57 @@
 body{
   margin:0;
   font-family:Arial, sans-serif;
-  color:white;
-  background:url("fondo.jpg.jpeg") center/cover fixed;
+  color:#f0e6d3;
+  background: #0a0000;
 }
 
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.75);
+  z-index:-2;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(120,0,0,.55) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(180,30,0,.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(100,0,0,.45) 0%, transparent 55%),
+    linear-gradient(160deg, #1a0000 0%, #0a0000 40%, #110005 70%, #0a0000 100%);
+}
+
+/* Patrón de rombos estilo tapete de casino */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
   z-index:-1;
+  opacity:.07;
+  background-image:
+    repeating-linear-gradient(45deg,  #c9a84c 0px, #c9a84c 1px, transparent 1px, transparent 18px),
+    repeating-linear-gradient(-45deg, #c9a84c 0px, #c9a84c 1px, transparent 1px, transparent 18px);
+}
+
+/* Brillo dorado animado que recorre la pantalla */
+@keyframes casinoShine {
+  0%   { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%)  rotate(25deg); }
+}
+
+.casino-shine {
+  position:fixed;
+  top:-50%;
+  left:-50%;
+  width:40%;
+  height:200%;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,.07), transparent);
+  z-index:0;
+  pointer-events:none;
+  animation: casinoShine 6s ease-in-out infinite;
 }
 
 h1{
   text-align:center;
-  color:gold;
-  letter-spacing:2px;
+  color:#c9a84c;
+  letter-spacing:3px;
+  text-shadow:0 0 18px rgba(201,168,76,.7), 0 2px 4px rgba(0,0,0,.8);
 }
 
 .admin-bar{
@@ -38,9 +78,10 @@ h1{
 
 .admin-status{
   margin-top:8px;
-  color:#00ff99;
+  color:#c9a84c;
   font-weight:bold;
   font-size:18px;
+  text-shadow:0 0 10px rgba(201,168,76,.5);
 }
 
 .grid{
@@ -51,33 +92,48 @@ h1{
 }
 
 .card{
-  background:rgba(0,0,0,.7);
-  border:1px solid gold;
+  background: linear-gradient(145deg, rgba(30,5,5,.92), rgba(18,2,2,.95));
+  border:1px solid rgba(201,168,76,.4);
   border-radius:18px;
   padding:15px;
-  box-shadow:0 0 20px rgba(255,215,0,.4);
+  box-shadow:0 10px 35px rgba(0,0,0,.7), inset 0 1px 0 rgba(201,168,76,.15);
   min-height:260px;
+  backdrop-filter:blur(8px);
+  position:relative;
+  z-index:1;
 }
 
 button{
   padding:10px 15px;
-  background:gold;
+  background: linear-gradient(135deg, #b8860b, #c9a84c, #b8860b);
+  color:#1a0000;
   border:none;
   border-radius:10px;
   cursor:pointer;
   font-weight:bold;
+  box-shadow:0 4px 15px rgba(201,168,76,.4), inset 0 1px 0 rgba(255,255,255,.2);
+  transition: transform .15s, box-shadow .15s;
 }
 
 button:hover{
-  transform:scale(1.03);
+  transform:scale(1.04);
+  box-shadow:0 6px 22px rgba(201,168,76,.65);
 }
 
 .resultado{
   margin-top:10px;
-  color:#00ff99;
+  color:#c9a84c;
   font-weight:bold;
   line-height:1.5;
 }
+
+/* Todos los h3 de las cards en dorado */
+.card h3 {
+  color: #c9a84c;
+  text-shadow: 0 0 10px rgba(201,168,76,.35);
+}
+
+/* VIP animation overrides */
 
 /* PANEL VIP */
 .panel-vip{
@@ -90,18 +146,19 @@ button:hover{
 
 .panel-vip h3{
   font-size:28px;
-  color:gold;
+  color:#c9a84c;
   margin:0 0 18px 0;
+  text-shadow:0 0 12px rgba(201,168,76,.5);
 }
 
 .panel-vip-box{
   width:100%;
   min-height:185px;
-  border:1px solid rgba(255,215,0,.55);
+  border:1px solid rgba(201,168,76,.3);
   border-radius:18px;
   padding:28px 22px;
-  background:rgba(0,0,0,.62);
-  box-shadow:0 0 20px rgba(255,215,0,.22);
+  background: linear-gradient(145deg, rgba(40,5,5,.85), rgba(20,0,0,.9));
+  box-shadow:0 8px 22px rgba(0,0,0,.5), inset 0 1px 0 rgba(201,168,76,.1);
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -112,6 +169,7 @@ button:hover{
   line-height:1.7;
   margin:8px 0;
   font-size:16px;
+  color:#d4b896;
 }
 
 .panel-vip-desc{
@@ -119,7 +177,7 @@ button:hover{
 }
 
 .estado-vip{
-  color:#ffcc00;
+  color:#c9a84c;
   font-weight:bold;
   font-size:17px;
 }
@@ -136,11 +194,40 @@ button:hover{
   border-radius:12px;
   margin-top:15px;
   display:none;
-  border:1px solid gold;
+  border:1px solid rgba(47,111,167,.45);
 }
 
 .pred-img.desbloqueado{
   display:block;
+  animation: vipReveal 0.7s cubic-bezier(.22,.8,.35,1) both;
+}
+
+@keyframes vipReveal {
+  0%   { opacity:0; transform:scale(.88) translateY(18px); filter:blur(6px); }
+  60%  { opacity:1; transform:scale(1.04) translateY(-4px); filter:blur(0); }
+  100% { opacity:1; transform:scale(1) translateY(0); }
+}
+
+/* Animación del estado VIP al desbloquearse */
+.estado-vip.desbloqueado-texto {
+  animation: popIn .45s cubic-bezier(.22,.8,.35,1) both;
+}
+
+@keyframes popIn {
+  0%   { transform:scale(.7); opacity:0; }
+  70%  { transform:scale(1.12); opacity:1; }
+  100% { transform:scale(1); }
+}
+
+/* Brillo en el panel VIP al desbloquear */
+.panel-vip-box.desbloqueado-box {
+  animation: brilloVIP 1s ease forwards;
+}
+
+@keyframes brilloVIP {
+  0%   { box-shadow: 0 8px 22px rgba(0,0,0,.5); }
+  40%  { box-shadow: 0 0 45px rgba(201,168,76,.7), 0 8px 22px rgba(0,0,0,.5); }
+  100% { box-shadow: 0 8px 22px rgba(0,0,0,.5); }
 }
 
 /* RULETA MEJORADA */
@@ -150,8 +237,9 @@ button:hover{
 
 .ruleta-card h3{
   font-size:24px;
-  color:gold;
+  color:#c9a84c;
   margin-bottom:10px;
+  text-shadow:0 0 10px rgba(201,168,76,.4);
 }
 
 .ruleta{
@@ -231,11 +319,11 @@ button:hover{
 .res-ruleta-grande{
   margin-top:16px;
   font-size:28px;
-  color:#00ff99;
+  color:#c9a84c;
   font-weight:900;
   line-height:1.5;
   text-align:center;
-  text-shadow:0 0 14px rgba(0,255,153,.55);
+  text-shadow:0 0 14px rgba(201,168,76,.6);
 }
 
 /* TRIPLETA DIARIA */
@@ -249,8 +337,9 @@ button:hover{
 
 .tripleta-card h3{
   font-size:30px;
-  color:gold;
+  color:#c9a84c;
   margin:10px 0 18px 0;
+  text-shadow:0 0 10px rgba(201,168,76,.4);
 }
 
 .btn-tripleta{
@@ -261,23 +350,23 @@ button:hover{
 
 .tripleta-numero{
   font-size:42px;
-  color:#00ff99;
+  color:#c9a84c;
   font-weight:bold;
   letter-spacing:2px;
-  text-shadow:0 0 15px rgba(0,255,153,.7);
+  text-shadow:0 0 18px rgba(201,168,76,.7);
   margin:15px 0 8px 0;
 }
 
 .tripleta-loteria{
   font-size:22px;
-  color:gold;
+  color:#e07070;
   font-weight:bold;
   margin-top:8px;
 }
 
 .tripleta-estado{
   font-size:15px;
-  color:#00ff99;
+  color:#c9a84c;
   margin-top:8px;
 }
 
@@ -292,8 +381,8 @@ button:hover{
 .mystery-box{
   min-height:85px;
   font-size:42px;
-  background:#222;
-  border:2px solid gold;
+  background: linear-gradient(145deg, rgba(50,5,5,.9), rgba(30,0,0,.95));
+  border:2px solid rgba(201,168,76,.35);
   border-radius:15px;
   cursor:pointer;
   display:flex;
@@ -303,8 +392,9 @@ button:hover{
 }
 
 .mystery-box:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px gold;
+  transform:scale(1.06);
+  box-shadow:0 0 22px rgba(201,168,76,.5);
+  border-color:rgba(201,168,76,.7);
 }
 
 .mystery-box.bloqueadaCaja{
@@ -315,7 +405,7 @@ button:hover{
 
 .caja-card h3{
   font-size:22px;
-  color:gold;
+  color:#c9a84c;
 }
 
 .caja-card .resultado{
@@ -327,7 +417,7 @@ button:hover{
 .como-funciona{
   padding-left:22px;
   line-height:1.8;
-  color:#f5f5f5;
+  color:#d4b896;
   font-size:15px;
 }
 
@@ -342,17 +432,17 @@ button:hover{
 
 .precio-vip{
   font-size:16px;
-  color:#ffffff;
+  color:#d4b896;
   margin:12px 0;
 }
 
 .precio-vip strong{
-  color:gold;
+  color:#c9a84c;
   font-size:20px;
 }
 
 .incluye-titulo{
-  color:gold;
+  color:#c9a84c;
   font-weight:bold;
   margin-top:15px;
 }
@@ -364,6 +454,7 @@ button:hover{
   line-height:1.9;
   text-align:left;
   display:inline-block;
+  color:#d4b896;
 }
 
 .btn-whatsapp{
@@ -386,11 +477,11 @@ button:hover{
 
 @media(max-width:1100px){
   .grid{
-    grid-template-columns:1fr;
+    grid-template-columns:1fr 1fr;
   }
 }
 
-@media(max-width:900px){
+@media(max-width:700px){
   .grid{
     grid-template-columns:1fr;
   }
@@ -414,11 +505,17 @@ button:hover{
   .tripleta-numero{
     font-size:34px;
   }
+
+  .ruleta-card h3{
+    font-size:20px;
+  }
 }
 </style>
 </head>
 
 <body onload="iniciarPagina()">
+
+<div class="casino-shine" aria-hidden="true"></div>
 
 <h1>🔥 DOMINANCIA 88 🔥</h1>
 
@@ -439,23 +536,23 @@ button:hover{
       <button class="btn-vip-panel" onclick="vip()">Desbloquear acceso</button>
     </div>
 
-    <img id="img" src="pronostico.jpg" class="pred-img">
+    <img id="img" src="pronostico.jpg" class="pred-img" alt="Pronóstico VIP del día">
   </div>
 
   <!-- RULETA -->
   <div class="card ruleta-card">
     <h3>🎡 Ruleta</h3>
 
-    <div class="puntero"></div>
+    <div class="puntero" aria-hidden="true"></div>
 
-    <div class="ruleta">
+    <div class="ruleta" role="img" aria-label="Ruleta de números del 1 al 25">
       <div id="ruleta" class="ruleta-inner">
-        <div class="centro-ruleta"></div>
+        <div class="centro-ruleta" aria-hidden="true"></div>
       </div>
     </div>
 
-    <button class="btn-ruleta" onclick="girar()">Girar</button>
-    <div id="resRuleta" class="res-ruleta-grande">🎯 Esperando giro...</div>
+    <button class="btn-ruleta" onclick="girar()" aria-label="Girar la ruleta">Girar</button>
+    <div id="resRuleta" class="res-ruleta-grande" aria-live="polite">🎯 Esperando giro...</div>
   </div>
 
   <!-- TRIPLETA DIARIA -->
@@ -474,13 +571,13 @@ button:hover{
     <h3>🎁 Caja Misteriosa</h3>
 
     <div class="cajas">
-      <div class="mystery-box" onclick="caja()">🎁</div>
-      <div class="mystery-box" onclick="caja()">🎁</div>
-      <div class="mystery-box" onclick="caja()">🎁</div>
-      <div class="mystery-box" onclick="caja()">🎁</div>
+      <div class="mystery-box" onclick="caja()" role="button" tabindex="0" aria-label="Abrir caja misteriosa 1">🎁</div>
+      <div class="mystery-box" onclick="caja()" role="button" tabindex="0" aria-label="Abrir caja misteriosa 2">🎁</div>
+      <div class="mystery-box" onclick="caja()" role="button" tabindex="0" aria-label="Abrir caja misteriosa 3">🎁</div>
+      <div class="mystery-box" onclick="caja()" role="button" tabindex="0" aria-label="Abrir caja misteriosa 4">🎁</div>
     </div>
 
-    <div id="resCaja" class="resultado"></div>
+    <div id="resCaja" class="resultado" aria-live="polite"></div>
   </div>
 
   <!-- CÓMO FUNCIONA -->
@@ -545,7 +642,7 @@ function loteriaAleatoria(){
 }
 
 function fechaHoy(){
-  return new Date().toLocaleDateString();
+  return new Date().toISOString().slice(0, 10);
 }
 
 function esAdmin(){
@@ -569,7 +666,7 @@ function iniciarPagina(){
 ========================= */
 
 function activarAdmin(){
-  let clave = prompt("Introduce la clave de administrador:");
+  const clave = prompt("Introduce la clave de administrador:");
 
   if(clave === claveAdmin){
     localStorage.setItem("modoAdmin", "activo");
@@ -583,12 +680,7 @@ function activarAdmin(){
 
 function verificarAdmin(){
   const estado = document.getElementById("adminStatus");
-
-  if(esAdmin()){
-    estado.innerHTML = "✅ Modo administrador activo: intentos ilimitados";
-  }else{
-    estado.innerHTML = "";
-  }
+  estado.textContent = esAdmin() ? "✅ Modo administrador activo: intentos ilimitados" : "";
 }
 
 function desbloquearTodoAdmin(){
@@ -602,11 +694,22 @@ function desbloquearTodoAdmin(){
 ========================= */
 
 function vip(){
-  let clave = prompt("Introduce la clave VIP:");
+  const clave = prompt("Introduce la clave VIP:");
 
   if(clave === claveVIP || esAdmin()){
-    document.getElementById("img").classList.add("desbloqueado");
-    document.getElementById("estadoVIP").innerHTML = "✅ Estado: desbloqueado";
+    const img = document.getElementById("img");
+    const estadoEl = document.getElementById("estadoVIP");
+    const box = document.querySelector(".panel-vip-box");
+
+    img.classList.add("desbloqueado");
+    estadoEl.textContent = "✅ Estado: desbloqueado";
+
+    // Animaciones
+    estadoEl.classList.remove("desbloqueado-texto");
+    box.classList.remove("desbloqueado-box");
+    void estadoEl.offsetWidth; // forzar reflow para reiniciar animación
+    estadoEl.classList.add("desbloqueado-texto");
+    box.classList.add("desbloqueado-box");
   }else{
     alert("Clave incorrecta");
   }
@@ -617,6 +720,7 @@ function vip(){
 ========================= */
 
 let gradosActuales = 0;
+let ruletaGirando = false;
 
 function crearNumerosRuleta(){
   const ruleta = document.getElementById("ruleta");
@@ -644,60 +748,72 @@ function crearNumerosRuleta(){
 }
 
 function girar(){
-  let hoy = fechaHoy();
+  if(ruletaGirando) return;
+
+  const hoy = fechaHoy();
   let intentos = Number(localStorage.getItem("ruletaIntentos_" + hoy)) || 0;
-  let r = document.getElementById("ruleta");
-  let resultado = document.getElementById("resRuleta");
+  const resultado = document.getElementById("resRuleta");
 
   if(!esAdmin() && intentos >= 2){
-    let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
+    const ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
 
-    resultado.innerHTML = ultimoResultado
-      ? "⚠️ Ya usaste tus 2 intentos de hoy<br>" + ultimoResultado
+    resultado.textContent = ultimoResultado
+      ? "⚠️ Ya usaste tus 2 intentos de hoy — " + ultimoResultado
       : "⚠️ Ya usaste tus 2 intentos de hoy";
 
     return;
   }
 
-  resultado.innerHTML = "🎡 Girando...";
+  ruletaGirando = true;
+  resultado.textContent = "🎡 Girando...";
 
-  let giroExtra = 360 * 6 + Math.floor(Math.random() * 360);
-  gradosActuales += giroExtra;
+  const total = 25;
+  const anguloPorSeccion = 360 / total;
 
+  // Elegir número primero, luego calcular el ángulo exacto para que quede arriba
+  const numeroElegido = Math.floor(Math.random() * total) + 1;
+  const loteria = loteriaAleatoria();
+
+  // Posición del número en la ruleta (0-indexed)
+  const indice = numeroElegido - 1;
+  const anguloDestino = indice * anguloPorSeccion;
+
+  // Girar múltiples vueltas y terminar con el número arriba (puntero apunta a 0°)
+  const vueltas = 6 * 360;
+  const ajuste = (360 - anguloDestino) % 360;
+  gradosActuales = Math.ceil(gradosActuales / 360) * 360 + vueltas + ajuste;
+
+  const r = document.getElementById("ruleta");
   r.style.transform = "rotate(" + gradosActuales + "deg)";
 
   setTimeout(() => {
-    let numero = Math.floor(Math.random() * 25) + 1;
-    let loteria = loteriaAleatoria();
+    ruletaGirando = false;
 
     if(!esAdmin()){
       intentos++;
       localStorage.setItem("ruletaIntentos_" + hoy, intentos);
     }
 
-    let textoResultado = esAdmin()
-      ? `🔥 ${numero} — ${loteria}<br>Modo admin: ilimitado`
-      : `🔥 ${numero} — ${loteria}<br>Intento ${intentos}/2`;
+    const textoResultado = esAdmin()
+      ? `🔥 ${numeroElegido} — ${loteria} | Modo admin: ilimitado`
+      : `🔥 ${numeroElegido} — ${loteria} | Intento ${intentos}/2`;
 
     localStorage.setItem("ruletaUltimoResultado_" + hoy, textoResultado);
+    resultado.textContent = textoResultado;
 
-    resultado.innerHTML = textoResultado;
-
-  }, 4000);
+  }, 4200);
 }
 
 function verificarRuleta(){
-  if(esAdmin()){
-    return;
-  }
+  if(esAdmin()) return;
 
-  let hoy = fechaHoy();
-  let intentos = Number(localStorage.getItem("ruletaIntentos_" + hoy)) || 0;
-  let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
+  const hoy = fechaHoy();
+  const intentos = Number(localStorage.getItem("ruletaIntentos_" + hoy)) || 0;
+  const ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
 
   if(intentos > 0 && ultimoResultado){
-    document.getElementById("resRuleta").innerHTML =
-      ultimoResultado + `<br>Usados: ${intentos}/2`;
+    document.getElementById("resRuleta").textContent =
+      ultimoResultado + ` | Usados: ${intentos}/2`;
   }
 }
 
@@ -705,36 +821,37 @@ function verificarRuleta(){
    CAJA MISTERIOSA
 ========================= */
 
+function mostrarResultadoCaja(numero, loteria, esLimitado){
+  const msg = esLimitado
+    ? `🔥 ${numero} — ${loteria} | Modo admin: ilimitado`
+    : `🔥 ${numero} — ${loteria}`;
+  document.getElementById("resCaja").textContent = msg;
+}
+
 function caja(){
-  let hoy = fechaHoy();
-  let fechaGuardada = localStorage.getItem("cajaFecha");
-  let numeroGuardado = localStorage.getItem("cajaNumero");
-  let loteriaGuardada = localStorage.getItem("cajaLoteria");
+  const hoy = fechaHoy();
+  const fechaGuardada = localStorage.getItem("cajaFecha");
+  const numeroGuardado = localStorage.getItem("cajaNumero");
+  const loteriaGuardada = localStorage.getItem("cajaLoteria");
 
   if(!esAdmin() && fechaGuardada === hoy){
-    document.getElementById("resCaja").innerHTML =
-      "⚠️ Intento diario usado.<br>Resultado: 🔥 " + numeroGuardado + " — " + loteriaGuardada;
+    document.getElementById("resCaja").textContent =
+      `⚠️ Intento diario usado. Resultado: 🔥 ${numeroGuardado} — ${loteriaGuardada}`;
     bloquearCajas();
     return;
   }
 
-  let n = Math.floor(Math.random() * 100).toString().padStart(2,"0");
-  let loteria = loteriaAleatoria();
+  const n = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  const loteria = loteriaAleatoria();
 
   if(!esAdmin()){
     localStorage.setItem("cajaFecha", hoy);
     localStorage.setItem("cajaNumero", n);
     localStorage.setItem("cajaLoteria", loteria);
-  }
-
-  document.getElementById("resCaja").innerHTML =
-    esAdmin()
-      ? "🔥 " + n + " — " + loteria + "<br>Modo admin: ilimitado"
-      : "🔥 " + n + " — " + loteria;
-
-  if(!esAdmin()){
     bloquearCajas();
   }
+
+  mostrarResultadoCaja(n, loteria, esAdmin());
 }
 
 function verificarCaja(){
@@ -743,14 +860,14 @@ function verificarCaja(){
     return;
   }
 
-  let hoy = fechaHoy();
-  let fechaGuardada = localStorage.getItem("cajaFecha");
-  let numeroGuardado = localStorage.getItem("cajaNumero");
-  let loteriaGuardada = localStorage.getItem("cajaLoteria");
+  const hoy = fechaHoy();
+  const fechaGuardada = localStorage.getItem("cajaFecha");
 
   if(fechaGuardada === hoy){
-    document.getElementById("resCaja").innerHTML =
-      "⚠️ Intento diario usado.<br>Resultado: 🔥 " + numeroGuardado + " — " + loteriaGuardada;
+    const numeroGuardado = localStorage.getItem("cajaNumero");
+    const loteriaGuardada = localStorage.getItem("cajaLoteria");
+    document.getElementById("resCaja").textContent =
+      `⚠️ Intento diario usado. Resultado: 🔥 ${numeroGuardado} — ${loteriaGuardada}`;
     bloquearCajas();
   }
 }
@@ -767,63 +884,65 @@ function bloquearCajas(){
    TRIPLETA DIARIA
 ========================= */
 
+function mostrarTripleta(datos){
+  document.getElementById("tripletaNumero").textContent = datos.numeros;
+  document.getElementById("tripletaLoteria").textContent = "📍 " + datos.loteria;
+}
+
 function tripleta(){
-  let hoy = fechaHoy();
+  const hoy = fechaHoy();
 
   if(!esAdmin() && localStorage.getItem("tripFecha") === hoy){
-    let tripletaGuardada = localStorage.getItem("tripletaResultado");
+    document.getElementById("tripletaEstado").textContent = "⚠️ Ya usaste tu intento de hoy";
 
-    document.getElementById("tripletaEstado").innerHTML =
-      "⚠️ Ya usaste tu intento de hoy";
-
+    const tripletaGuardada = localStorage.getItem("tripletaResultado");
     if(tripletaGuardada){
-      let datos = JSON.parse(tripletaGuardada);
-      document.getElementById("tripletaNumero").innerHTML = datos.numeros;
-      document.getElementById("tripletaLoteria").innerHTML = "📍 " + datos.loteria;
+      mostrarTripleta(JSON.parse(tripletaGuardada));
     }
-
     return;
   }
 
-  let a = Math.floor(Math.random() * 100).toString().padStart(2,"0");
-  let b = Math.floor(Math.random() * 100).toString().padStart(2,"0");
-  let c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
-  let loteria = loteriaAleatoria();
+  const a = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  const b = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  const c = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  const loteria = loteriaAleatoria();
+  const numeros = `${a} - ${b} - ${c}`;
 
-  let numeros = `${a} - ${b} - ${c}`;
-
-  document.getElementById("tripletaNumero").innerHTML = numeros;
-  document.getElementById("tripletaLoteria").innerHTML = "📍 " + loteria;
+  mostrarTripleta({ numeros, loteria });
 
   if(esAdmin()){
-    document.getElementById("tripletaEstado").innerHTML = "Modo admin: ilimitado";
+    document.getElementById("tripletaEstado").textContent = "Modo admin: ilimitado";
   }else{
-    document.getElementById("tripletaEstado").innerHTML = "Intento diario usado";
+    document.getElementById("tripletaEstado").textContent = "Intento diario usado";
     localStorage.setItem("tripFecha", hoy);
-    localStorage.setItem("tripletaResultado", JSON.stringify({
-      numeros:numeros,
-      loteria:loteria
-    }));
+    localStorage.setItem("tripletaResultado", JSON.stringify({ numeros, loteria }));
   }
 }
 
 function verificarTripleta(){
-  if(esAdmin()){
-    return;
-  }
+  if(esAdmin()) return;
 
-  let hoy = fechaHoy();
+  const hoy = fechaHoy();
 
   if(localStorage.getItem("tripFecha") === hoy){
-    let tripletaGuardada = localStorage.getItem("tripletaResultado");
+    const tripletaGuardada = localStorage.getItem("tripletaResultado");
 
     if(tripletaGuardada){
-      let datos = JSON.parse(tripletaGuardada);
-      document.getElementById("tripletaNumero").innerHTML = datos.numeros;
-      document.getElementById("tripletaLoteria").innerHTML = "📍 " + datos.loteria;
-      document.getElementById("tripletaEstado").innerHTML = "⚠️ Ya usaste tu intento de hoy";
+      mostrarTripleta(JSON.parse(tripletaGuardada));
+      document.getElementById("tripletaEstado").textContent = "⚠️ Ya usaste tu intento de hoy";
     }
   }
+}
+
+/* =========================
+   PWA - SERVICE WORKER
+========================= */
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js")
+      .catch(err => console.warn("SW no registrado:", err));
+  });
 }
 
 </script>
