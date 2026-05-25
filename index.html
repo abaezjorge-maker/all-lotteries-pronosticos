@@ -1,102 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Dominancia88</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-      color: white;
-      text-align: center;
-    }
-
-    header {
-      padding: 40px 20px;
-      border-bottom: 3px solid gold;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 50px;
-      letter-spacing: 3px;
-      color: gold;
-      text-shadow: 0 0 20px rgba(255,215,0,0.6);
-    }
-
-    .subtitle {
-      margin-top: 10px;
-      opacity: 0.7;
-      font-size: 16px;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.1);
-      margin: 20px;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255,215,0,0.2);
-    }
-
-    .numbers {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .num {
-      background: gold;
-      color: black;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px,1fr));
-      gap: 10px;
-    }
-
-    .box {
-      background: black;
-      border: 1px solid gold;
-      padding: 10px;
-      border-radius: 10px;
-    }
-
-    .links a {
-      display: inline-block;
-      margin: 10px;
-      padding: 14px 22px;
-      border-radius: 12px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .links a:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 15px rgba(255,255,255,0.4);
-    }
-
-    .whatsapp { 
-      background:#25D366; 
-      box-shadow: 0 0 15px rgba(37,211,102,0.7);
-    }
-
-    .instagram { background:#E1306C; }
-    .facebook { background:#1877F2; }
-
-  </style>
+<meta charset="UTF-8">
+<title>Dominancia88</title>
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:white;text-align:center}
+header{padding:40px 20px;border-bottom:3px solid gold}
+h1{margin:0;font-size:50px;letter-spacing:3px;color:gold;text-shadow:0 0 20px rgba(255,215,0,.6)}
+.subtitle{margin-top:10px;opacity:.8}
+.card{background:rgba(255,255,255,.1);margin:20px;padding:20px;border-radius:15px;box-shadow:0 0 20px rgba(255,215,0,.2)}
+.pred-img{max-width:100%;border-radius:15px;box-shadow:0 0 25px rgba(0,0,0,.6)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px}
+.box{background:#050505;border:1px solid gold;padding:12px;border-radius:12px;font-weight:bold}
+.links a{display:inline-block;margin:10px;padding:14px 22px;border-radius:12px;color:white;text-decoration:none;font-weight:bold;transition:.3s}
+.links a:hover{transform:scale(1.08)}
+.whatsapp{background:#25D366;box-shadow:0 0 15px rgba(37,211,102,.7)}
+.canal{background:#128C7E;box-shadow:0 0 15px rgba(18,140,126,.8)}
+.instagram{background:#E1306C}
+.facebook{background:#1877F2}
+</style>
 </head>
 
 <body>
@@ -109,120 +31,63 @@
 <div id="app"></div>
 
 <script>
-
-/* ===== PRONOSTICOS ===== */
-
 const pronosticos = {
-
   "2026-05-26": {
     titulo: "ADN PIRAMIDAL — 26 MAYO 2026",
     nota: "Sistema basado en supervivencia matemática y reversos activos.",
-
-    quinielas: ["12","35","51","65","75","34","66","88","45","28","78","50","49","59","57","77","68","73","25","79","85"],
-
-    pales: [
-      "12-35","35-51",
-      "65-75","75-34",
-      "66-88","88-35",
-      "45-28","28-78",
-      "50-49","49-59",
-      "57-77","77-49",
-      "12-26","26-51",
-      "68-73","73-25",
-      "79-85","85-45"
-    ],
-
-    tripletas: [
-      "12-35-51",
-      "65-75-34",
-      "66-88-35",
-      "45-28-78",
-      "50-49-59",
-      "57-77-49",
-      "12-26-51",
-      "68-73-25",
-      "79-85-45"
-    ]
+    imagen: "pronostico.jpg",
+    pales: ["12-35","35-51","65-75","75-34"],
+    tripletas: ["12-35-51","65-75-34","66-88-35","45-28-78"]
   }
-
 };
 
-/* ===== LOGICA ===== */
-
-function manana() {
-  let hoy = new Date();
+function manana(){
+  let hoy=new Date();
   hoy.setDate(hoy.getDate()+1);
   return hoy.toISOString().split("T")[0];
 }
 
-function render(data, fecha) {
-  document.getElementById("app").innerHTML = `
+function render(data,fecha){
+document.getElementById("app").innerHTML=`
+  <div class="card">
+    <h2>${data.titulo}</h2>
+    <p>${fecha}</p>
+    <p>${data.nota}</p>
+  </div>
 
-    <div class="card">
-      <h2>${data.titulo}</h2>
-      <p>${fecha}</p>
-      <p>${data.nota}</p>
+  <div class="card">
+    <h3>Pronóstico visual</h3>
+    <img src="${data.imagen}" class="pred-img" alt="Pronóstico Dominancia88">
+  </div>
+
+  <div class="card">
+    <h3>Palés destacados</h3>
+    <div class="grid">${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}</div>
+  </div>
+
+  <div class="card">
+    <h3>Tripletas destacadas</h3>
+    <div class="grid">${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}</div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:gold;">ÚNETE 🔥</h3>
+    <div class="links">
+      <a href="https://wa.me/8496316472" target="_blank" class="whatsapp">🔥 Para el VIP</a>
+      <a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal Oficial +100 personas dentro</a>
+      <a href="https://www.instagram.com/dominancia88?igsh=MWdhdDV2cmxxanc4bA%3D%3D&utm_source=qr" target="_blank" class="instagram">Instagram</a>
+      <a href="https://www.facebook.com/share/18nVW9k9QS/?mibextid=wwXIfr" target="_blank" class="facebook">Facebook</a>
     </div>
-
-    <div class="card">
-      <h3>Quinielas</h3>
-      <div class="numbers">
-        ${data.quinielas.map(n=>`<div class="num">${n}</div>`).join("")}
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Palés</h3>
-      <div class="grid">
-        ${data.pales.map(n=>`<div class="box">${n}</div>`).join("")}
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Tripletas</h3>
-      <div class="grid">
-        ${data.tripletas.map(n=>`<div class="box">${n}</div>`).join("")}
-      </div>
-    </div>
-
-    <div class="card">
-      <h3 style="color:gold;">ÚNETE 🔥</h3>
-
-      <div class="links">
-        <a href="https://wa.me/8496316472" target="_blank" class="whatsapp">
-          🔥 Entrar al WhatsApp
-        </a>
-
-        <a href="https://www.instagram.com/dominancia88?igsh=MWdhdDV2cmxxanc4bA%3D%3D&utm_source=qr" target="_blank" class="instagram">
-          Instagram
-        </a>
-
-        <a href="https://www.facebook.com/share/18nVW9k9QS/?mibextid=wwXIfr" target="_blank" class="facebook">
-          Facebook
-        </a>
-      </div>
-    </div>
-
-  `;
+  </div>
+`;
 }
 
-function empty(fecha) {
-  document.getElementById("app").innerHTML = `
-    <div class="card">
-      <h2>No hay pronóstico cargado</h2>
-      <p>${fecha}</p>
-    </div>
-  `;
+function empty(fecha){
+document.getElementById("app").innerHTML=`<div class="card"><h2>No hay pronóstico cargado</h2><p>${fecha}</p></div>`;
 }
 
-let f = manana();
-
-if (pronosticos[f]) {
-  render(pronosticos[f], f);
-} else {
-  empty(f);
-}
-
+let f=manana();
+pronosticos[f] ? render(pronosticos[f],f) : empty(f);
 </script>
 
 </body>
