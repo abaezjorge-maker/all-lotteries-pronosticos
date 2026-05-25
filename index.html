@@ -8,295 +8,224 @@
 <style>
 *{box-sizing:border-box}
 
-/* 🔥 FONDO CASINO REAL */
 body{
 margin:0;
 font-family:Arial;
 color:white;
-text-align:center;
-padding-bottom:90px;
-
-background:url("fondo.jpg.jpeg") no-repeat center center fixed;
-background-size:cover;
+background:url("fondo.jpg.jpeg") center/cover fixed;
 }
 
-/* 🔥 CAPA OSCURA ENCIMA (IMPORTANTE) */
 body::before{
 content:"";
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.65);
+background:rgba(0,0,0,.75);
 z-index:-1;
 }
 
-/* HEADER */
-header{
-padding:25px 15px;
+/* GRID PRINCIPAL */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:15px;
+padding:15px;
 }
 
-h1{
-color:gold;
-font-size:38px;
-text-shadow:0 0 20px gold;
-}
-
-/* CARDS TIPO GLASS */
 .card{
-background:rgba(0,0,0,0.55);
-margin:12px;
-padding:18px;
-border-radius:18px;
-border:1px solid rgba(255,215,0,0.3);
-box-shadow:0 0 20px rgba(255,215,0,0.2);
-backdrop-filter: blur(6px);
-}
-
-/* BOTONES */
-.links a{
-display:inline-block;
-margin:8px;
-padding:14px 20px;
-border-radius:12px;
-color:white;
-text-decoration:none;
-font-weight:bold;
+background:rgba(0,0,0,.7);
 border:1px solid gold;
-box-shadow:0 0 10px rgba(255,215,0,.4);
+border-radius:18px;
+padding:15px;
+box-shadow:0 0 20px rgba(255,215,0,.4);
 }
 
-.vip{background:linear-gradient(45deg,#00c853,#009624)}
-.canal{background:#128C7E}
-.instagram{background:#E1306C}
-.facebook{background:#1877F2}
-
-/* PRONÓSTICO BLOQUEADO */
-.pred-wrap{position:relative;max-width:780px;margin:auto}
+/* PRONÓSTICO */
 .pred-img{
 width:100%;
-border-radius:15px;
-border:2px solid gold;
-filter:blur(8px);
+border-radius:10px;
+filter:blur(6px);
 }
-.pred-img.desbloqueada{filter:blur(0)}
+.desbloqueado{filter:blur(0)}
 
 .overlay{
 position:absolute;
 inset:0;
-background:rgba(0,0,0,.7);
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 flex-direction:column;
-border-radius:15px;
+background:rgba(0,0,0,.6);
+border-radius:10px;
 }
-
-.overlay.oculto{display:none}
 
 /* RULETA */
 .ruleta{
-width:240px;
-height:240px;
+width:200px;
+height:200px;
 border-radius:50%;
+margin:auto;
 border:5px solid gold;
-margin:20px auto;
 overflow:hidden;
-box-shadow:0 0 40px gold;
+box-shadow:0 0 30px gold;
 }
-
 .ruleta-inner{
 width:100%;
 height:100%;
 border-radius:50%;
-transition:transform 4s ease-out;
+transition:transform 4s;
 background:conic-gradient(
-gold 0 45deg,
-#111 45deg 90deg,
-#00c853 90deg 135deg,
-#111 135deg 180deg,
-gold 180deg 225deg,
-#111 225deg 270deg,
-#E1306C 270deg 315deg,
-#111 315deg 360deg
+gold 0 45deg,#111 45 90,#0f0 90 135,#111 135 180,
+gold 180 225,#111 225 270,#f0f 270 315,#111 315 360
 );
 }
 
-.pointer{font-size:30px}
+/* CAJA */
+.mystery-box{
+padding:25px;
+font-size:40px;
+background:#222;
+border:2px solid gold;
+border-radius:15px;
+cursor:pointer;
+margin:5px;
+}
 
+/* BOTÓN */
+button{
+padding:10px 15px;
+background:gold;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* RESULTADO */
 .resultado{
-margin-top:15px;
-font-size:22px;
+margin-top:10px;
 color:#00ff99;
 font-weight:bold;
 }
 
-.numero{
-font-size:50px;
-color:gold;
-}
-
-/* CAJA */
-.mystery-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:12px;
-}
-
-.mystery-box{
-background:linear-gradient(135deg,#111,#443300);
-border:2px solid gold;
-border-radius:18px;
-padding:26px;
-font-size:45px;
-cursor:pointer;
-box-shadow:0 0 15px gold;
-}
-
-/* VIP */
-#vipBox{
-display:none;
-background:#000;
-border:1px solid gold;
-border-radius:20px;
-padding:20px;
-margin:15px auto;
-max-width:600px;
-}
-
-input{
-padding:12px;
-border:none;
-border-radius:10px;
-}
-
-button{
-padding:12px 20px;
-border:none;
-border-radius:10px;
-background:gold;
-font-weight:bold;
-cursor:pointer;
-}
-
-/* BOTÓN FIJO */
-.fijo{
-position:fixed;
-bottom:0;
-width:100%;
-background:black;
-padding:10px;
-border-top:2px solid gold;
-}
-
-.fijo a{
-background:#00c853;
-padding:14px 25px;
-border-radius:12px;
-color:white;
-text-decoration:none;
-font-weight:bold;
+/* RESPONSIVE */
+@media(max-width:900px){
+.grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>🔥 DOMINANCIA 88 🔥</h1>
-<p>⚠️ SISTEMA ACTIVO HOY</p>
-<p>🔥 CUPOS LIMITADOS AL VIP</p>
-</header>
+<h1 style="text-align:center;color:gold">🔥 DOMINANCIA 88 🔥</h1>
 
-<!-- BOTONES -->
-<div class="card">
-<div class="links">
-<a href="#" onclick="abrirVIP()" class="vip">🔥 ACCESO VIP 🔥</a>
-<a href="https://whatsapp.com/channel/0029VbDEkXLFsn0nSeOzaN00" target="_blank" class="canal">📢 Canal Oficial</a>
-<a href="#" class="instagram">Instagram</a>
-<a href="#" class="facebook">Facebook</a>
-</div>
-</div>
+<div class="grid">
 
-<!-- VIP -->
-<div id="vipBox">
-<h3>🔒 Acceso VIP</h3>
-<input type="password" id="clave" placeholder="Introduce clave">
-<br><br>
-<button onclick="verificar()">Entrar</button>
-<div id="vipContent" style="display:none;margin-top:15px;">🔥 VIP DESBLOQUEADO</div>
-</div>
-
-<!-- PRONÓSTICO -->
+<!-- IZQUIERDA: PRONÓSTICO -->
 <div class="card">
 <h3>📊 Pronóstico VIP</h3>
-<div class="pred-wrap">
-<img id="pronostico" src="pronostico.jpg" class="pred-img">
-<div id="bloqueo" class="overlay">
-<h2>🔒 BLOQUEADO</h2>
-<button onclick="abrirVIP()">Desbloquear</button>
+<div style="position:relative">
+<img id="img" src="pronostico.jpg" class="pred-img">
+<div id="lock" class="overlay">
+<button onclick="vip()">Desbloquear</button>
 </div>
 </div>
 </div>
 
-<!-- RULETA -->
+<!-- CENTRO ARRIBA: RULETA -->
 <div class="card">
 <h3>🎡 Ruleta</h3>
-<div class="pointer">🔻</div>
-<div class="ruleta"><div id="ruleta" class="ruleta-inner"></div></div>
-<button onclick="girarRuleta()">Girar</button>
-<div id="resultadoRuleta" class="resultado"></div>
-<div id="premioRuleta" class="resultado"></div>
+<div class="ruleta">
+<div id="ruleta" class="ruleta-inner"></div>
+</div>
+<br>
+<button onclick="girar()">Girar</button>
+<div id="resRuleta" class="resultado"></div>
 </div>
 
-<!-- CAJA -->
+<!-- DERECHA: TRIPLETAS -->
+<div class="card">
+<h3>🎯 Tripleta diaria</h3>
+<button onclick="tripleta()">Generar</button>
+<div id="resTripleta" class="resultado"></div>
+</div>
+
+<!-- CENTRO ABAJO: CAJA -->
 <div class="card">
 <h3>🎁 Caja Misteriosa</h3>
-<div class="mystery-grid">
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
-<div class="mystery-box" onclick="abrirCaja()">🎁</div>
+<div>
+<div class="mystery-box" onclick="caja()">🎁</div>
+<div class="mystery-box" onclick="caja()">🎁</div>
 </div>
-<div id="resultadoCaja" class="resultado"></div>
+<div id="resCaja" class="resultado"></div>
+</div>
+
+<!-- EXTRA: SISTEMA EN VIVO -->
+<div class="card">
+<h3>⚡ Sistema en vivo</h3>
+<div id="live"></div>
+</div>
+
 </div>
 
 <script>
-function abrirVIP(){
-document.getElementById("vipBox").style.display="block";
+
+/* VIP */
+function vip(){
+document.getElementById("img").classList.add("desbloqueado");
+document.getElementById("lock").style.display="none";
 }
 
-function verificar(){
-if(document.getElementById("clave").value==="3321"){
-document.getElementById("vipContent").style.display="block";
-document.getElementById("pronostico").classList.add("desbloqueada");
-document.getElementById("bloqueo").classList.add("oculto");
-}else alert("Clave incorrecta");
-}
-
-function girarRuleta(){
+/* RULETA */
+function girar(){
 let r=document.getElementById("ruleta");
-let giro=360*7+Math.floor(Math.random()*360);
+let giro=360*5+Math.random()*360;
 r.style.transform="rotate("+giro+"deg)";
-
 setTimeout(()=>{
-let gana=Math.floor(Math.random()*500)===0;
-if(gana){
-document.getElementById("resultadoRuleta").innerHTML="🔥 ACCESO PARCIAL";
-document.getElementById("premioRuleta").innerHTML="👉 12 - 35";
-}else{
-document.getElementById("resultadoRuleta").innerHTML="🔒 Intenta mañana";
-}
+let gana=Math.floor(Math.random()*500)==0;
+document.getElementById("resRuleta").innerHTML=
+gana?"🔥 CASI VIP":"🔒 Sigue intentando";
 },4000);
 }
 
-function abrirCaja(){
-let numero=Math.floor(Math.random()*100).toString().padStart(2,"0");
-document.getElementById("resultadoCaja").innerHTML="🔥 "+numero;
+/* CAJA */
+function caja(){
+let n=Math.floor(Math.random()*100);
+document.getElementById("resCaja").innerHTML="🔥 "+n;
 }
-</script>
 
-<div class="fijo">
-<a href="#" onclick="abrirVIP()">🔥 VIP FIJO 🔥</a>
-</div>
+/* TRIPLETA */
+function tripleta(){
+let hoy=new Date().toDateString();
+if(localStorage.getItem("trip")==hoy){
+document.getElementById("resTripleta").innerHTML="⚠️ Ya usaste hoy";
+return;
+}
+let a=Math.floor(Math.random()*100);
+let b=Math.floor(Math.random()*100);
+let c=Math.floor(Math.random()*100);
+let lot=["Nacional","Leidsa","Loteka"];
+let l=lot[Math.floor(Math.random()*lot.length)];
+
+document.getElementById("resTripleta").innerHTML=
+`🔥 ${a}-${b}-${c} <br>${l}`;
+
+localStorage.setItem("trip",hoy);
+}
+
+/* SISTEMA EN VIVO */
+let mensajes=[
+"🔥 Jugador ganó con 35",
+"📊 Sistema detectó patrón",
+"🎯 Nueva combinación activa",
+"⚡ Movimiento detectado",
+"💰 Premio entregado"
+];
+
+setInterval(()=>{
+let m=mensajes[Math.floor(Math.random()*mensajes.length)];
+document.getElementById("live").innerHTML=m;
+},3000);
+
+</script>
 
 </body>
 </html>
