@@ -40,6 +40,7 @@ h1{
   margin-top:8px;
   color:#00ff99;
   font-weight:bold;
+  font-size:18px;
 }
 
 .grid{
@@ -55,177 +56,7 @@ h1{
   border-radius:18px;
   padding:15px;
   box-shadow:0 0 20px rgba(255,215,0,.4);
-}
-
-.pred-wrap{
-  position:relative;
-  min-height:230px;
-  border-radius:12px;
-  overflow:hidden;
-  background:rgba(0,0,0,.85);
-  border:1px solid rgba(255,215,0,.5);
-}
-
-.pred-img{
-  width:100%;
-  border-radius:10px;
-  display:block;
-}
-
-.bloqueado{
-  filter:blur(18px);
-  opacity:.08;
-  pointer-events:none;
-  user-select:none;
-}
-
-.desbloqueado{
-  filter:none;
-  opacity:1;
-  pointer-events:auto;
-}
-
-.overlay{
-  position:absolute;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  gap:10px;
-  background:rgba(0,0,0,.78);
-  border-radius:10px;
-  text-align:center;
-}
-
-.lock-icon{
-  font-size:42px;
-}
-
-.vip-title{
-  font-size:18px;
-  margin:10px 0;
-}
-
-.vip-note{
-  margin-top:18px;
-  padding:14px 16px;
-  max-width:420px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,215,0,0.35);
-  border-radius:14px;
-  text-align:center;
-  color:#f5f5f5;
-  line-height:1.5;
-  box-shadow:0 0 12px rgba(255,215,0,0.12);
-}
-
-.vip-note h4{
-  margin:0 0 8px 0;
-  color:gold;
-  font-size:16px;
-}
-
-.vip-note p{
-  margin:6px 0;
-  font-size:14px;
-  color:#eaeaea;
-}
-
-.vip-note strong{
-  color:#ffd700;
-}
-
-.ruleta{
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  margin:auto;
-  border:6px solid gold;
-  overflow:hidden;
-  box-shadow:0 0 35px gold;
-  position:relative;
-  background:#111;
-}
-
-.ruleta-inner{
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  position:relative;
-  transition:transform 4s cubic-bezier(.15,.85,.25,1);
-  background:repeating-conic-gradient(
-    #111 0deg 14.4deg,
-    #f5d76e 14.4deg 28.8deg
-  );
-}
-
-.centro-ruleta{
-  position:absolute;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:gold;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  z-index:10;
-  box-shadow:0 0 15px gold;
-}
-
-.numero-ruleta{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:26px;
-  height:26px;
-  margin:-13px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:11px;
-  font-weight:bold;
-  color:white;
-  text-shadow:0 0 5px black;
-  z-index:5;
-}
-
-.puntero{
-  width:0;
-  height:0;
-  border-left:15px solid transparent;
-  border-right:15px solid transparent;
-  border-top:25px solid red;
-  margin:0 auto 8px auto;
-  filter:drop-shadow(0 0 8px red);
-}
-
-.cajas{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.mystery-box{
-  padding:25px;
-  font-size:40px;
-  background:#222;
-  border:2px solid gold;
-  border-radius:15px;
-  cursor:pointer;
-  margin:5px;
-  transition:.3s;
-}
-
-.mystery-box:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 20px gold;
-}
-
-.mystery-box.bloqueadaCaja{
-  opacity:.35;
-  pointer-events:none;
-  cursor:not-allowed;
+  min-height:260px;
 }
 
 button{
@@ -248,6 +79,228 @@ button:hover{
   line-height:1.5;
 }
 
+/* PANEL VIP */
+.panel-vip{
+  text-align:center;
+}
+
+.panel-vip h3{
+  font-size:22px;
+  color:gold;
+  margin-bottom:12px;
+}
+
+.panel-vip-box{
+  border:1px solid rgba(255,215,0,.45);
+  border-radius:14px;
+  padding:18px;
+  background:rgba(0,0,0,.55);
+  box-shadow:0 0 12px rgba(255,215,0,.15);
+}
+
+.panel-vip-box p{
+  line-height:1.6;
+  margin:8px 0;
+}
+
+.estado-vip{
+  color:#ffcc00;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.pred-img{
+  width:100%;
+  border-radius:12px;
+  margin-top:15px;
+  display:none;
+  border:1px solid gold;
+}
+
+.pred-img.desbloqueado{
+  display:block;
+}
+
+/* RULETA MEJORADA */
+.ruleta-card{
+  text-align:center;
+}
+
+.ruleta-card h3{
+  font-size:24px;
+  color:gold;
+  margin-bottom:10px;
+}
+
+.ruleta{
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  margin:auto;
+  border:7px solid gold;
+  overflow:hidden;
+  box-shadow:0 0 45px gold;
+  position:relative;
+  background:#111;
+}
+
+.ruleta-inner{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  position:relative;
+  transition:transform 4s cubic-bezier(.15,.85,.25,1);
+  background:repeating-conic-gradient(
+    #111 0deg 14.4deg,
+    #f5d76e 14.4deg 28.8deg
+  );
+}
+
+.centro-ruleta{
+  position:absolute;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:gold;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  box-shadow:0 0 20px gold;
+}
+
+.numero-ruleta{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:36px;
+  height:36px;
+  margin:-18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  font-weight:900;
+  color:white;
+  text-shadow:
+    0 0 5px black,
+    0 0 8px black,
+    0 0 10px black;
+  z-index:5;
+}
+
+.puntero{
+  width:0;
+  height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-top:32px solid red;
+  margin:0 auto 10px auto;
+  filter:drop-shadow(0 0 10px red);
+}
+
+.btn-ruleta{
+  font-size:20px;
+  padding:14px 34px;
+  margin-top:18px;
+  border-radius:14px;
+}
+
+.res-ruleta-grande{
+  margin-top:16px;
+  font-size:28px;
+  color:#00ff99;
+  font-weight:900;
+  line-height:1.5;
+  text-align:center;
+  text-shadow:0 0 14px rgba(0,255,153,.55);
+}
+
+/* TRIPLETA DIARIA */
+.tripleta-card{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+.tripleta-card h3{
+  font-size:30px;
+  color:gold;
+  margin:10px 0 18px 0;
+}
+
+.btn-tripleta{
+  font-size:18px;
+  padding:14px 28px;
+  margin-bottom:22px;
+}
+
+.tripleta-numero{
+  font-size:42px;
+  color:#00ff99;
+  font-weight:bold;
+  letter-spacing:2px;
+  text-shadow:0 0 15px rgba(0,255,153,.7);
+  margin:15px 0 8px 0;
+}
+
+.tripleta-loteria{
+  font-size:22px;
+  color:gold;
+  font-weight:bold;
+  margin-top:8px;
+}
+
+.tripleta-estado{
+  font-size:15px;
+  color:#00ff99;
+  margin-top:8px;
+}
+
+/* CAJA MISTERIOSA */
+.cajas{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-top:20px;
+}
+
+.mystery-box{
+  min-height:85px;
+  font-size:42px;
+  background:#222;
+  border:2px solid gold;
+  border-radius:15px;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  transition:.3s;
+}
+
+.mystery-box:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 20px gold;
+}
+
+.mystery-box.bloqueadaCaja{
+  opacity:.35;
+  pointer-events:none;
+  cursor:not-allowed;
+}
+
+.caja-card h3{
+  font-size:22px;
+  color:gold;
+}
+
+.caja-card .resultado{
+  font-size:18px;
+  margin-top:18px;
+}
+
 /* CÓMO FUNCIONA */
 .como-funciona{
   padding-left:22px;
@@ -260,7 +313,7 @@ button:hover{
   margin-bottom:8px;
 }
 
-/* ZONA VIP EXTRA */
+/* ZONA VIP */
 .zona-vip{
   text-align:center;
 }
@@ -309,14 +362,35 @@ button:hover{
   box-shadow:0 0 25px rgba(37,211,102,.8);
 }
 
+@media(max-width:1100px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
 @media(max-width:900px){
   .grid{
     grid-template-columns:1fr;
   }
 
   .ruleta{
-    width:230px;
-    height:230px;
+    width:260px;
+    height:260px;
+  }
+
+  .numero-ruleta{
+    width:30px;
+    height:30px;
+    margin:-15px;
+    font-size:12px;
+  }
+
+  .res-ruleta-grande{
+    font-size:22px;
+  }
+
+  .tripleta-numero{
+    font-size:34px;
   }
 }
 </style>
@@ -333,27 +407,21 @@ button:hover{
 
 <div class="grid">
 
-  <div class="card">
-    <h3>📊 Pronóstico VIP</h3>
+  <!-- PANEL VIP -->
+  <div class="card panel-vip">
+    <h3>📅 Panel VIP del día</h3>
 
-    <div class="pred-wrap">
-      <img id="img" src="pronostico.jpg" class="pred-img bloqueado">
-
-      <div id="lock" class="overlay">
-        <div class="lock-icon">🔒</div>
-        <p class="vip-title">Contenido VIP bloqueado</p>
-        <button onclick="vip()">Desbloquear</button>
-
-        <div class="vip-note">
-          <h4>Acceso VIP disponible</h4>
-          <p>Para obtener tu clave VIP por <strong>1 semana</strong>, realiza un pago de <strong>RD$2,000</strong>.</p>
-          <p>Para más información o activación, comunícate con el administrador.</p>
-        </div>
-      </div>
+    <div class="panel-vip-box">
+      <p>Actualización diaria del pronóstico premium.</p>
+      <p class="estado-vip" id="estadoVIP">🔒 Estado: bloqueado</p>
+      <button onclick="vip()">Desbloquear acceso</button>
     </div>
+
+    <img id="img" src="pronostico.jpg" class="pred-img">
   </div>
 
-  <div class="card">
+  <!-- RULETA -->
+  <div class="card ruleta-card">
     <h3>🎡 Ruleta</h3>
 
     <div class="puntero"></div>
@@ -364,21 +432,28 @@ button:hover{
       </div>
     </div>
 
-    <br>
-    <button onclick="girar()">Girar</button>
-    <div id="resRuleta" class="resultado"></div>
+    <button class="btn-ruleta" onclick="girar()">Girar</button>
+    <div id="resRuleta" class="res-ruleta-grande">🎯 Esperando giro...</div>
   </div>
 
-  <div class="card">
+  <!-- TRIPLETA DIARIA -->
+  <div class="card tripleta-card">
     <h3>🎯 Tripleta diaria</h3>
-    <button onclick="tripleta()">Generar</button>
-    <div id="resTripleta" class="resultado"></div>
+
+    <button class="btn-tripleta" onclick="tripleta()">Generar</button>
+
+    <div id="tripletaNumero" class="tripleta-numero">-- - -- - --</div>
+    <div id="tripletaLoteria" class="tripleta-loteria">📍 Lotería pendiente</div>
+    <div id="tripletaEstado" class="tripleta-estado"></div>
   </div>
 
-  <div class="card">
+  <!-- CAJA MISTERIOSA -->
+  <div class="card caja-card">
     <h3>🎁 Caja Misteriosa</h3>
 
     <div class="cajas">
+      <div class="mystery-box" onclick="caja()">🎁</div>
+      <div class="mystery-box" onclick="caja()">🎁</div>
       <div class="mystery-box" onclick="caja()">🎁</div>
       <div class="mystery-box" onclick="caja()">🎁</div>
     </div>
@@ -386,6 +461,7 @@ button:hover{
     <div id="resCaja" class="resultado"></div>
   </div>
 
+  <!-- CÓMO FUNCIONA -->
   <div class="card">
     <h3>📌 Cómo funciona</h3>
 
@@ -398,6 +474,7 @@ button:hover{
     </ol>
   </div>
 
+  <!-- ZONA VIP -->
   <div class="card zona-vip">
     <h3>💎 Zona VIP</h3>
 
@@ -506,9 +583,8 @@ function vip(){
   let clave = prompt("Introduce la clave VIP:");
 
   if(clave === claveVIP || esAdmin()){
-    document.getElementById("img").classList.remove("bloqueado");
     document.getElementById("img").classList.add("desbloqueado");
-    document.getElementById("lock").style.display = "none";
+    document.getElementById("estadoVIP").innerHTML = "✅ Estado: desbloqueado";
   }else{
     alert("Clave incorrecta");
   }
@@ -529,7 +605,7 @@ function crearNumerosRuleta(){
 
   const total = 25;
   const angulo = 360 / total;
-  const radio = 100;
+  const radio = 128;
 
   for(let i = 1; i <= total; i++){
     const num = document.createElement("div");
@@ -675,8 +751,14 @@ function tripleta(){
   if(!esAdmin() && localStorage.getItem("tripFecha") === hoy){
     let tripletaGuardada = localStorage.getItem("tripletaResultado");
 
-    document.getElementById("resTripleta").innerHTML =
-      "⚠️ Ya usaste hoy<br>" + tripletaGuardada;
+    document.getElementById("tripletaEstado").innerHTML =
+      "⚠️ Ya usaste tu intento de hoy";
+
+    if(tripletaGuardada){
+      let datos = JSON.parse(tripletaGuardada);
+      document.getElementById("tripletaNumero").innerHTML = datos.numeros;
+      document.getElementById("tripletaLoteria").innerHTML = "📍 " + datos.loteria;
+    }
 
     return;
   }
@@ -686,15 +768,20 @@ function tripleta(){
   let c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   let loteria = loteriaAleatoria();
 
-  let resultado = esAdmin()
-    ? `🔥 ${a}-${b}-${c}<br>🎯 ${loteria}<br>Modo admin: ilimitado`
-    : `🔥 ${a}-${b}-${c}<br>🎯 ${loteria}`;
+  let numeros = `${a} - ${b} - ${c}`;
 
-  document.getElementById("resTripleta").innerHTML = resultado;
+  document.getElementById("tripletaNumero").innerHTML = numeros;
+  document.getElementById("tripletaLoteria").innerHTML = "📍 " + loteria;
 
-  if(!esAdmin()){
+  if(esAdmin()){
+    document.getElementById("tripletaEstado").innerHTML = "Modo admin: ilimitado";
+  }else{
+    document.getElementById("tripletaEstado").innerHTML = "Intento diario usado";
     localStorage.setItem("tripFecha", hoy);
-    localStorage.setItem("tripletaResultado", resultado);
+    localStorage.setItem("tripletaResultado", JSON.stringify({
+      numeros:numeros,
+      loteria:loteria
+    }));
   }
 }
 
@@ -708,8 +795,12 @@ function verificarTripleta(){
   if(localStorage.getItem("tripFecha") === hoy){
     let tripletaGuardada = localStorage.getItem("tripletaResultado");
 
-    document.getElementById("resTripleta").innerHTML =
-      "⚠️ Ya usaste hoy<br>" + tripletaGuardada;
+    if(tripletaGuardada){
+      let datos = JSON.parse(tripletaGuardada);
+      document.getElementById("tripletaNumero").innerHTML = datos.numeros;
+      document.getElementById("tripletaLoteria").innerHTML = "📍 " + datos.loteria;
+      document.getElementById("tripletaEstado").innerHTML = "⚠️ Ya usaste tu intento de hoy";
+    }
   }
 }
 
