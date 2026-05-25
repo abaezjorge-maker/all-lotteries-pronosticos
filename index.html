@@ -13,18 +13,26 @@ h1{color:gold;font-size:38px;text-shadow:0 0 20px gold}
 .card{background:rgba(255,255,255,.08);margin:12px;padding:18px;border-radius:18px}
 .links a{display:inline-block;margin:8px;padding:14px 20px;border-radius:12px;color:white;text-decoration:none;font-weight:bold}
 .vip{background:#00c853}.canal{background:#128C7E}.instagram{background:#E1306C}.facebook{background:#1877F2}
+
 .pred-wrap{position:relative;max-width:780px;margin:auto}
 .pred-img{width:100%;border-radius:15px;border:2px solid gold;filter:blur(8px);transition:.5s}
 .pred-img.desbloqueada{filter:blur(0)}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;flex-direction:column;border-radius:15px}
 .overlay.oculto{display:none}
+
 .mystery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .mystery-box{background:linear-gradient(135deg,#111,#443300);border:2px solid gold;border-radius:18px;padding:26px;font-size:45px;cursor:pointer}
+
+.ruleta{width:230px;height:230px;border-radius:50%;border:6px solid gold;margin:18px auto;overflow:hidden;box-shadow:0 0 35px gold}
+.ruleta-inner{width:100%;height:100%;border-radius:50%;transition:transform 4s ease-out;background:conic-gradient(gold 0 45deg,#111 45deg 90deg,#00c853 90deg 135deg,#111 135deg 180deg,gold 180deg 225deg,#111 225deg 270deg,#E1306C 270deg 315deg,#111 315deg 360deg)}
+.pointer{font-size:35px;margin-bottom:-10px}
 .resultado{margin-top:15px;font-size:22px;color:#00ff99;font-weight:bold}
 .numero{font-size:50px;color:gold}
+
 #vipBox{display:none;background:#050505;border:1px solid gold;border-radius:20px;padding:20px;margin:15px auto;max-width:600px}
 input{padding:12px;border:none;border-radius:10px}
-button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-weight:bold}
+button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-weight:bold;cursor:pointer}
+
 .fijo{position:fixed;bottom:0;width:100%;background:black;padding:10px;border-top:2px solid gold}
 .fijo a{background:#00c853;padding:14px 25px;border-radius:12px;color:white;text-decoration:none;font-weight:bold}
 </style>
@@ -52,9 +60,7 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 <input type="password" id="clave" placeholder="Introduce clave">
 <br><br>
 <button onclick="verificar()">Entrar</button>
-<div id="vipContent" style="display:none;margin-top:15px;">
-🔥 VIP DESBLOQUEADO
-</div>
+<div id="vipContent" style="display:none;margin-top:15px;">🔥 VIP DESBLOQUEADO</div>
 </div>
 
 <div class="card">
@@ -63,10 +69,20 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 <img id="pronostico" src="pronostico.jpg" class="pred-img">
 <div id="bloqueo" class="overlay">
 <h2>🔒 Contenido VIP bloqueado</h2>
-<p>Introduce la clave VIP para ver el pronóstico completo</p>
-<button onclick="abrirVIP()">Desbloquear con VIP</button>
+<p>Introduce clave VIP para ver completo</p>
+<button onclick="abrirVIP()">Desbloquear VIP</button>
 </div>
 </div>
+</div>
+
+<div class="card">
+<h3>🎡 Ruleta Dominancia</h3>
+<p>Gira y prueba suerte para desbloquear una línea parcial</p>
+<div class="pointer">🔻</div>
+<div class="ruleta"><div id="ruleta" class="ruleta-inner"></div></div>
+<button onclick="girarRuleta()">Girar ruleta</button>
+<div id="resultadoRuleta" class="resultado"></div>
+<div id="premioRuleta" class="resultado"></div>
 </div>
 
 <div class="card">
@@ -82,6 +98,8 @@ button{padding:12px 20px;border:none;border-radius:10px;background:gold;font-wei
 </div>
 
 <script>
+let girando=false;
+
 function abrirVIP(){
 document.getElementById("vipBox").style.display="block";
 document.getElementById("vipBox").scrollIntoView({behavior:"smooth"});
@@ -92,9 +110,32 @@ if(document.getElementById("clave").value==="3321"){
 document.getElementById("vipContent").style.display="block";
 document.getElementById("pronostico").classList.add("desbloqueada");
 document.getElementById("bloqueo").classList.add("oculto");
-}else{
-alert("Clave incorrecta");
+}else alert("Clave incorrecta");
 }
+
+function girarRuleta(){
+if(girando)return;
+girando=true;
+
+document.getElementById("resultadoRuleta").innerHTML="⏳ Girando...";
+document.getElementById("premioRuleta").innerHTML="";
+
+let r=document.getElementById("ruleta");
+let giro=360*7+Math.floor(Math.random()*360);
+r.style.transform="rotate("+giro+"deg)";
+
+setTimeout(()=>{
+let gana=Math.floor(Math.random()*500)===0;
+
+if(gana){
+document.getElementById("resultadoRuleta").innerHTML="🔥 ACCESO PARCIAL DESBLOQUEADO";
+document.getElementById("premioRuleta").innerHTML="👉 Línea visible: <br><span class='numero'>12 - 35</span><br>Nacional";
+}else{
+document.getElementById("resultadoRuleta").innerHTML="🔒 No desbloqueaste esta vez. Intenta mañana.";
+}
+
+girando=false;
+},4000);
 }
 
 function abrirCaja(){
