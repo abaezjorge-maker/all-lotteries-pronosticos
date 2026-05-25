@@ -17,13 +17,17 @@ h1{margin:0;font-size:48px;color:gold;text-shadow:0 0 25px rgba(255,215,0,.8)}
 .pred-img{width:100%;max-width:760px;height:auto;margin:auto;display:block;border-radius:16px;box-shadow:0 0 30px rgba(0,0,0,.7)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
 .box{background:black;border:1px solid gold;padding:13px;border-radius:12px;font-weight:bold}
+
 .links a{display:inline-block;margin:10px;padding:16px 24px;border-radius:14px;color:white;text-decoration:none;font-weight:bold;transition:.3s}
 .links a:hover{transform:scale(1.08)}
+
 .vip{background:#25D366;animation:latido 1.2s infinite;box-shadow:0 0 20px rgba(37,211,102,.9)}
 @keyframes latido{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+
 .canal{background:#128C7E}
 .instagram{background:#E1306C}
 .facebook{background:#1877F2}
+
 .toast{position:fixed;bottom:18px;left:18px;background:black;color:gold;padding:12px 15px;border-radius:12px;box-shadow:0 0 15px rgba(255,215,0,.6);z-index:999}
 
 @media(max-width:600px){
@@ -67,6 +71,7 @@ function manana(){
 
 function render(data,fecha){
 document.getElementById("app").innerHTML=`
+
 <div class="card">
   <h2>${data.titulo}</h2>
   <p>${fecha}</p>
@@ -76,6 +81,19 @@ document.getElementById("app").innerHTML=`
 <div class="card">
   <h3>Pronóstico visual</h3>
   <img src="${data.imagen}" class="pred-img">
+</div>
+
+<div class="card">
+  <h3>📊 Sistemas del día</h3>
+
+  <p><b>🧬 ADN Piramidal:</b> Sistema principal estructural</p>
+  <p><b>🔥 Reverso Inteligente:</b> Detección de patrones inversos</p>
+  <p><b>📊 Núcleo Activo:</b> Números base dominantes</p>
+  <p><b>⚡ Impacto Directo:</b> Jugadas rápidas del día</p>
+  <p><b>🔄 Ciclo Continuo:</b> Repeticiones activas</p>
+  <p><b>🧠 Filtro Avanzado:</b> Optimización de jugadas</p>
+  <p><b>💣 Sistema Oculto:</b> Solo disponible en VIP</p>
+
 </div>
 
 <div class="card">
@@ -105,7 +123,7 @@ document.getElementById("app").innerHTML=`
 }
 
 function empty(fecha){
-document.getElementById("app").innerHTML=`<div class="card"><h2>No hay pronóstico cargado</h2><p>${fecha}</p></div>`;
+document.getElementById("app").innerHTML=`<div class="card"><h2>No hay pronóstico</h2><p>${fecha}</p></div>`;
 }
 
 function countdown(){
