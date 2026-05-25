@@ -31,22 +31,17 @@ h1{
   letter-spacing:2px;
 }
 
-/* ADMIN */
-.admin-panel{
+.admin-bar{
   text-align:center;
-  margin:0 auto 10px auto;
+  margin-bottom:15px;
 }
 
-.admin-panel button{
-  margin:4px;
+.admin-status{
+  margin-top:8px;
+  color:#00ff99;
+  font-weight:bold;
 }
 
-#estadoAdmin{
-  margin-top:6px;
-  font-size:14px;
-}
-
-/* GRID PRINCIPAL */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -62,7 +57,6 @@ h1{
   box-shadow:0 0 20px rgba(255,215,0,.4);
 }
 
-/* PRONÓSTICO VIP */
 .pred-wrap{
   position:relative;
   min-height:230px;
@@ -102,7 +96,6 @@ h1{
   background:rgba(0,0,0,.78);
   border-radius:10px;
   text-align:center;
-  padding:15px;
 }
 
 .lock-icon{
@@ -143,7 +136,6 @@ h1{
   color:#ffd700;
 }
 
-/* RULETA */
 .ruleta{
   width:260px;
   height:260px;
@@ -208,7 +200,6 @@ h1{
   filter:drop-shadow(0 0 8px red);
 }
 
-/* CAJA */
 .cajas{
   display:flex;
   gap:10px;
@@ -237,7 +228,6 @@ h1{
   cursor:not-allowed;
 }
 
-/* BOTÓN */
 button{
   padding:10px 15px;
   background:gold;
@@ -251,7 +241,6 @@ button:hover{
   transform:scale(1.03);
 }
 
-/* RESULTADOS */
 .resultado{
   margin-top:10px;
   color:#00ff99;
@@ -259,7 +248,6 @@ button:hover{
   line-height:1.5;
 }
 
-/* RESPONSIVE */
 @media(max-width:900px){
   .grid{
     grid-template-columns:1fr;
@@ -269,10 +257,6 @@ button:hover{
     width:230px;
     height:230px;
   }
-
-  .vip-note{
-    max-width:95%;
-  }
 }
 </style>
 </head>
@@ -281,15 +265,13 @@ button:hover{
 
 <h1>🔥 DOMINANCIA 88 🔥</h1>
 
-<div class="admin-panel">
-  <button onclick="activarAdmin()">🔐 Admin</button>
-  <button onclick="salirAdmin()">Salir admin</button>
-  <div id="estadoAdmin" class="resultado"></div>
+<div class="admin-bar">
+  <button onclick="activarAdmin()">🔐 Activar administrador</button>
+  <div id="adminStatus" class="admin-status"></div>
 </div>
 
 <div class="grid">
 
-  <!-- PRONÓSTICO VIP -->
   <div class="card">
     <h3>📊 Pronóstico VIP</h3>
 
@@ -310,7 +292,6 @@ button:hover{
     </div>
   </div>
 
-  <!-- RULETA -->
   <div class="card">
     <h3>🎡 Ruleta</h3>
 
@@ -327,14 +308,12 @@ button:hover{
     <div id="resRuleta" class="resultado"></div>
   </div>
 
-  <!-- TRIPLETA DIARIA -->
   <div class="card">
     <h3>🎯 Tripleta diaria</h3>
     <button onclick="tripleta()">Generar</button>
     <div id="resTripleta" class="resultado"></div>
   </div>
 
-  <!-- CAJA MISTERIOSA -->
   <div class="card">
     <h3>🎁 Caja Misteriosa</h3>
 
@@ -346,7 +325,6 @@ button:hover{
     <div id="resCaja" class="resultado"></div>
   </div>
 
-  <!-- SISTEMA EN VIVO -->
   <div class="card">
     <h3>⚡ Sistema en vivo</h3>
     <div id="live"></div>
@@ -361,7 +339,7 @@ button:hover{
 ========================= */
 
 const claveVIP = "3321";
-const claveAdmin = "admin88";
+const claveAdmin = "332133";
 
 const loterias = [
   "Nacional",
@@ -384,49 +362,8 @@ function fechaHoy(){
   return new Date().toLocaleDateString();
 }
 
-/* =========================
-   MODO ADMINISTRADOR
-========================= */
-
 function esAdmin(){
   return localStorage.getItem("modoAdmin") === "activo";
-}
-
-function activarAdmin(){
-  let clave = prompt("Introduce la clave de administrador:");
-
-  if(clave === claveAdmin){
-    localStorage.setItem("modoAdmin", "activo");
-    alert("Modo administrador activado");
-
-    actualizarEstadoAdmin();
-    desbloquearCajas();
-  }else{
-    alert("Clave de administrador incorrecta");
-  }
-}
-
-function salirAdmin(){
-  localStorage.removeItem("modoAdmin");
-  alert("Modo administrador desactivado");
-
-  actualizarEstadoAdmin();
-  verificarCaja();
-  verificarRuleta();
-  verificarTripleta();
-}
-
-function actualizarEstadoAdmin(){
-  const estado = document.getElementById("estadoAdmin");
-
-  if(!estado) return;
-
-  if(esAdmin()){
-    estado.innerHTML = "🟢 Modo administrador activo — intentos ilimitados";
-    desbloquearCajas();
-  }else{
-    estado.innerHTML = "🔴 Modo visitante — límites diarios activos";
-  }
 }
 
 /* =========================
@@ -438,7 +375,40 @@ function iniciarPagina(){
   verificarCaja();
   verificarRuleta();
   verificarTripleta();
-  actualizarEstadoAdmin();
+  verificarAdmin();
+}
+
+/* =========================
+   ADMINISTRADOR
+========================= */
+
+function activarAdmin(){
+  let clave = prompt("Introduce la clave de administrador:");
+
+  if(clave === claveAdmin){
+    localStorage.setItem("modoAdmin", "activo");
+    alert("Modo administrador activado");
+    verificarAdmin();
+    desbloquearTodoAdmin();
+  }else{
+    alert("Clave de administrador incorrecta");
+  }
+}
+
+function verificarAdmin(){
+  const estado = document.getElementById("adminStatus");
+
+  if(esAdmin()){
+    estado.innerHTML = "✅ Modo administrador activo: intentos ilimitados";
+  }else{
+    estado.innerHTML = "";
+  }
+}
+
+function desbloquearTodoAdmin(){
+  document.querySelectorAll(".mystery-box").forEach(caja=>{
+    caja.classList.remove("bloqueadaCaja");
+  });
 }
 
 /* =========================
@@ -458,9 +428,7 @@ function vip(){
 }
 
 /* =========================
-   RULETA 1-25
-   VISITANTE: 2 INTENTOS POR DÍA
-   ADMIN: ILIMITADO
+   RULETA
 ========================= */
 
 let gradosActuales = 0;
@@ -496,7 +464,7 @@ function girar(){
   let r = document.getElementById("ruleta");
   let resultado = document.getElementById("resRuleta");
 
-  if(intentos >= 2 && !esAdmin()){
+  if(!esAdmin() && intentos >= 2){
     let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
 
     resultado.innerHTML = ultimoResultado
@@ -506,9 +474,7 @@ function girar(){
     return;
   }
 
-  resultado.innerHTML = esAdmin()
-    ? "👑 Admin girando..."
-    : "🎡 Girando...";
+  resultado.innerHTML = "🎡 Girando...";
 
   let giroExtra = 360 * 6 + Math.floor(Math.random() * 360);
   gradosActuales += giroExtra;
@@ -519,17 +485,16 @@ function girar(){
     let numero = Math.floor(Math.random() * 25) + 1;
     let loteria = loteriaAleatoria();
 
-    let textoResultado = "";
-
-    if(esAdmin()){
-      textoResultado = `👑 Admin<br>🔥 ${numero} — ${loteria}<br>Intentos ilimitados`;
-    }else{
+    if(!esAdmin()){
       intentos++;
       localStorage.setItem("ruletaIntentos_" + hoy, intentos);
-
-      textoResultado = `🔥 ${numero} — ${loteria}<br>Intento ${intentos}/2`;
-      localStorage.setItem("ruletaUltimoResultado_" + hoy, textoResultado);
     }
+
+    let textoResultado = esAdmin()
+      ? `🔥 ${numero} — ${loteria}<br>Modo admin: ilimitado`
+      : `🔥 ${numero} — ${loteria}<br>Intento ${intentos}/2`;
+
+    localStorage.setItem("ruletaUltimoResultado_" + hoy, textoResultado);
 
     resultado.innerHTML = textoResultado;
 
@@ -537,15 +502,13 @@ function girar(){
 }
 
 function verificarRuleta(){
+  if(esAdmin()){
+    return;
+  }
+
   let hoy = fechaHoy();
   let intentos = Number(localStorage.getItem("ruletaIntentos_" + hoy)) || 0;
   let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
-
-  if(esAdmin()){
-    document.getElementById("resRuleta").innerHTML =
-      "👑 Admin activo: ruleta ilimitada";
-    return;
-  }
 
   if(intentos > 0 && ultimoResultado){
     document.getElementById("resRuleta").innerHTML =
@@ -555,8 +518,6 @@ function verificarRuleta(){
 
 /* =========================
    CAJA MISTERIOSA
-   VISITANTE: 1 INTENTO POR DÍA
-   ADMIN: ILIMITADO
 ========================= */
 
 function caja(){
@@ -565,7 +526,7 @@ function caja(){
   let numeroGuardado = localStorage.getItem("cajaNumero");
   let loteriaGuardada = localStorage.getItem("cajaLoteria");
 
-  if(fechaGuardada === hoy && !esAdmin()){
+  if(!esAdmin() && fechaGuardada === hoy){
     document.getElementById("resCaja").innerHTML =
       "⚠️ Intento diario usado.<br>Resultado: 🔥 " + numeroGuardado + " — " + loteriaGuardada;
     bloquearCajas();
@@ -575,35 +536,32 @@ function caja(){
   let n = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   let loteria = loteriaAleatoria();
 
-  if(esAdmin()){
-    document.getElementById("resCaja").innerHTML =
-      "👑 Admin<br>🔥 " + n + " — " + loteria + "<br>Intentos ilimitados";
-    desbloquearCajas();
-    return;
+  if(!esAdmin()){
+    localStorage.setItem("cajaFecha", hoy);
+    localStorage.setItem("cajaNumero", n);
+    localStorage.setItem("cajaLoteria", loteria);
   }
 
-  localStorage.setItem("cajaFecha", hoy);
-  localStorage.setItem("cajaNumero", n);
-  localStorage.setItem("cajaLoteria", loteria);
-
   document.getElementById("resCaja").innerHTML =
-    "🔥 " + n + " — " + loteria;
+    esAdmin()
+      ? "🔥 " + n + " — " + loteria + "<br>Modo admin: ilimitado"
+      : "🔥 " + n + " — " + loteria;
 
-  bloquearCajas();
+  if(!esAdmin()){
+    bloquearCajas();
+  }
 }
 
 function verificarCaja(){
+  if(esAdmin()){
+    desbloquearTodoAdmin();
+    return;
+  }
+
   let hoy = fechaHoy();
   let fechaGuardada = localStorage.getItem("cajaFecha");
   let numeroGuardado = localStorage.getItem("cajaNumero");
   let loteriaGuardada = localStorage.getItem("cajaLoteria");
-
-  if(esAdmin()){
-    document.getElementById("resCaja").innerHTML =
-      "👑 Admin activo: caja ilimitada";
-    desbloquearCajas();
-    return;
-  }
 
   if(fechaGuardada === hoy){
     document.getElementById("resCaja").innerHTML =
@@ -620,24 +578,14 @@ function bloquearCajas(){
   });
 }
 
-function desbloquearCajas(){
-  let cajas = document.querySelectorAll(".mystery-box");
-
-  cajas.forEach(caja=>{
-    caja.classList.remove("bloqueadaCaja");
-  });
-}
-
 /* =========================
    TRIPLETA DIARIA
-   VISITANTE: 1 INTENTO POR DÍA
-   ADMIN: ILIMITADO
 ========================= */
 
 function tripleta(){
   let hoy = fechaHoy();
 
-  if(localStorage.getItem("tripFecha") === hoy && !esAdmin()){
+  if(!esAdmin() && localStorage.getItem("tripFecha") === hoy){
     let tripletaGuardada = localStorage.getItem("tripletaResultado");
 
     document.getElementById("resTripleta").innerHTML =
@@ -651,28 +599,24 @@ function tripleta(){
   let c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   let loteria = loteriaAleatoria();
 
-  let resultado = "";
+  let resultado = esAdmin()
+    ? `🔥 ${a}-${b}-${c}<br>🎯 ${loteria}<br>Modo admin: ilimitado`
+    : `🔥 ${a}-${b}-${c}<br>🎯 ${loteria}`;
 
-  if(esAdmin()){
-    resultado = `👑 Admin<br>🔥 ${a}-${b}-${c}<br>🎯 ${loteria}<br>Intentos ilimitados`;
-  }else{
-    resultado = `🔥 ${a}-${b}-${c}<br>🎯 ${loteria}`;
+  document.getElementById("resTripleta").innerHTML = resultado;
 
+  if(!esAdmin()){
     localStorage.setItem("tripFecha", hoy);
     localStorage.setItem("tripletaResultado", resultado);
   }
-
-  document.getElementById("resTripleta").innerHTML = resultado;
 }
 
 function verificarTripleta(){
-  let hoy = fechaHoy();
-
   if(esAdmin()){
-    document.getElementById("resTripleta").innerHTML =
-      "👑 Admin activo: tripleta ilimitada";
     return;
   }
+
+  let hoy = fechaHoy();
 
   if(localStorage.getItem("tripFecha") === hoy){
     let tripletaGuardada = localStorage.getItem("tripletaResultado");
