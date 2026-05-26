@@ -731,6 +731,7 @@ body.dark .numfuertes-desc{ color:#94a3b8; }
 
 <div class="admin-bar">
   <button onclick="activarAdmin()">🔐 Activar administrador</button>
+  <button onclick="cerrarAdmin()">🚪 Cerrar administrador</button>
   <div id="adminStatus" class="admin-status"></div>
 </div>
 
@@ -926,6 +927,12 @@ function activarAdmin(){
   }else{
     alert("Clave de administrador incorrecta");
   }
+}
+
+function cerrarAdmin(){
+  localStorage.removeItem("modoAdmin");
+  alert("Modo administrador cerrado");
+  location.reload();
 }
 
 function verificarAdmin(){
