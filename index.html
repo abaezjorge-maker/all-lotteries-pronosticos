@@ -421,12 +421,25 @@ button:hover{
     font-size:34px;
   }
 }
+
+/* CONTADOR DE VISITAS */
+.visitas-bar{
+  text-align:center;
+  padding:8px 0 4px 0;
+  font-size:17px;
+  color:#0f4c81;
+  font-weight:bold;
+  letter-spacing:.5px;
+  text-shadow:0 1px 6px rgba(255,255,255,.7);
+}
 </style>
 </head>
 
 <body onload="iniciarPagina()">
 
 <h1>🔥 DOMINANCIA 88 🔥</h1>
+
+<div id="visitasBar" class="visitas-bar">👥 Visitas de hoy: —</div>
 
 <div class="admin-bar">
   <button onclick="activarAdmin()">🔐 Activar administrador</button>
@@ -832,6 +845,73 @@ function verificarTripleta(){
   }
 }
 
+</script>
+
+
+<!-- ============================================================
+  CONTADOR DE VISITAS — FIREBASE REALTIME DATABASE
+  ▶ PASO 1: Ve a https://console.firebase.google.com
+  ▶ PASO 2: Crea un proyecto (o usa uno existente)
+  ▶ PASO 3: En el proyecto ve a "Realtime Database" y créala
+             en modo de prueba (o con las reglas que quieras)
+  ▶ PASO 4: Ve a Configuración del proyecto > Tu aplicación
+             y copia el objeto firebaseConfig
+  ▶ PASO 5: PEGA TU firebaseConfig ABAJO, reemplazando el objeto
+             que dice "PEGA AQUÍ"
+============================================================ -->
+
+<!-- Firebase SDK modular via CDN -->
+<script type="module">
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getDatabase, ref, runTransaction, onValue }
+    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+  /* ─────────────────────────────────────────────────────────────
+     ▼▼▼  PEGA AQUÍ TU OBJETO firebaseConfig  ▼▼▼
+     Reemplaza TODO este bloque con el que te da Firebase.
+  ───────────────────────────────────────────────────────────── */
+  const firebaseConfig = {
+    apiKey:            "AIzaSyBZMItGslXKgMw6a5SH9aWECCMT-Aht1xU",
+    authDomain:        "dominancia88.firebaseapp.com",
+    databaseURL:       "https://dominancia88-default-rtdb.firebaseio.com",
+    projectId:         "dominancia88",
+    storageBucket:     "dominancia88.firebasestorage.app",
+    messagingSenderId: "680734521742",
+    appId:             "1:680734521742:web:3e15b81e41a9432bd3ccdf",
+    measurementId:     "G-HJ93WEHE07"
+  };
+  /* ▲▲▲  FIN DEL BLOQUE QUE DEBES REEMPLAZAR  ▲▲▲ */
+
+  const app = initializeApp(firebaseConfig);
+  const db  = getDatabase(app);
+
+  // Fecha de hoy: YYYY-MM-DD
+  function fechaISO() {
+    const hoy = new Date();
+    const y = hoy.getFullYear();
+    const m = String(hoy.getMonth() + 1).padStart(2, "0");
+    const d = String(hoy.getDate()).padStart(2, "0");
+    return y + "-" + m + "-" + d;
+  }
+
+  const hoy      = fechaISO();
+  const keyLS    = "visitaContada_" + hoy;
+  const visitRef = ref(db, "visitas/" + hoy);
+
+  // Solo cuenta si este navegador NO fue contado hoy
+  if (!localStorage.getItem(keyLS)) {
+    runTransaction(visitRef, (actual) => (actual || 0) + 1)
+      .then(() => localStorage.setItem(keyLS, "1"))
+      .catch((e) => console.warn("No se pudo registrar visita:", e));
+  }
+
+  // Muestra el total en tiempo real
+  onValue(visitRef, (snap) => {
+    const total = snap.val() || 0;
+    const el = document.getElementById("visitasBar");
+    if (el) el.textContent = "👥 Visitas de hoy: " + total;
+  });
 </script>
 
 </body>
