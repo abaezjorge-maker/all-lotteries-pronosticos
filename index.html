@@ -422,6 +422,54 @@ button:hover{
   }
 }
 
+/* PRONÓSTICO GRATIS */
+.pronostico-gratis-card{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.pronostico-gratis-card h3{
+  font-size:22px;
+  color:#0f4c81;
+  margin-bottom:10px;
+}
+.pronostico-bloqueado{
+  margin-top:18px;
+  font-size:42px;
+}
+.pronostico-bloqueado p{
+  font-size:15px;
+  color:#374151;
+  margin:8px 0 0 0;
+}
+.countdown-gratis{
+  font-size:22px;
+  font-weight:bold;
+  color:#0f6fae;
+  margin-top:8px;
+}
+.pronostico-img-gratis{
+  width:100%;
+  border-radius:12px;
+  margin-top:10px;
+  border:1px solid rgba(47,111,167,.45);
+  display:none;
+}
+.pronostico-img-gratis.visible{
+  display:block;
+}
+.btn-subir-gratis{
+  margin-top:14px;
+  font-size:15px;
+  padding:10px 20px;
+  background:#0b7f5b;
+  display:none;
+}
+.btn-subir-gratis.visible{
+  display:inline-block;
+}
+
 /* CONTADOR DE VISITAS */
 .visitas-bar{
   text-align:center;
@@ -500,6 +548,24 @@ button:hover{
     </div>
 
     <div id="resCaja" class="resultado"></div>
+  </div>
+
+  <!-- PRONÓSTICO GRATIS -->
+  <div class="card pronostico-gratis-card">
+    <h3>🎯 Pronóstico Gratis del Día</h3>
+
+    <div id="pgBloqueado" class="pronostico-bloqueado">
+      🔒
+      <p>Se revela a las 6:00 AM</p>
+      <div id="pgCountdown" class="countdown-gratis"></div>
+    </div>
+
+    <img id="pgImg" class="pronostico-img-gratis" src="" alt="Pronóstico gratis">
+
+    <button id="pgBtnSubir" class="btn-subir-gratis" onclick="subirPronosticoGratis()">
+      📤 Subir imagen (admin)
+    </button>
+    <div id="pgMensaje" class="resultado" style="font-size:14px;margin-top:8px;"></div>
   </div>
 
   <!-- CÓMO FUNCIONA -->
@@ -581,6 +647,7 @@ function iniciarPagina(){
   verificarRuleta();
   verificarTripleta();
   verificarAdmin();
+  iniciarPronosticoGratis();
 }
 
 /* =========================
@@ -843,6 +910,92 @@ function verificarTripleta(){
       document.getElementById("tripletaEstado").innerHTML = "⚠️ Ya usaste tu intento de hoy";
     }
   }
+}
+
+
+/* =========================
+   PRONÓSTICO GRATIS
+========================= */
+
+function estaDesbloqueadoGratis(){
+  const ahora = new Date();
+  return ahora.getHours() >= 6;
+}
+
+function iniciarPronosticoGratis(){
+  if(estaDesbloqueadoGratis()){
+    mostrarPronosticoGratis();
+  } else {
+    actualizarCountdown();
+    setInterval(function(){
+      if(estaDesbloqueadoGratis()){
+        mostrarPronosticoGratis();
+      } else {
+        actualizarCountdown();
+      }
+    }, 1000);
+  }
+}
+
+function actualizarCountdown(){
+  const ahora = new Date();
+  const manana6am = new Date(ahora);
+  manana6am.setHours(6, 0, 0, 0);
+  if(ahora >= manana6am) return;
+  const diff = manana6am - ahora;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  const cd = document.getElementById("pgCountdown");
+  if(cd) cd.textContent =
+    String(h).padStart(2,"0") + "h " +
+    String(m).padStart(2,"0") + "m " +
+    String(s).padStart(2,"0") + "s";
+}
+
+function mostrarPronosticoGratis(){
+  // Intentar cargar imagen guardada en localStorage
+  const hoy = new Date().toISOString().slice(0,10);
+  const imgGuardada = localStorage.getItem("pgImg_" + hoy);
+
+  document.getElementById("pgBloqueado").style.display = "none";
+
+  if(imgGuardada){
+    const img = document.getElementById("pgImg");
+    img.src = imgGuardada;
+    img.classList.add("visible");
+  } else {
+    const msg = document.getElementById("pgMensaje");
+    if(msg) msg.textContent = "⏳ El administrador aún no ha subido el pronóstico de hoy.";
+  }
+
+  if(esAdmin()){
+    const btn = document.getElementById("pgBtnSubir");
+    if(btn) btn.classList.add("visible");
+  }
+}
+
+function subirPronosticoGratis(){
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.onchange = function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      const base64 = ev.target.result;
+      const hoy = new Date().toISOString().slice(0,10);
+      localStorage.setItem("pgImg_" + hoy, base64);
+      const img = document.getElementById("pgImg");
+      img.src = base64;
+      img.classList.add("visible");
+      const msg = document.getElementById("pgMensaje");
+      if(msg) msg.textContent = "✅ Imagen subida correctamente.";
+    };
+    reader.readAsDataURL(file);
+  };
+  input.click();
 }
 
 </script>
