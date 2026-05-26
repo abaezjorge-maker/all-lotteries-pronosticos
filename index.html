@@ -521,12 +521,131 @@ button:hover{
   letter-spacing:.5px;
   text-shadow:0 1px 6px rgba(255,255,255,.7);
 }
+
+/* MODO OSCURO */
+body.dark{
+  color:#e2e8f0;
+  background:
+    linear-gradient(135deg, rgba(10,20,40,.97), rgba(15,25,50,.98)),
+    url("fondo.jpg.jpeg") center/cover fixed;
+}
+body.dark::before{
+  background:linear-gradient(135deg,rgba(5,10,25,.85),rgba(10,18,35,.9));
+}
+body.dark h1{ color:#60a5fa; }
+body.dark .card{
+  background:rgba(15,25,50,.82);
+  border-color:rgba(96,165,250,.3);
+}
+body.dark button{ background:#1d4ed8; }
+body.dark .resultado{ color:#34d399; }
+body.dark .admin-status{ color:#34d399; }
+body.dark .visitas-bar{ color:#93c5fd; }
+body.dark .panel-vip-box{ background:rgba(10,20,45,.9); }
+body.dark .mystery-box{ background:rgba(15,30,60,.9); border-color:rgba(96,165,250,.4); }
+body.dark .proxima-desc{ color:#94a3b8; }
+body.dark .countdown-label{ color:#64748b; }
+
+.dark-toggle{
+  position:fixed;
+  top:12px;
+  right:16px;
+  z-index:999;
+  background:rgba(255,255,255,.85);
+  border:none;
+  border-radius:50%;
+  width:42px;
+  height:42px;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.3s;
+}
+body.dark .dark-toggle{
+  background:rgba(30,41,59,.9);
+}
+
+/* SISTEMA DE PUNTOS */
+.puntos-bar{
+  text-align:center;
+  padding:6px 0 2px 0;
+  font-size:15px;
+  color:#0f4c81;
+  font-weight:bold;
+}
+body.dark .puntos-bar{ color:#93c5fd; }
+
+.medalla{
+  font-size:28px;
+  display:inline-block;
+  margin:0 4px;
+  filter:grayscale(1);
+  opacity:.35;
+  transition:.3s;
+}
+.medalla.activa{
+  filter:none;
+  opacity:1;
+}
+
+/* BOTÓN COMPARTIR */
+.btn-compartir{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:12px;
+  padding:10px 20px;
+  background:#25D366;
+  color:#000;
+  font-weight:bold;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15px;
+  box-shadow:0 0 18px rgba(37,211,102,.4);
+  transition:.3s;
+}
+.btn-compartir:hover{
+  transform:scale(1.04);
+  box-shadow:0 0 25px rgba(37,211,102,.7);
+}
+
+/* NOTIFICACIONES */
+.btn-notif{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+  padding:10px 20px;
+  background:#f59e0b;
+  color:#000;
+  font-weight:bold;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15px;
+  box-shadow:0 0 14px rgba(245,158,11,.35);
+  transition:.3s;
+}
+.btn-notif:hover{ transform:scale(1.04); }
+.btn-notif.activa{
+  background:#0b7f5b;
+  color:#fff;
+  box-shadow:0 0 14px rgba(11,127,91,.4);
+}
 </style>
 </head>
 
 <body onload="iniciarPagina()">
 
+<button class="dark-toggle" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
+
 <h1>🔥 DOMINANCIA 88 🔥</h1>
+
+<div id="puntosBar" class="puntos-bar"></div>
 
 <div id="visitasBar" class="visitas-bar">👥 Visitas de hoy: —</div>
 
@@ -607,6 +726,14 @@ button:hover{
       📤 Subir imagen (admin)
     </button>
     <div id="pgMensaje" class="resultado" style="font-size:14px;margin-top:8px;"></div>
+
+    <button class="btn-compartir" onclick="compartirWhatsApp()">
+      📲 Compartir en WhatsApp
+    </button>
+
+    <button id="btnNotif" class="btn-notif" onclick="activarNotificaciones()">
+      🔔 Avisarme a las 6:00 AM
+    </button>
   </div>
 
   <!-- PRÓXIMA ACTUALIZACIÓN -->
@@ -702,6 +829,9 @@ function iniciarPagina(){
   verificarAdmin();
   iniciarPronosticoGratis();
   iniciarCountdownProxima();
+  iniciarDarkMode();
+  iniciarPuntos();
+  iniciarNotificaciones();
 }
 
 /* =========================
@@ -1100,6 +1230,130 @@ function iniciarCountdownProxima(){
   }
   actualizar();
   setInterval(actualizar, 1000);
+}
+
+
+/* =========================
+   MODO OSCURO
+========================= */
+function toggleDark(){
+  document.body.classList.toggle("dark");
+  const btn = document.getElementById("darkBtn");
+  const isDark = document.body.classList.contains("dark");
+  btn.textContent = isDark ? "☀️" : "🌙";
+  localStorage.setItem("darkMode", isDark ? "1" : "0");
+}
+
+function iniciarDarkMode(){
+  if(localStorage.getItem("darkMode") === "1"){
+    document.body.classList.add("dark");
+    const btn = document.getElementById("darkBtn");
+    if(btn) btn.textContent = "☀️";
+  }
+}
+
+/* =========================
+   SISTEMA DE PUNTOS
+========================= */
+const MEDALLAS = [
+  { pts:1,   icono:"🥉", nombre:"Bronce" },
+  { pts:7,   icono:"🥈", nombre:"Plata" },
+  { pts:30,  icono:"🥇", nombre:"Oro" },
+  { pts:100, icono:"💎", nombre:"Diamante" }
+];
+
+function obtenerPuntos(){
+  return parseInt(localStorage.getItem("d88_puntos") || "0");
+}
+
+function registrarVisitaPuntos(){
+  const hoy = new Date().toISOString().slice(0,10);
+  const yaContado = localStorage.getItem("d88_puntosHoy");
+  if(yaContado === hoy) return;
+  const pts = obtenerPuntos() + 1;
+  localStorage.setItem("d88_puntos", pts);
+  localStorage.setItem("d88_puntosHoy", hoy);
+  mostrarPuntos();
+}
+
+function mostrarPuntos(){
+  const pts = obtenerPuntos();
+  const bar = document.getElementById("puntosBar");
+  if(!bar) return;
+  let medallas = MEDALLAS.map(m => {
+    const activa = pts >= m.pts;
+    return `<span class="medalla${activa?' activa':''}" title="${m.nombre} (${m.pts} días)">${m.icono}</span>`;
+  }).join("");
+  bar.innerHTML = `⭐ Puntos: <strong>${pts}</strong> día${pts!==1?'s':''} visitado &nbsp;${medallas}`;
+}
+
+function iniciarPuntos(){
+  registrarVisitaPuntos();
+  mostrarPuntos();
+}
+
+/* =========================
+   COMPARTIR EN WHATSAPP
+========================= */
+function compartirWhatsApp(){
+  const texto = encodeURIComponent(
+    "🔥 *DOMINANCIA 88* — Pronóstico gratis de hoy ya disponible!\n" +
+    "Entra y revisa los números antes de que cierren las loterías 👇\n\n" +
+    "https://abaezjorge-maker.github.io/dominancia88/"
+  );
+  window.open("https://wa.me/?text=" + texto, "_blank");
+}
+
+/* =========================
+   NOTIFICACIONES
+========================= */
+function activarNotificaciones(){
+  if(!("Notification" in window) || !("serviceWorker" in navigator)){
+    alert("Tu navegador no soporta notificaciones. Intenta desde Chrome en Android.");
+    return;
+  }
+  if(Notification.permission === "granted"){
+    alert("✅ Ya tienes las notificaciones activadas. Te avisaremos a las 6:00 AM.");
+    document.getElementById("btnNotif").classList.add("activa");
+    document.getElementById("btnNotif").textContent = "✅ Notificaciones activas";
+    programarNotificacion();
+    return;
+  }
+  Notification.requestPermission().then(function(perm){
+    const btn = document.getElementById("btnNotif");
+    if(perm === "granted"){
+      btn.classList.add("activa");
+      btn.textContent = "✅ Notificaciones activas";
+      programarNotificacion();
+      localStorage.setItem("d88_notif","1");
+    } else {
+      alert("Permiso denegado. Actívalo desde la configuración del navegador.");
+    }
+  });
+}
+
+function programarNotificacion(){
+  const ahora = new Date();
+  const proxima6am = new Date(ahora);
+  proxima6am.setHours(6, 0, 0, 0);
+  if(ahora >= proxima6am) proxima6am.setDate(proxima6am.getDate() + 1);
+  const msHasta = proxima6am - ahora;
+  setTimeout(function(){
+    new Notification("🔥 Dominancia 88", {
+      body: "¡El pronóstico gratis de hoy ya está disponible! Entra ahora.",
+      icon: "https://abaezjorge-maker.github.io/dominancia88/fondo.jpg.jpeg"
+    });
+    // Re-programar para mañana
+    setTimeout(programarNotificacion, 1000);
+  }, msHasta);
+}
+
+function iniciarNotificaciones(){
+  const btn = document.getElementById("btnNotif");
+  if(Notification.permission === "granted" && localStorage.getItem("d88_notif") === "1"){
+    if(btn){ btn.classList.add("activa"); btn.textContent = "✅ Notificaciones activas"; }
+    programarNotificacion();
+  }
 }
 
 </script>
