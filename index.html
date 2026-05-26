@@ -822,7 +822,7 @@ body.dark .numfuertes-desc{ color:#94a3b8; }
       <div class="num-fuerte" id="nf2"><span class="nf-numero">--</span><span class="nf-emoji">⚡</span></div>
       <div class="num-fuerte" id="nf3"><span class="nf-numero">--</span><span class="nf-emoji">💎</span></div>
     </div>
-    <div class="nf-loteria" id="nfLoteria">📍 —</div>
+    <div class="nf-loteria" id="nfLoteria">📍 Sorteo actual en vivo</div>
   </div>
 
   <!-- PRÓXIMA ACTUALIZACIÓN -->
@@ -1465,7 +1465,7 @@ function generarNumerosFuertes(){
   document.getElementById("nf1").querySelector(".nf-numero").textContent = String(n1).padStart(2,"0");
   document.getElementById("nf2").querySelector(".nf-numero").textContent = String(n2).padStart(2,"0");
   document.getElementById("nf3").querySelector(".nf-numero").textContent = String(n3).padStart(2,"0");
-  document.getElementById("nfLoteria").textContent = "📍 " + loterias[lotIdx];
+  document.getElementById("nfLoteria").textContent = "📍 Sorteo actual en vivo";
 }
 
 function generarTripletas(){
