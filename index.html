@@ -636,6 +636,86 @@ body.dark .puntos-bar{ color:#93c5fd; }
   color:#fff;
   box-shadow:0 0 14px rgba(11,127,91,.4);
 }
+
+/* TRIPLETA EN CARDS */
+.pg-tripleta{
+  margin:10px 0 6px 0;
+  text-align:center;
+}
+.pg-trip-numeros{
+  font-size:32px;
+  font-weight:900;
+  color:#0b7f5b;
+  letter-spacing:3px;
+  text-shadow:0 2px 8px rgba(255,255,255,.8);
+}
+.pg-trip-loteria{
+  font-size:16px;
+  color:#0f6fae;
+  font-weight:bold;
+  margin-top:4px;
+}
+body.dark .pg-trip-numeros{ color:#34d399; }
+body.dark .pg-trip-loteria{ color:#60a5fa; }
+
+/* NÚMEROS FUERTES */
+.numfuertes-card{
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.numfuertes-card h3{
+  font-size:22px;
+  color:#0f4c81;
+  margin-bottom:6px;
+}
+.numfuertes-desc{
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:16px;
+}
+.numfuertes-grid{
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  margin-bottom:14px;
+}
+.num-fuerte{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:linear-gradient(135deg,#0f4c81,#0f6fae);
+  border-radius:18px;
+  padding:16px 20px;
+  min-width:72px;
+  box-shadow:0 8px 22px rgba(15,111,174,.35);
+  animation: nfPulse 2s ease-in-out infinite;
+}
+.num-fuerte:nth-child(2){ animation-delay:.4s; background:linear-gradient(135deg,#0b7f5b,#0f9e72); }
+.num-fuerte:nth-child(3){ animation-delay:.8s; background:linear-gradient(135deg,#7c3aed,#9f67fa); }
+
+@keyframes nfPulse{
+  0%,100%{ transform:translateY(0); box-shadow:0 8px 22px rgba(15,111,174,.35); }
+  50%{ transform:translateY(-5px); box-shadow:0 14px 28px rgba(15,111,174,.5); }
+}
+.nf-numero{
+  font-size:36px;
+  font-weight:900;
+  color:#fff;
+  line-height:1;
+}
+.nf-emoji{
+  font-size:22px;
+  margin-top:6px;
+}
+.nf-loteria{
+  font-size:15px;
+  color:#0f6fae;
+  font-weight:bold;
+}
+body.dark .nf-loteria{ color:#60a5fa; }
+body.dark .numfuertes-desc{ color:#94a3b8; }
 </style>
 </head>
 
@@ -680,6 +760,10 @@ body.dark .puntos-bar{ color:#93c5fd; }
     </div>
 
     <img id="img" src="pronostico.jpg" class="pred-img">
+    <div id="vipTripleta" class="pg-tripleta" style="display:none;">
+      <div class="pg-trip-numeros" id="vipTripNumeros">-- · -- · --</div>
+      <div class="pg-trip-loteria" id="vipTripLoteria">📍 —</div>
+    </div>
   </div>
 
   <!-- RULETA -->
@@ -698,34 +782,13 @@ body.dark .puntos-bar{ color:#93c5fd; }
     <div id="resRuleta" class="res-ruleta-grande">🎯 Esperando giro...</div>
   </div>
 
-  <!-- TRIPLETA DIARIA -->
-  <div class="card tripleta-card">
-    <h3>🎯 Tripleta diaria</h3>
-
-    <button class="btn-tripleta" onclick="tripleta()">Generar</button>
-
-    <div id="tripletaNumero" class="tripleta-numero">-- - -- - --</div>
-    <div id="tripletaLoteria" class="tripleta-loteria">📍 Lotería pendiente</div>
-    <div id="tripletaEstado" class="tripleta-estado"></div>
-  </div>
-
-  <!-- CAJA MISTERIOSA -->
-  <div class="card caja-card">
-    <h3>🎁 Caja Misteriosa</h3>
-
-    <div class="cajas">
-      <div class="mystery-box" onclick="caja()">🎁</div>
-      <div class="mystery-box" onclick="caja()">🎁</div>
-      <div class="mystery-box" onclick="caja()">🎁</div>
-      <div class="mystery-box" onclick="caja()">🎁</div>
-    </div>
-
-    <div id="resCaja" class="resultado"></div>
-  </div>
-
   <!-- PRONÓSTICO GRATIS -->
   <div class="card pronostico-gratis-card">
     <h3>🎯 Pronóstico Gratis del Día</h3>
+    <div id="pgTripleta" class="pg-tripleta" style="display:none;">
+      <div class="pg-trip-numeros" id="pgTripNumeros">-- · -- · --</div>
+      <div class="pg-trip-loteria" id="pgTripLoteria">📍 —</div>
+    </div>
 
     <div id="pgBloqueado" class="pronostico-bloqueado">
       🔒
@@ -747,6 +810,18 @@ body.dark .puntos-bar{ color:#93c5fd; }
     <button id="btnNotif" class="btn-notif" onclick="activarNotificaciones()">
       🔔 Avisarme a las 6:00 AM
     </button>
+  </div>
+
+  <!-- NÚMEROS FUERTES -->
+  <div class="card numfuertes-card">
+    <h3>💥 Números Fuertes del Día</h3>
+    <p class="numfuertes-desc">Generados con patrón matemático diario</p>
+    <div class="numfuertes-grid" id="numFuertesGrid">
+      <div class="num-fuerte" id="nf1"><span class="nf-numero">--</span><span class="nf-emoji">🔥</span></div>
+      <div class="num-fuerte" id="nf2"><span class="nf-numero">--</span><span class="nf-emoji">⚡</span></div>
+      <div class="num-fuerte" id="nf3"><span class="nf-numero">--</span><span class="nf-emoji">💎</span></div>
+    </div>
+    <div class="nf-loteria" id="nfLoteria">📍 —</div>
   </div>
 
   <!-- PRÓXIMA ACTUALIZACIÓN -->
@@ -832,6 +907,8 @@ function iniciarPagina(){
   iniciarDarkMode();
   iniciarPuntos();
   iniciarNotificaciones();
+  generarNumerosFuertes();
+  generarTripletas();
 }
 
 /* =========================
@@ -877,6 +954,8 @@ function vip(){
   if(clave === claveVIP || esAdmin()){
     document.getElementById("img").classList.add("desbloqueado");
     document.getElementById("estadoVIP").innerHTML = "✅ Estado: desbloqueado";
+    localStorage.setItem("vipDesbloqueado","1");
+    generarTripletas();
   }else{
     alert("Clave incorrecta");
   }
@@ -1353,6 +1432,69 @@ function iniciarNotificaciones(){
   if(Notification.permission === "granted" && localStorage.getItem("d88_notif") === "1"){
     if(btn){ btn.classList.add("activa"); btn.textContent = "✅ Notificaciones activas"; }
     programarNotificacion();
+  }
+}
+
+
+/* =========================
+   NÚMEROS FUERTES + TRIPLETAS
+========================= */
+
+function seedRandom(seed){
+  // Simple seeded random para resultados consistentes por día
+  let x = Math.sin(seed + 1) * 10000;
+  return x - Math.floor(x);
+}
+
+function generarNumerosFuertes(){
+  const hoy = new Date();
+  const seed = hoy.getFullYear() * 10000 + (hoy.getMonth()+1) * 100 + hoy.getDate();
+
+  const n1 = Math.floor(seedRandom(seed * 3)   * 99) + 1;
+  const n2 = Math.floor(seedRandom(seed * 7)   * 99) + 1;
+  const n3 = Math.floor(seedRandom(seed * 13)  * 99) + 1;
+  const lotIdx = Math.floor(seedRandom(seed * 17) * loterias.length);
+
+  document.getElementById("nf1").querySelector(".nf-numero").textContent = String(n1).padStart(2,"0");
+  document.getElementById("nf2").querySelector(".nf-numero").textContent = String(n2).padStart(2,"0");
+  document.getElementById("nf3").querySelector(".nf-numero").textContent = String(n3).padStart(2,"0");
+  document.getElementById("nfLoteria").textContent = "📍 " + loterias[lotIdx];
+}
+
+function generarTripletas(){
+  const hoy = new Date();
+  const seed = hoy.getFullYear() * 10000 + (hoy.getMonth()+1) * 100 + hoy.getDate();
+
+  // Tripleta pronóstico gratis
+  const ga = Math.floor(seedRandom(seed * 2)  * 99) + 1;
+  const gb = Math.floor(seedRandom(seed * 5)  * 99) + 1;
+  const gc = Math.floor(seedRandom(seed * 11) * 99) + 1;
+  const glotIdx = Math.floor(seedRandom(seed * 19) * loterias.length);
+
+  // Tripleta VIP (diferente semilla)
+  const va = Math.floor(seedRandom(seed * 23) * 99) + 1;
+  const vb = Math.floor(seedRandom(seed * 29) * 99) + 1;
+  const vc = Math.floor(seedRandom(seed * 31) * 99) + 1;
+  const vlotIdx = Math.floor(seedRandom(seed * 37) * loterias.length);
+
+  const fmt = n => String(n).padStart(2,"0");
+
+  // Solo mostrar si ya está desbloqueado (pasadas las 6am)
+  if(estaDesbloqueadoGratis()){
+    document.getElementById("pgTripNumeros").textContent =
+      fmt(ga) + " · " + fmt(gb) + " · " + fmt(gc);
+    document.getElementById("pgTripLoteria").textContent =
+      "📍 " + loterias[glotIdx];
+    document.getElementById("pgTripleta").style.display = "block";
+  }
+
+  // VIP solo si está desbloqueado
+  if(localStorage.getItem("vipDesbloqueado") === "1" || esAdmin()){
+    document.getElementById("vipTripNumeros").textContent =
+      fmt(va) + " · " + fmt(vb) + " · " + fmt(vc);
+    document.getElementById("vipTripLoteria").textContent =
+      "📍 " + loterias[vlotIdx];
+    document.getElementById("vipTripleta").style.display = "block";
   }
 }
 
