@@ -716,115 +716,6 @@ body.dark .pg-trip-loteria{ color:#60a5fa; }
 }
 body.dark .nf-loteria{ color:#60a5fa; }
 body.dark .numfuertes-desc{ color:#94a3b8; }
-
-/* MEJORAS DE LEGIBILIDAD EN MODO OSCURO */
-body.dark{
-  color:#f8fafc;
-}
-
-body.dark .card{
-  background:rgba(8,18,38,.72);
-  border:1px solid rgba(96,165,250,.45);
-  box-shadow:0 10px 35px rgba(0,0,0,.38);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-}
-
-body.dark h1{
-  color:#93c5fd;
-  text-shadow:
-    0 0 10px rgba(59,130,246,.95),
-    0 0 22px rgba(59,130,246,.55);
-}
-
-body.dark h3,
-body.dark .panel-vip h3,
-body.dark .ruleta-card h3,
-body.dark .tripleta-card h3,
-body.dark .caja-card h3,
-body.dark .proxima-card h3,
-body.dark .zona-vip h3,
-body.dark .pronostico-gratis-card h3,
-body.dark .numfuertes-card h3{
-  color:#38bdf8;
-  text-shadow:
-    0 0 8px rgba(56,189,248,.45),
-    0 2px 8px rgba(0,0,0,.75);
-}
-
-body.dark .como-funciona{
-  color:#f8fafc;
-  font-weight:600;
-  text-shadow:0 2px 6px rgba(0,0,0,.8);
-}
-
-body.dark .como-funciona li{
-  color:#f8fafc;
-  margin-bottom:10px;
-}
-
-body.dark .panel-vip-desc,
-body.dark .proxima-desc,
-body.dark .pronostico-bloqueado p,
-body.dark .numfuertes-desc,
-body.dark .precio-vip,
-body.dark .lista-vip,
-body.dark .zona-vip,
-body.dark .panel-vip-box p{
-  color:#e5e7eb;
-  text-shadow:0 2px 6px rgba(0,0,0,.65);
-}
-
-body.dark .estado-vip,
-body.dark .tripleta-loteria,
-body.dark .nf-loteria,
-body.dark .pg-trip-loteria,
-body.dark .incluye-titulo{
-  color:#7dd3fc;
-  font-weight:900;
-  text-shadow:0 0 8px rgba(14,165,233,.45);
-}
-
-body.dark .resultado,
-body.dark .tripleta-estado,
-body.dark .res-ruleta-grande,
-body.dark .tripleta-numero,
-body.dark .pg-trip-numeros{
-  color:#4ade80;
-  text-shadow:
-    0 0 8px rgba(34,197,94,.55),
-    0 2px 8px rgba(0,0,0,.8);
-}
-
-body.dark .panel-vip-box{
-  background:rgba(15,23,42,.68);
-  border:1px solid rgba(125,211,252,.35);
-}
-
-body.dark button{
-  background:linear-gradient(135deg,#1d4ed8,#0284c7);
-  color:#ffffff;
-  text-shadow:0 1px 4px rgba(0,0,0,.45);
-}
-
-body.dark .btn-whatsapp,
-body.dark .btn-compartir{
-  color:#052e16;
-  text-shadow:none;
-}
-
-body.dark .countdown-proxima,
-body.dark .countdown-gratis{
-  color:#93c5fd;
-  text-shadow:
-    0 0 10px rgba(59,130,246,.65),
-    0 2px 8px rgba(0,0,0,.75);
-}
-
-body.dark .countdown-label{
-  color:#cbd5e1;
-}
-
 </style>
 </head>
 
@@ -1440,20 +1331,10 @@ function toggleDark(){
 }
 
 function iniciarDarkMode(){
-  const modoGuardado = localStorage.getItem("darkMode");
-
-  if(modoGuardado === null){
-    localStorage.setItem("darkMode", "1");
-  }
-
   if(localStorage.getItem("darkMode") === "1"){
     document.body.classList.add("dark");
     const btn = document.getElementById("darkBtn");
     if(btn) btn.textContent = "☀️";
-  }else{
-    document.body.classList.remove("dark");
-    const btn = document.getElementById("darkBtn");
-    if(btn) btn.textContent = "🌙";
   }
 }
 
