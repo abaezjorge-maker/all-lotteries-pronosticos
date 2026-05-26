@@ -716,6 +716,190 @@ body.dark .pg-trip-loteria{ color:#60a5fa; }
 }
 body.dark .nf-loteria{ color:#60a5fa; }
 body.dark .numfuertes-desc{ color:#94a3b8; }
+
+/* MEJORAS VISUALES — MODO OSCURO LEGIBLE + TÍTULOS BRILLANTES */
+body.dark{
+  color:#f8fafc;
+}
+
+body.dark .card{
+  background:rgba(8,18,38,.72);
+  border:1px solid rgba(96,165,250,.48);
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.42),
+    inset 0 0 22px rgba(59,130,246,.08);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+
+body.dark h1{
+  color:#93c5fd;
+  font-size:42px;
+  text-shadow:
+    0 0 10px rgba(59,130,246,.95),
+    0 0 24px rgba(59,130,246,.65),
+    0 2px 10px rgba(0,0,0,.85);
+}
+
+body.dark h3,
+body.dark .panel-vip h3,
+body.dark .ruleta-card h3,
+body.dark .tripleta-card h3,
+body.dark .caja-card h3,
+body.dark .proxima-card h3,
+body.dark .zona-vip h3,
+body.dark .pronostico-gratis-card h3,
+body.dark .numfuertes-card h3{
+  color:#38bdf8;
+  font-size:28px;
+  font-weight:900;
+  text-shadow:
+    0 0 8px rgba(56,189,248,.65),
+    0 0 18px rgba(56,189,248,.35),
+    0 2px 8px rgba(0,0,0,.8);
+}
+
+body.dark .como-funciona{
+  color:#ffffff;
+  font-size:17px;
+  font-weight:700;
+  text-shadow:0 2px 7px rgba(0,0,0,.85);
+}
+
+body.dark .como-funciona li{
+  color:#ffffff;
+  margin-bottom:12px;
+}
+
+body.dark .panel-vip-desc,
+body.dark .proxima-desc,
+body.dark .pronostico-bloqueado p,
+body.dark .numfuertes-desc,
+body.dark .precio-vip,
+body.dark .lista-vip,
+body.dark .zona-vip,
+body.dark .panel-vip-box p{
+  color:#f1f5f9;
+  font-weight:600;
+  text-shadow:0 2px 7px rgba(0,0,0,.75);
+}
+
+body.dark .estado-vip,
+body.dark .tripleta-loteria,
+body.dark .nf-loteria,
+body.dark .pg-trip-loteria,
+body.dark .incluye-titulo{
+  color:#7dd3fc;
+  font-weight:900;
+  text-shadow:0 0 10px rgba(14,165,233,.55);
+}
+
+body.dark .resultado,
+body.dark .tripleta-estado,
+body.dark .res-ruleta-grande,
+body.dark .tripleta-numero,
+body.dark .pg-trip-numeros{
+  color:#4ade80;
+  text-shadow:
+    0 0 9px rgba(34,197,94,.6),
+    0 2px 8px rgba(0,0,0,.85);
+}
+
+body.dark .panel-vip-box{
+  background:rgba(15,23,42,.68);
+  border:1px solid rgba(125,211,252,.4);
+}
+
+body.dark button{
+  background:linear-gradient(135deg,#1d4ed8,#0284c7);
+  color:#ffffff;
+  text-shadow:0 1px 4px rgba(0,0,0,.45);
+}
+
+body.dark .btn-whatsapp,
+body.dark .btn-compartir{
+  color:#052e16;
+  text-shadow:none;
+}
+
+body.dark .countdown-proxima,
+body.dark .countdown-gratis{
+  color:#93c5fd;
+  text-shadow:
+    0 0 10px rgba(59,130,246,.65),
+    0 2px 8px rgba(0,0,0,.75);
+}
+
+body.dark .countdown-label{
+  color:#e2e8f0;
+}
+
+/* GENERADOR DE TRIPLETAS EN PANEL VIP */
+.panel-tripleta-box{
+  width:100%;
+  margin-top:16px;
+  padding:16px 14px;
+  border-radius:18px;
+  border:1px solid rgba(15,111,174,.35);
+  background:rgba(240,247,255,.78);
+  box-shadow:0 8px 24px rgba(31,64,104,.14);
+  text-align:center;
+}
+
+.panel-tripleta-box h4{
+  margin:0 0 10px 0;
+  font-size:20px;
+  color:#0f4c81;
+  font-weight:900;
+}
+
+.panel-trip-numeros{
+  font-size:38px;
+  font-weight:900;
+  color:#0b7f5b;
+  letter-spacing:3px;
+  text-shadow:0 2px 10px rgba(255,255,255,.9);
+  margin:8px 0;
+}
+
+.panel-trip-loteria{
+  font-size:16px;
+  color:#0f6fae;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.btn-panel-tripleta{
+  font-size:16px;
+  padding:12px 24px;
+  border-radius:14px;
+}
+
+body.dark .panel-tripleta-box{
+  background:rgba(15,23,42,.7);
+  border:1px solid rgba(125,211,252,.42);
+  box-shadow:
+    0 8px 26px rgba(0,0,0,.35),
+    inset 0 0 18px rgba(14,165,233,.09);
+}
+
+body.dark .panel-tripleta-box h4{
+  color:#38bdf8;
+  text-shadow:0 0 9px rgba(56,189,248,.5);
+}
+
+body.dark .panel-trip-numeros{
+  color:#4ade80;
+  text-shadow:
+    0 0 12px rgba(34,197,94,.6),
+    0 2px 8px rgba(0,0,0,.85);
+}
+
+body.dark .panel-trip-loteria{
+  color:#7dd3fc;
+  text-shadow:0 0 8px rgba(14,165,233,.45);
+}
+
 </style>
 </head>
 
@@ -761,6 +945,14 @@ body.dark .numfuertes-desc{ color:#94a3b8; }
     </div>
 
     <img id="img" src="pronostico.jpg" class="pred-img">
+
+    <div class="panel-tripleta-box">
+      <h4>🎯 Generador de Tripletas</h4>
+      <div class="panel-trip-numeros" id="panelTripNumeros">-- · -- · --</div>
+      <div class="panel-trip-loteria" id="panelTripLoteria">📍 Sorteo actual en vivo</div>
+      <button class="btn-panel-tripleta" onclick="generarTripletaPanel()">Generar tripleta</button>
+    </div>
+
     <div id="vipTripleta" class="pg-tripleta" style="display:none;">
       <div class="pg-trip-numeros" id="vipTripNumeros">-- · -- · --</div>
       <div class="pg-trip-loteria" id="vipTripLoteria">📍 —</div>
@@ -822,7 +1014,7 @@ body.dark .numfuertes-desc{ color:#94a3b8; }
       <div class="num-fuerte" id="nf2"><span class="nf-numero">--</span><span class="nf-emoji">⚡</span></div>
       <div class="num-fuerte" id="nf3"><span class="nf-numero">--</span><span class="nf-emoji">💎</span></div>
     </div>
-    <div class="nf-loteria" id="nfLoteria">📍 —</div>
+    <div class="nf-loteria" id="nfLoteria">📍 Sorteo actual en vivo</div>
   </div>
 
   <!-- PRÓXIMA ACTUALIZACIÓN -->
@@ -907,9 +1099,14 @@ function iniciarPagina(){
   iniciarCountdownProxima();
   iniciarDarkMode();
   iniciarPuntos();
-  iniciarNotificaciones();
   generarNumerosFuertes();
   generarTripletas();
+
+  try{
+    iniciarNotificaciones();
+  }catch(e){
+    console.warn("Notificaciones no disponibles:", e);
+  }
 }
 
 /* =========================
@@ -1331,10 +1528,20 @@ function toggleDark(){
 }
 
 function iniciarDarkMode(){
+  const modoGuardado = localStorage.getItem("darkMode");
+
+  if(modoGuardado === null){
+    localStorage.setItem("darkMode", "1");
+  }
+
   if(localStorage.getItem("darkMode") === "1"){
     document.body.classList.add("dark");
     const btn = document.getElementById("darkBtn");
     if(btn) btn.textContent = "☀️";
+  }else{
+    document.body.classList.remove("dark");
+    const btn = document.getElementById("darkBtn");
+    if(btn) btn.textContent = "🌙";
   }
 }
 
@@ -1435,9 +1642,17 @@ function programarNotificacion(){
 }
 
 function iniciarNotificaciones(){
+  if(!("Notification" in window)){
+    return;
+  }
+
   const btn = document.getElementById("btnNotif");
+
   if(Notification.permission === "granted" && localStorage.getItem("d88_notif") === "1"){
-    if(btn){ btn.classList.add("activa"); btn.textContent = "✅ Notificaciones activas"; }
+    if(btn){
+      btn.classList.add("activa");
+      btn.textContent = "✅ Notificaciones activas";
+    }
     programarNotificacion();
   }
 }
@@ -1465,7 +1680,22 @@ function generarNumerosFuertes(){
   document.getElementById("nf1").querySelector(".nf-numero").textContent = String(n1).padStart(2,"0");
   document.getElementById("nf2").querySelector(".nf-numero").textContent = String(n2).padStart(2,"0");
   document.getElementById("nf3").querySelector(".nf-numero").textContent = String(n3).padStart(2,"0");
-  document.getElementById("nfLoteria").textContent = "📍 " + loterias[lotIdx];
+  document.getElementById("nfLoteria").textContent = "📍 Sorteo actual en vivo";
+}
+
+
+function generarTripletaPanel(){
+  const a = Math.floor(Math.random() * 100).toString().padStart(2,"0");
+  const b = Math.floor(Math.random() * 100).toString().padStart(2,"0");
+  const c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
+
+  const numeros = `${a} · ${b} · ${c}`;
+
+  const numsEl = document.getElementById("panelTripNumeros");
+  const lotEl = document.getElementById("panelTripLoteria");
+
+  if(numsEl) numsEl.textContent = numeros;
+  if(lotEl) lotEl.textContent = "📍 Sorteo actual en vivo";
 }
 
 function generarTripletas(){
