@@ -923,6 +923,26 @@ function estaDesbloqueadoGratis(){
 }
 
 function iniciarPronosticoGratis(){
+  // El admin siempre puede ver el botón de subir imagen
+  if(esAdmin()){
+    const btn = document.getElementById("pgBtnSubir");
+    if(btn) btn.classList.add("visible");
+    // Si ya hay imagen guardada hoy, mostrarla
+    const hoy = new Date().toISOString().slice(0,10);
+    const imgGuardada = localStorage.getItem("pgImg_" + hoy);
+    if(imgGuardada){
+      document.getElementById("pgBloqueado").style.display = "none";
+      const img = document.getElementById("pgImg");
+      img.src = imgGuardada;
+      img.classList.add("visible");
+    } else {
+      const msg = document.getElementById("pgMensaje");
+      if(msg) msg.textContent = "⏳ Aún no has subido el pronóstico de hoy.";
+    }
+    return;
+  }
+
+  // Para visitantes normales: respetar la hora
   if(estaDesbloqueadoGratis()){
     mostrarPronosticoGratis();
   } else {
