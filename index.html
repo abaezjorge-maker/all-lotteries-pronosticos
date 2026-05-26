@@ -915,6 +915,32 @@ body.dark .zona-vip-msg{
   text-shadow:0 2px 7px rgba(0,0,0,.75);
 }
 
+
+/* BOTÓN INSTAGRAM */
+.btn-instagram{
+  display:inline-block;
+  margin-top:18px;
+  padding:13px 22px;
+  border-radius:15px;
+  background:linear-gradient(45deg,#833AB4,#FD1D1D,#FCAF45);
+  color:#ffffff;
+  font-weight:900;
+  text-decoration:none;
+  box-shadow:0 0 18px rgba(255,0,150,.45);
+  transition:.3s;
+  text-shadow:0 1px 4px rgba(0,0,0,.45);
+}
+
+.btn-instagram:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 28px rgba(255,0,150,.75);
+}
+
+body.dark .btn-instagram{
+  color:#ffffff;
+  text-shadow:0 1px 5px rgba(0,0,0,.65);
+}
+
 </style>
 </head>
 
@@ -937,14 +963,15 @@ body.dark .zona-vip-msg{
 <div class="card" style="margin:0 15px 15px 15px;">
   <h3>📌 Cómo funciona</h3>
   <ol class="como-funciona">
-    <li>Desbloquea el pronóstico VIP con tu clave.</li>
     <li>Ve el pronóstico gratis cada día a las 6:00 AM.</li>
     <li>Usa la ruleta para recibir un número + lotería.</li>
-    <li>Abre la caja misteriosa una vez al día.</li>
     <li>Genera tu tripleta diaria.</li>
     <li>Visita diario para ganar puntos y medallas.</li>
-    <li>Para acceso completo, solicita tu clave VIP.</li>
   </ol>
+
+  <a class="btn-instagram" href="https://www.instagram.com/dominancia88?igsh=MWdhdDV2cmxxanc4bA%3D%3D&utm_source=qr" target="_blank">
+    📸 Seguir en Instagram
+  </a>
 </div>
 
 <div class="grid">
@@ -959,7 +986,7 @@ body.dark .zona-vip-msg{
       <button class="btn-vip-panel" onclick="vip()">Desbloquear acceso</button>
     </div>
 
-    <img id="img" src="pronostico.jpg" class="pred-img">
+    
 
     <div class="panel-tripleta-box">
       <h4>🎯 Generador de Tripletas</h4>
@@ -992,7 +1019,7 @@ body.dark .zona-vip-msg{
 
   <!-- PRONÓSTICO GRATIS -->
   <div class="card pronostico-gratis-card">
-    <h3>🎯 Pronóstico Gratis del Día</h3>
+    <h3>🎯 Pronóstico del Día</h3>
     <div id="pgTripleta" class="pg-tripleta" style="display:none;">
       <div class="pg-trip-numeros" id="pgTripNumeros">-- · -- · --</div>
       <div class="pg-trip-loteria" id="pgTripLoteria">📍 —</div>
@@ -1004,7 +1031,7 @@ body.dark .zona-vip-msg{
       <div id="pgCountdown" class="countdown-gratis"></div>
     </div>
 
-    <img id="pgImg" class="pronostico-img-gratis" src="" alt="Pronóstico gratis">
+    
 
     <button id="pgBtnSubir" class="btn-subir-gratis" onclick="subirPronosticoGratis()">
       📤 Subir imagen (admin)
