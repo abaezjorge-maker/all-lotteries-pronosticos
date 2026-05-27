@@ -941,6 +941,38 @@ body.dark .btn-instagram{
   text-shadow:0 1px 5px rgba(0,0,0,.65);
 }
 
+
+/* MEJORAS CABECERA */
+.visitas-bar{
+  font-size:24px !important;
+  font-weight:900 !important;
+}
+
+.admin-bar button{
+  font-size:20px !important;
+  padding:14px 24px !important;
+  border-radius:14px !important;
+  margin:4px;
+}
+
+.admin-status{
+  font-size:24px !important;
+  font-weight:900 !important;
+}
+
+@media(max-width:700px){
+  .visitas-bar{
+    font-size:21px !important;
+  }
+  .admin-bar button{
+    font-size:17px !important;
+    padding:12px 18px !important;
+  }
+  .admin-status{
+    font-size:20px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -976,28 +1008,17 @@ body.dark .btn-instagram{
 
 <div class="grid">
 
-  <!-- PANEL VIP -->
+
+  <!-- TRIPLETA DIARIA -->
   <div class="card panel-vip">
-    <h3>📅 Panel VIP del día</h3>
-
-    <div class="panel-vip-box">
-      <p class="panel-vip-desc">Actualización diaria del pronóstico premium.</p>
-      <p class="estado-vip" id="estadoVIP">🔒 Estado: bloqueado</p>
-      <button class="btn-vip-panel" onclick="vip()">Desbloquear acceso</button>
-    </div>
-
-    
+    <h3>🎯 Tripleta diaria</h3>
 
     <div class="panel-tripleta-box">
-      <h4>🎯 Generador de Tripletas</h4>
+      <h4>🎲 Generador de Tripletas</h4>
       <div class="panel-trip-numeros" id="panelTripNumeros">-- · -- · --</div>
       <div class="panel-trip-loteria" id="panelTripLoteria">📍 Sorteo actual en vivo</div>
       <button class="btn-panel-tripleta" onclick="generarTripletaPanel()">Generar tripleta</button>
-    </div>
-
-    <div id="vipTripleta" class="pg-tripleta" style="display:none;">
-      <div class="pg-trip-numeros" id="vipTripNumeros">-- · -- · --</div>
-      <div class="pg-trip-loteria" id="vipTripLoteria">📍 —</div>
+      <div class="tripleta-estado" id="panelTripEstado"></div>
     </div>
   </div>
 
@@ -1030,13 +1051,6 @@ body.dark .btn-instagram{
       <p>Se revela a las 6:00 AM</p>
       <div id="pgCountdown" class="countdown-gratis"></div>
     </div>
-
-    
-
-    <button id="pgBtnSubir" class="btn-subir-gratis" onclick="subirPronosticoGratis()">
-      📤 Subir imagen (admin)
-    </button>
-    <div id="pgMensaje" class="resultado" style="font-size:14px;margin-top:8px;"></div>
 
     <button class="btn-compartir" onclick="compartirWhatsApp()">
       📲 Compartir en WhatsApp
@@ -1080,7 +1094,7 @@ body.dark .btn-instagram{
     </p>
 
     <a class="btn-whatsapp" href="https://wa.me/18496316472?text=Hola,%20quiero%20solicitar%20la%20clave%20VIP%20por%201%20semana" target="_blank">
-      Solicitar clave por WhatsApp
+      Solicitar por WhatsApp
     </a>
   </div>
 
@@ -1135,6 +1149,7 @@ function iniciarPagina(){
   iniciarDarkMode();
   iniciarPuntos();
   generarNumerosFuertes();
+  verificarTripletaPanel();
   generarTripletas();
 
   try{
@@ -1191,14 +1206,19 @@ function vip(){
   let clave = prompt("Introduce la clave VIP:");
 
   if(clave === claveVIP || esAdmin()){
-    document.getElementById("img").classList.add("desbloqueado");
-    document.getElementById("estadoVIP").innerHTML = "✅ Estado: desbloqueado";
+    const img = document.getElementById("img");
+    const estado = document.getElementById("estadoVIP");
+
+    if(img) img.classList.add("desbloqueado");
+    if(estado) estado.innerHTML = "✅ Estado: desbloqueado";
+
     localStorage.setItem("vipDesbloqueado","1");
     generarTripletas();
   }else{
     alert("Clave incorrecta");
   }
 }
+
 
 /* =========================
    RULETA
@@ -1425,34 +1445,14 @@ function estaDesbloqueadoGratis(){
 }
 
 function iniciarPronosticoGratis(){
-  // El admin siempre puede ver el botón de subir imagen
-  if(esAdmin()){
-    const btn = document.getElementById("pgBtnSubir");
-    if(btn) btn.classList.add("visible");
-    // Si ya hay imagen guardada hoy, mostrarla
-    const hoy = new Date().toISOString().slice(0,10);
-    const imgGuardada = localStorage.getItem("pgImg_" + hoy);
-    if(imgGuardada){
-      document.getElementById("pgBloqueado").style.display = "none";
-      const img = document.getElementById("pgImg");
-      img.src = imgGuardada;
-      img.classList.add("visible");
-    } else {
-      const msg = document.getElementById("pgMensaje");
-      if(msg) msg.textContent = "⏳ Aún no has subido el pronóstico de hoy.";
-    }
-    return;
-  }
-
-  // Para visitantes normales: respetar la hora
   if(estaDesbloqueadoGratis()){
     mostrarPronosticoGratis();
-  } else {
+  }else{
     actualizarCountdown();
     setInterval(function(){
       if(estaDesbloqueadoGratis()){
         mostrarPronosticoGratis();
-      } else {
+      }else{
         actualizarCountdown();
       }
     }, 1000);
@@ -1476,49 +1476,15 @@ function actualizarCountdown(){
 }
 
 function mostrarPronosticoGratis(){
-  // Intentar cargar imagen guardada en localStorage
-  const hoy = new Date().toISOString().slice(0,10);
-  const imgGuardada = localStorage.getItem("pgImg_" + hoy);
+  const bloqueado = document.getElementById("pgBloqueado");
+  if(bloqueado) bloqueado.style.display = "none";
 
-  document.getElementById("pgBloqueado").style.display = "none";
+  const tripleta = document.getElementById("pgTripleta");
+  if(tripleta) tripleta.style.display = "block";
 
-  if(imgGuardada){
-    const img = document.getElementById("pgImg");
-    img.src = imgGuardada;
-    img.classList.add("visible");
-  } else {
-    const msg = document.getElementById("pgMensaje");
-    if(msg) msg.textContent = "⏳ El administrador aún no ha subido el pronóstico de hoy.";
-  }
-
-  if(esAdmin()){
-    const btn = document.getElementById("pgBtnSubir");
-    if(btn) btn.classList.add("visible");
-  }
+  generarTripletas();
 }
 
-function subirPronosticoGratis(){
-  const input = document.createElement("input");
-  input.type = "file";
-  input.accept = "image/*";
-  input.onchange = function(e){
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = function(ev){
-      const base64 = ev.target.result;
-      const hoy = new Date().toISOString().slice(0,10);
-      localStorage.setItem("pgImg_" + hoy, base64);
-      const img = document.getElementById("pgImg");
-      img.src = base64;
-      img.classList.add("visible");
-      const msg = document.getElementById("pgMensaje");
-      if(msg) msg.textContent = "✅ Imagen subida correctamente.";
-    };
-    reader.readAsDataURL(file);
-  };
-  input.click();
-}
 
 
 /* =========================
@@ -1528,16 +1494,18 @@ function subirPronosticoGratis(){
 function iniciarCountdownProxima(){
   function actualizar(){
     const ahora = new Date();
-    // Próximas 6:00 AM
     const proxima = new Date(ahora);
     proxima.setHours(6, 0, 0, 0);
+
     if(ahora >= proxima){
       proxima.setDate(proxima.getDate() + 1);
     }
+
     const diff = proxima - ahora;
     const h = Math.floor(diff / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
+
     const el = document.getElementById("proximaCountdown");
     if(el){
       el.textContent =
@@ -1546,6 +1514,7 @@ function iniciarCountdownProxima(){
         String(s).padStart(2,"0");
     }
   }
+
   actualizar();
   setInterval(actualizar, 1000);
 }
@@ -1710,27 +1679,77 @@ function generarNumerosFuertes(){
   const n1 = Math.floor(seedRandom(seed * 3)   * 99) + 1;
   const n2 = Math.floor(seedRandom(seed * 7)   * 99) + 1;
   const n3 = Math.floor(seedRandom(seed * 13)  * 99) + 1;
-  const lotIdx = Math.floor(seedRandom(seed * 17) * loterias.length);
 
-  document.getElementById("nf1").querySelector(".nf-numero").textContent = String(n1).padStart(2,"0");
-  document.getElementById("nf2").querySelector(".nf-numero").textContent = String(n2).padStart(2,"0");
-  document.getElementById("nf3").querySelector(".nf-numero").textContent = String(n3).padStart(2,"0");
-  document.getElementById("nfLoteria").textContent = "📍 Sorteo actual en vivo";
+  const nf1 = document.getElementById("nf1");
+  const nf2 = document.getElementById("nf2");
+  const nf3 = document.getElementById("nf3");
+  const lot = document.getElementById("nfLoteria");
+
+  if(nf1) nf1.querySelector(".nf-numero").textContent = String(n1).padStart(2,"0");
+  if(nf2) nf2.querySelector(".nf-numero").textContent = String(n2).padStart(2,"0");
+  if(nf3) nf3.querySelector(".nf-numero").textContent = String(n3).padStart(2,"0");
+  if(lot) lot.textContent = "📍 Sorteo actual en vivo";
 }
 
-
 function generarTripletaPanel(){
+  const hoy = new Date().toISOString().slice(0,10);
+  const keyFecha = "panelTripletaFecha";
+  const keyResultado = "panelTripletaResultado";
+
+  if(!esAdmin() && localStorage.getItem(keyFecha) === hoy){
+    const guardada = localStorage.getItem(keyResultado);
+    const estado = document.getElementById("panelTripEstado");
+
+    if(guardada){
+      const datos = JSON.parse(guardada);
+      const numsEl = document.getElementById("panelTripNumeros");
+      const lotEl = document.getElementById("panelTripLoteria");
+
+      if(numsEl) numsEl.textContent = datos.numeros;
+      if(lotEl) lotEl.textContent = "📍 " + datos.loteria;
+    }
+
+    if(estado) estado.textContent = "⚠️ Ya usaste tu tripleta diaria.";
+    return;
+  }
+
   const a = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   const b = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   const c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
 
   const numeros = `${a} · ${b} · ${c}`;
+  const loteria = "Sorteo actual en vivo";
 
   const numsEl = document.getElementById("panelTripNumeros");
   const lotEl = document.getElementById("panelTripLoteria");
+  const estado = document.getElementById("panelTripEstado");
 
   if(numsEl) numsEl.textContent = numeros;
-  if(lotEl) lotEl.textContent = "📍 Sorteo actual en vivo";
+  if(lotEl) lotEl.textContent = "📍 " + loteria;
+
+  if(esAdmin()){
+    if(estado) estado.textContent = "Modo admin: ilimitado";
+  }else{
+    localStorage.setItem(keyFecha, hoy);
+    localStorage.setItem(keyResultado, JSON.stringify({ numeros, loteria }));
+    if(estado) estado.textContent = "✅ Tripleta diaria generada.";
+  }
+}
+
+function verificarTripletaPanel(){
+  const hoy = new Date().toISOString().slice(0,10);
+  const guardada = localStorage.getItem("panelTripletaResultado");
+
+  if(localStorage.getItem("panelTripletaFecha") === hoy && guardada){
+    const datos = JSON.parse(guardada);
+    const numsEl = document.getElementById("panelTripNumeros");
+    const lotEl = document.getElementById("panelTripLoteria");
+    const estado = document.getElementById("panelTripEstado");
+
+    if(numsEl) numsEl.textContent = datos.numeros;
+    if(lotEl) lotEl.textContent = "📍 " + datos.loteria;
+    if(estado && !esAdmin()) estado.textContent = "⚠️ Ya usaste tu tripleta diaria.";
+  }
 }
 
 function generarTripletas(){
@@ -1772,6 +1791,18 @@ function generarTripletas(){
 
 </script>
 
+
+<script>
+window.addEventListener("DOMContentLoaded", function(){
+  try{
+    generarNumerosFuertes();
+    iniciarCountdownProxima();
+    if(typeof verificarTripletaPanel === "function") verificarTripletaPanel();
+  }catch(e){
+    console.warn("Carga extra de seguridad:", e);
+  }
+});
+</script>
 
 <!-- ============================================================
   CONTADOR DE VISITAS — FIREBASE REALTIME DATABASE
