@@ -973,14 +973,58 @@ body.dark .btn-instagram{
   }
 }
 
+
+/* ACCIONES SUPERIORES */
+.top-actions{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:10px 0 12px 0;
+}
+
+.top-actions button{
+  font-size:16px;
+  padding:11px 18px;
+  border-radius:14px;
+}
+
+.dark-toggle{
+  position:static !important;
+  width:auto !important;
+  height:auto !important;
+  border-radius:14px !important;
+  display:inline-flex !important;
+}
+
+.install-btn{
+  background:linear-gradient(135deg,#0f6fae,#38bdf8);
+}
+
+.share-btn{
+  background:linear-gradient(135deg,#0b7f5b,#22c55e);
+}
+
+.pg-trip-loteria,
+.nf-loteria,
+.panel-trip-loteria,
+.numfuertes-desc{
+  display:none !important;
+}
+
 </style>
 </head>
 
 <body onload="iniciarPagina()">
 
-<button class="dark-toggle" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
-
 <h1>🔥 DOMINANCIA 88 🔥</h1>
+
+<div class="top-actions">
+  <button class="dark-toggle" onclick="toggleDark()" id="darkBtn" title="Modo oscuro">🌙</button>
+  <button class="install-btn" onclick="mostrarInstruccionesInicio()">📲 Añadir al inicio</button>
+  <button class="share-btn" onclick="compartirPagina()">🔗 Compartir página</button>
+</div>
 
 <div id="puntosBar" class="puntos-bar"></div>
 
@@ -996,7 +1040,7 @@ body.dark .btn-instagram{
   <h3>📌 Cómo funciona</h3>
   <ol class="como-funciona">
     <li>Ve el pronóstico gratis cada día a las 6:00 AM.</li>
-    <li>Usa la ruleta para recibir un número + lotería.</li>
+    <li>Usa la ruleta para recibir un número.</li>
     <li>Genera tu tripleta diaria.</li>
     <li>Visita diario para ganar puntos y medallas.</li>
   </ol>
@@ -1016,7 +1060,6 @@ body.dark .btn-instagram{
     <div class="panel-tripleta-box">
       <h4>🎲 Generador de Tripletas</h4>
       <div class="panel-trip-numeros" id="panelTripNumeros">-- · -- · --</div>
-      <div class="panel-trip-loteria" id="panelTripLoteria">📍 Sorteo actual en vivo</div>
       <button class="btn-panel-tripleta" onclick="generarTripletaPanel()">Generar tripleta</button>
       <div class="tripleta-estado" id="panelTripEstado"></div>
     </div>
@@ -1043,7 +1086,6 @@ body.dark .btn-instagram{
     <h3>🎯 Pronóstico del Día</h3>
     <div id="pgTripleta" class="pg-tripleta" style="display:none;">
       <div class="pg-trip-numeros" id="pgTripNumeros">-- · -- · --</div>
-      <div class="pg-trip-loteria" id="pgTripLoteria">📍 —</div>
     </div>
 
     <div id="pgBloqueado" class="pronostico-bloqueado">
@@ -1064,13 +1106,11 @@ body.dark .btn-instagram{
   <!-- NÚMEROS FUERTES -->
   <div class="card numfuertes-card">
     <h3>💥 Números Fuertes del Día</h3>
-    <p class="numfuertes-desc">Generados con patrón matemático diario</p>
     <div class="numfuertes-grid" id="numFuertesGrid">
       <div class="num-fuerte" id="nf1"><span class="nf-numero">--</span><span class="nf-emoji">🔥</span></div>
       <div class="num-fuerte" id="nf2"><span class="nf-numero">--</span><span class="nf-emoji">⚡</span></div>
       <div class="num-fuerte" id="nf3"><span class="nf-numero">--</span><span class="nf-emoji">💎</span></div>
     </div>
-    <div class="nf-loteria" id="nfLoteria">📍 Sorteo actual en vivo</div>
   </div>
 
   <!-- PRÓXIMA ACTUALIZACIÓN -->
@@ -1148,6 +1188,7 @@ function iniciarPagina(){
   iniciarCountdownProxima();
   iniciarDarkMode();
   iniciarPuntos();
+  iniciarContadorFake();
   generarNumerosFuertes();
   verificarTripletaPanel();
   generarTripletas();
@@ -1257,12 +1298,12 @@ function girar(){
   let r = document.getElementById("ruleta");
   let resultado = document.getElementById("resRuleta");
 
-  if(!esAdmin() && intentos >= 2){
+  if(!esAdmin() && intentos >= 1){
     let ultimoResultado = localStorage.getItem("ruletaUltimoResultado_" + hoy);
 
     resultado.innerHTML = ultimoResultado
-      ? "⚠️ Ya usaste tus 2 intentos de hoy<br>" + ultimoResultado
-      : "⚠️ Ya usaste tus 2 intentos de hoy";
+      ? "⚠️ Ya usaste tu intento de hoy<br>" + ultimoResultado
+      : "⚠️ Ya usaste tu intento de hoy";
 
     return;
   }
@@ -1284,8 +1325,8 @@ function girar(){
     }
 
     let textoResultado = esAdmin()
-      ? `🔥 ${numero} — ${loteria}<br>Modo admin: ilimitado`
-      : `🔥 ${numero} — ${loteria}<br>Intento ${intentos}/2`;
+      ? `🔥 ${numero}<br>Modo admin: ilimitado`
+      : `🔥 ${numero}<br>Intento ${intentos}/1`;
 
     localStorage.setItem("ruletaUltimoResultado_" + hoy, textoResultado);
 
@@ -1305,7 +1346,7 @@ function verificarRuleta(){
 
   if(intentos > 0 && ultimoResultado){
     document.getElementById("resRuleta").innerHTML =
-      ultimoResultado + `<br>Usados: ${intentos}/2`;
+      ultimoResultado + `<br>Usados: ${intentos}/1`;
   }
 }
 
@@ -1683,12 +1724,10 @@ function generarNumerosFuertes(){
   const nf1 = document.getElementById("nf1");
   const nf2 = document.getElementById("nf2");
   const nf3 = document.getElementById("nf3");
-  const lot = document.getElementById("nfLoteria");
 
   if(nf1) nf1.querySelector(".nf-numero").textContent = String(n1).padStart(2,"0");
   if(nf2) nf2.querySelector(".nf-numero").textContent = String(n2).padStart(2,"0");
   if(nf3) nf3.querySelector(".nf-numero").textContent = String(n3).padStart(2,"0");
-  if(lot) lot.textContent = "📍 Sorteo actual en vivo";
 }
 
 function generarTripletaPanel(){
@@ -1703,10 +1742,7 @@ function generarTripletaPanel(){
     if(guardada){
       const datos = JSON.parse(guardada);
       const numsEl = document.getElementById("panelTripNumeros");
-      const lotEl = document.getElementById("panelTripLoteria");
-
       if(numsEl) numsEl.textContent = datos.numeros;
-      if(lotEl) lotEl.textContent = "📍 " + datos.loteria;
     }
 
     if(estado) estado.textContent = "⚠️ Ya usaste tu tripleta diaria.";
@@ -1716,22 +1752,18 @@ function generarTripletaPanel(){
   const a = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   const b = Math.floor(Math.random() * 100).toString().padStart(2,"0");
   const c = Math.floor(Math.random() * 100).toString().padStart(2,"0");
-
   const numeros = `${a} · ${b} · ${c}`;
-  const loteria = "Sorteo actual en vivo";
 
   const numsEl = document.getElementById("panelTripNumeros");
-  const lotEl = document.getElementById("panelTripLoteria");
   const estado = document.getElementById("panelTripEstado");
 
   if(numsEl) numsEl.textContent = numeros;
-  if(lotEl) lotEl.textContent = "📍 " + loteria;
 
   if(esAdmin()){
     if(estado) estado.textContent = "Modo admin: ilimitado";
   }else{
     localStorage.setItem(keyFecha, hoy);
-    localStorage.setItem(keyResultado, JSON.stringify({ numeros, loteria }));
+    localStorage.setItem(keyResultado, JSON.stringify({ numeros }));
     if(estado) estado.textContent = "✅ Tripleta diaria generada.";
   }
 }
@@ -1743,11 +1775,9 @@ function verificarTripletaPanel(){
   if(localStorage.getItem("panelTripletaFecha") === hoy && guardada){
     const datos = JSON.parse(guardada);
     const numsEl = document.getElementById("panelTripNumeros");
-    const lotEl = document.getElementById("panelTripLoteria");
     const estado = document.getElementById("panelTripEstado");
 
     if(numsEl) numsEl.textContent = datos.numeros;
-    if(lotEl) lotEl.textContent = "📍 " + datos.loteria;
     if(estado && !esAdmin()) estado.textContent = "⚠️ Ya usaste tu tripleta diaria.";
   }
 }
@@ -1774,8 +1804,6 @@ function generarTripletas(){
   if(estaDesbloqueadoGratis()){
     document.getElementById("pgTripNumeros").textContent =
       fmt(ga) + " · " + fmt(gb) + " · " + fmt(gc);
-    document.getElementById("pgTripLoteria").textContent =
-      "📍 " + loterias[glotIdx];
     document.getElementById("pgTripleta").style.display = "block";
   }
 
@@ -1783,8 +1811,6 @@ function generarTripletas(){
   if(localStorage.getItem("vipDesbloqueado") === "1" || esAdmin()){
     document.getElementById("vipTripNumeros").textContent =
       fmt(va) + " · " + fmt(vb) + " · " + fmt(vc);
-    document.getElementById("vipTripLoteria").textContent =
-      "📍 " + loterias[vlotIdx];
     document.getElementById("vipTripleta").style.display = "block";
   }
 }
@@ -1804,70 +1830,60 @@ window.addEventListener("DOMContentLoaded", function(){
 });
 </script>
 
-<!-- ============================================================
-  CONTADOR DE VISITAS — FIREBASE REALTIME DATABASE
-  ▶ PASO 1: Ve a https://console.firebase.google.com
-  ▶ PASO 2: Crea un proyecto (o usa uno existente)
-  ▶ PASO 3: En el proyecto ve a "Realtime Database" y créala
-             en modo de prueba (o con las reglas que quieras)
-  ▶ PASO 4: Ve a Configuración del proyecto > Tu aplicación
-             y copia el objeto firebaseConfig
-  ▶ PASO 5: PEGA TU firebaseConfig ABAJO, reemplazando el objeto
-             que dice "PEGA AQUÍ"
-============================================================ -->
 
-<!-- Firebase SDK modular via CDN -->
-<script type="module">
-  import { initializeApp }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getDatabase, ref, runTransaction, onValue }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<script>
+function iniciarContadorFake(){
+  const hoy = new Date().toISOString().slice(0,10);
+  const baseKey = "contadorFakeBase_" + hoy;
+  const vistoKey = "contadorFakeVisto_" + hoy;
 
-  /* ─────────────────────────────────────────────────────────────
-     ▼▼▼  PEGA AQUÍ TU OBJETO firebaseConfig  ▼▼▼
-     Reemplaza TODO este bloque con el que te da Firebase.
-  ───────────────────────────────────────────────────────────── */
-  const firebaseConfig = {
-    apiKey:            "AIzaSyBZMItGslXKgMw6a5SH9aWECCMT-Aht1xU",
-    authDomain:        "dominancia88.firebaseapp.com",
-    databaseURL:       "https://dominancia88-default-rtdb.firebaseio.com",
-    projectId:         "dominancia88",
-    storageBucket:     "dominancia88.firebasestorage.app",
-    messagingSenderId: "680734521742",
-    appId:             "1:680734521742:web:3e15b81e41a9432bd3ccdf",
-    measurementId:     "G-HJ93WEHE07"
-  };
-  /* ▲▲▲  FIN DEL BLOQUE QUE DEBES REEMPLAZAR  ▲▲▲ */
+  let base = Number(localStorage.getItem(baseKey));
 
-  const app = initializeApp(firebaseConfig);
-  const db  = getDatabase(app);
-
-  // Fecha de hoy: YYYY-MM-DD
-  function fechaISO() {
-    const hoy = new Date();
-    const y = hoy.getFullYear();
-    const m = String(hoy.getMonth() + 1).padStart(2, "0");
-    const d = String(hoy.getDate()).padStart(2, "0");
-    return y + "-" + m + "-" + d;
+  if(!base){
+    base = 18 + Math.floor(Math.random() * 17);
+    localStorage.setItem(baseKey, String(base));
   }
 
-  const hoy      = fechaISO();
-  const keyLS    = "visitaContada_" + hoy;
-  const visitRef = ref(db, "visitas/" + hoy);
-
-  // Solo cuenta si este navegador NO fue contado hoy
-  if (!localStorage.getItem(keyLS)) {
-    runTransaction(visitRef, (actual) => (actual || 0) + 1)
-      .then(() => localStorage.setItem(keyLS, "1"))
-      .catch((e) => console.warn("No se pudo registrar visita:", e));
+  if(!localStorage.getItem(vistoKey)){
+    base += 1;
+    localStorage.setItem(baseKey, String(base));
+    localStorage.setItem(vistoKey, "1");
   }
 
-  // Muestra el total en tiempo real
-  onValue(visitRef, (snap) => {
-    const total = snap.val() || 0;
-    const el = document.getElementById("visitasBar");
-    if (el) el.textContent = "👥 Visitas de hoy: " + total;
-  });
+  const el = document.getElementById("visitasBar");
+  if(el) el.textContent = "👥 Visitas de hoy: " + base;
+}
+
+window.addEventListener("DOMContentLoaded", iniciarContadorFake);
+</script>
+
+
+
+<script>
+function mostrarInstruccionesInicio(){
+  alert("Para añadir Dominancia 88 al inicio:\n\nEn iPhone: toca Compartir → Agregar a Inicio.\nEn Android: toca menú ⋮ → Añadir a pantalla principal.");
+}
+
+function compartirPagina(){
+  const url = "https://abaezjorge-maker.github.io/dominancia88/";
+  const texto = "🔥 Dominancia 88 — entra aquí:";
+
+  if(navigator.share){
+    navigator.share({
+      title: "Dominancia 88",
+      text: texto,
+      url: url
+    }).catch(()=>{});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>{
+      alert("Enlace copiado.");
+    }).catch(()=>{
+      prompt("Copia el enlace:", url);
+    });
+  }else{
+    prompt("Copia el enlace:", url);
+  }
+}
 </script>
 
 </body>
